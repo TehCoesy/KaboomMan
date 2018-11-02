@@ -22,5 +22,7 @@ public class MyFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+        _game.start();
     }
 }
