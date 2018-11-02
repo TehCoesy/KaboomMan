@@ -1,9 +1,12 @@
 package Core;
 
 import Container.MyFrame;
+import Entities.Entity;
+import Graphics.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 //Governs and runs the Game
 //Contain the gameLoop;
@@ -13,7 +16,7 @@ public class Game extends Canvas {
 
     //GAME PARAMETERS
     private boolean _running = true;
-    private boolean _square = true;
+    private static final int SCALE = 3;
 
     public static final String TITLE = "KaBoomMan";
 
@@ -22,9 +25,24 @@ public class Game extends Canvas {
     public static int WIDTH = 400;
     public static int HEIGHT = 400;
 
+    //GAMEPLAY
+    private Entity[] gameEntities;
+    private Sprite[] playerSprite = new Sprite[1];
+
     public Game(MyFrame frame) {
         this._frame = frame;
         _frame.setTitle(TITLE);
+
+        initialize();
+    }
+
+    public void initialize() {
+        initEntities();
+    }
+
+    private void initEntities() {
+        playerSprite[0] = new Sprite();
+        playerSprite[0].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
     }
 
     public void start() {
@@ -37,25 +55,26 @@ public class Game extends Canvas {
         double delta = 0;
 
         requestFocus();
-
+        renderScreen();
         while(_running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
 
             if (delta >= 1) {
-                _square = !_square;
-                renderScreen(_square);
+                renderScreen();
                 delta--;
             }
         }
     }
 
+    //Leave alone for now
     private void runLoop() {
 
     }
 
-    private void renderScreen(boolean _square) {
+    //Render the game
+    private void renderScreen() {
         BufferStrategy _strategy = this.getBufferStrategy();
 
         if (_strategy == null) {
@@ -65,13 +84,7 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        if (_square) {
-            g.setColor(Color.BLUE);
-            g.fillRect(0,0,WIDTH,HEIGHT);
-        } else {
-            g.setColor(Color.GREEN);
-            g.fillRect(0,0,WIDTH,HEIGHT);
-        }
+        g.drawImage(playerSprite[0].getSprite(), 20, 20, 100,100, null);
 
         g.dispose();
         _strategy.show();
