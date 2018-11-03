@@ -3,7 +3,7 @@ package Graphics;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
-    private static BufferedImage spriteImage;
+    private BufferedImage spriteImage;
 
     public void setSprite(BufferedImage image) {
         this.spriteImage = image;

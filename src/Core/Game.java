@@ -8,6 +8,8 @@ import IO.Keyboard;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.ArrayList;
 
 //Governs and runs the Game
 //Contain the gameLoop;
@@ -31,7 +33,7 @@ public class Game extends Canvas {
 
     //GAMEPLAY
     private Entity[] gameEntities;
-    private Sprite[] playerSprite = new Sprite[4];
+    private List<Sprite> playerSprite = new ArrayList<>();
 
     public Game(MyFrame frame) {
         this._frame = frame;
@@ -46,14 +48,14 @@ public class Game extends Canvas {
     }
 
     private void initEntities() {
-        playerSprite[0] = new Sprite();
-        playerSprite[0].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
-        playerSprite[1] = new Sprite();
-        playerSprite[1].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
-        playerSprite[2] = new Sprite();
-        playerSprite[2].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_left.png"));
-        playerSprite[3] = new Sprite();
-        playerSprite[3].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_right.png"));
+        playerSprite.add(new Sprite());
+        playerSprite.get(0).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
+        playerSprite.add(new Sprite());
+        playerSprite.get(1).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
+        playerSprite.add(new Sprite());
+        playerSprite.get(2).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_left.png"));
+        playerSprite.add(new Sprite());
+        playerSprite.get(3).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
     }
 
     public void start() {
@@ -100,7 +102,7 @@ public class Game extends Canvas {
 
         for (int i = 0; i < 2; i++) {
             for (int k = 0; k < 2; k++) {
-                g.drawImage(playerSprite[i * 2 + k].getSprite(), 20 + 100 * i, 20 + 100 * k, 100,100, null);
+                g.drawImage(playerSprite.get(i * 2 + k).getSprite(), 20 + 100 * i, 20 + 100 * k, 100,100, null);
             }
         }
 
@@ -114,7 +116,14 @@ public class Game extends Canvas {
 
     private void getKey() {
         if (keyboard.up) {
-            System.out.println("Key: Up!");
+        }
+        if (keyboard.down) {
+        }
+        if (keyboard.left) {
+        }
+        if (keyboard.right) {
+        }
+        if (keyboard.space) {
         }
     }
 }
