@@ -3,6 +3,7 @@ package Core;
 import Container.MyFrame;
 import Entities.Entity;
 import Graphics.*;
+import IO.Keyboard;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -13,6 +14,9 @@ import java.awt.image.BufferedImage;
 
 public class Game extends Canvas {
     Frame _frame;
+
+    //IO
+    Keyboard keyboard = new Keyboard();
 
     //GAME PARAMETERS
     private boolean _running = true;
@@ -27,12 +31,13 @@ public class Game extends Canvas {
 
     //GAMEPLAY
     private Entity[] gameEntities;
-    private Sprite[] playerSprite = new Sprite[1];
+    private Sprite[] playerSprite = new Sprite[4];
 
     public Game(MyFrame frame) {
         this._frame = frame;
         _frame.setTitle(TITLE);
 
+        addKeyListener(keyboard);
         initialize();
     }
 
@@ -43,6 +48,12 @@ public class Game extends Canvas {
     private void initEntities() {
         playerSprite[0] = new Sprite();
         playerSprite[0].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
+        playerSprite[1] = new Sprite();
+        playerSprite[1].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
+        playerSprite[2] = new Sprite();
+        playerSprite[2].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_left.png"));
+        playerSprite[3] = new Sprite();
+        playerSprite[3].setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_right.png"));
     }
 
     public void start() {
@@ -55,11 +66,14 @@ public class Game extends Canvas {
         double delta = 0;
 
         requestFocus();
+
         renderScreen();
         while(_running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+
+            getKey();
 
             if (delta >= 1) {
                 renderScreen();
@@ -84,7 +98,11 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        g.drawImage(playerSprite[0].getSprite(), 20, 20, 100,100, null);
+        for (int i = 0; i < 2; i++) {
+            for (int k = 0; k < 2; k++) {
+                g.drawImage(playerSprite[i * 2 + k].getSprite(), 20 + 100 * i, 20 + 100 * k, 100,100, null);
+            }
+        }
 
         g.dispose();
         _strategy.show();
@@ -92,5 +110,11 @@ public class Game extends Canvas {
 
     private void updateGame() {
 
+    }
+
+    private void getKey() {
+        if (keyboard.up) {
+            System.out.println("Key: Up!");
+        }
     }
 }
