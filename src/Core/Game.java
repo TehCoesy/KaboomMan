@@ -2,6 +2,7 @@ package Core;
 
 import Container.MyFrame;
 import Entities.Entity;
+import Entities.Player;
 import Graphics.*;
 import IO.Keyboard;
 
@@ -28,6 +29,7 @@ public class Game extends Canvas {
 
     private static final double TARGET_FRAME = 60.0;
 
+    public static int BLOCK_SIZE = 50;
     public static int WIDTH = 400;
     public static int HEIGHT = 400;
 
@@ -43,19 +45,15 @@ public class Game extends Canvas {
         initialize();
     }
 
+    //ENTITIES
+    Player player = new Player();
+
     public void initialize() {
         initEntities();
     }
 
     private void initEntities() {
-        playerSprite.add(new Sprite());
-        playerSprite.get(0).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
-        playerSprite.add(new Sprite());
-        playerSprite.get(1).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
-        playerSprite.add(new Sprite());
-        playerSprite.get(2).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_left.png"));
-        playerSprite.add(new Sprite());
-        playerSprite.get(3).setSprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
+
     }
 
     public void start() {
@@ -100,11 +98,7 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        for (int i = 0; i < 2; i++) {
-            for (int k = 0; k < 2; k++) {
-                g.drawImage(playerSprite.get(i * 2 + k).getSprite(), 20 + 100 * i, 20 + 100 * k, 100,100, null);
-            }
-        }
+        g.drawImage(player.getSprite(),10,10,BLOCK_SIZE,BLOCK_SIZE, null);
 
         g.dispose();
         _strategy.show();
@@ -116,12 +110,16 @@ public class Game extends Canvas {
 
     private void getKey() {
         if (keyboard.up) {
+            player.move(0);
         }
         if (keyboard.down) {
+            player.move(1);
         }
         if (keyboard.left) {
+            player.move(2);
         }
         if (keyboard.right) {
+            player.move(3);
         }
         if (keyboard.space) {
         }
