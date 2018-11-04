@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
-    private int orientation = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
+    private int orientation = 1; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
     private Sprite playerSprite[] = new Sprite[4];
 
     public Player() {

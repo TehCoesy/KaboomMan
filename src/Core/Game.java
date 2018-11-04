@@ -38,7 +38,7 @@ public class Game extends Canvas {
 
     //GAMEPLAY
     private Entity[] gameEntities;
-    private List<Sprite> playerSprite = new ArrayList<>();
+    private List<Sprite> staticSprite = new ArrayList<>();
 
     public Game(MyFrame frame) {
         this._frame = frame;
@@ -56,7 +56,7 @@ public class Game extends Canvas {
     }
 
     private void initEntities() {
-
+        staticSprite.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/wall.png")));
     }
 
     public void start() {
@@ -103,6 +103,10 @@ public class Game extends Canvas {
         Graphics g = _strategy.getDrawGraphics();
 
         g.clearRect(0,0,WIDTH,HEIGHT);
+
+        drawBackground(g);
+
+        g.drawImage(staticSprite.get(0).getSprite(),4 * BLOCK_SIZE, 4 * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
         g.drawImage(player.getSprite(),player.getX() * BLOCK_SIZE,player.getY() * BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE, null);
 
         g.dispose();
@@ -128,5 +132,10 @@ public class Game extends Canvas {
         }
         if (keyboard.space) {
         }
+    }
+
+    private void drawBackground(Graphics g) {
+        g.setColor(Color.GREEN);
+        g.drawRect(0,0,WIDTH,HEIGHT);
     }
 }
