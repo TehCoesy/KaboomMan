@@ -24,16 +24,23 @@ public class Player extends Entity {
     @Override
     public BufferedImage getSprite() {
         switch (orientation) {
-            case 0: return playerSprite[0].getSprite();
-            case 1: return playerSprite[1].getSprite();
+            case 0: return playerSprite[1].getSprite();
+            case 1: return playerSprite[0].getSprite();
             case 2: return playerSprite[2].getSprite();
             case 3: return playerSprite[3].getSprite();
             default: return null;
         }
     }
 
-    public void move(int orientation) {
+    public void move(int orientation, int bound) {
         this.orientation = orientation;
+
+        switch(orientation) {
+            case 0: this.posY--; break;
+            case 1: this.posY++; break;
+            case 2: this.posX--; break;
+            case 3: this.posX++; break;
+        }
     }
 
 }

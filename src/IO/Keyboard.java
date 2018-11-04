@@ -41,23 +41,18 @@ public class Keyboard implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == UP) {
             up = false;
-            System.out.println("UP");
         }
         if (e.getKeyCode() == DOWN) {
             down = false;
-            System.out.println("DOWN");
         }
         if (e.getKeyCode() == LEFT) {
             left = false;
-            System.out.println("LEFT");
         }
         if (e.getKeyCode() == RIGHT) {
             right = false;
-            System.out.println("RIGHT");
         }
         if (e.getKeyCode() == SPACE) {
             space = false;
-            System.out.println("SPACE");
         }
     }
 }

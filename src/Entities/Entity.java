@@ -9,4 +9,7 @@ public abstract class Entity {
     public abstract void update();
 
     public abstract BufferedImage getSprite();
+
+    public int getX() { return this.posX; }
+    public int getY() { return this.posY; }
 }

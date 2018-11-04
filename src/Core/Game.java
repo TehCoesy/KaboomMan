@@ -25,13 +25,16 @@ public class Game extends Canvas {
     private boolean _running = true;
     private static final int SCALE = 3;
 
+    public int posX = 0;
+
     public static final String TITLE = "KaBoomMan";
 
     private static final double TARGET_FRAME = 60.0;
 
-    public static int BLOCK_SIZE = 50;
-    public static int WIDTH = 400;
-    public static int HEIGHT = 400;
+    public static final int BLOCK_SIZE = 50;
+    public static final int GAME_SIZE = 15;
+    public static final int WIDTH = GAME_SIZE * BLOCK_SIZE;
+    public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
 
     //GAMEPLAY
     private Entity[] gameEntities;
@@ -73,9 +76,10 @@ public class Game extends Canvas {
             delta += (now - lastTime) / ns;
             lastTime = now;
 
-            getKey();
+
 
             if (delta >= 1) {
+                getKey();
                 renderScreen();
                 delta--;
             }
@@ -98,7 +102,8 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        g.drawImage(player.getSprite(),10,10,BLOCK_SIZE,BLOCK_SIZE, null);
+        g.clearRect(0,0,WIDTH,HEIGHT);
+        g.drawImage(player.getSprite(),player.getX() * BLOCK_SIZE,player.getY() * BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE, null);
 
         g.dispose();
         _strategy.show();
@@ -110,16 +115,16 @@ public class Game extends Canvas {
 
     private void getKey() {
         if (keyboard.up) {
-            player.move(0);
+            player.move(0,GAME_SIZE);
         }
         if (keyboard.down) {
-            player.move(1);
+            player.move(1,GAME_SIZE);
         }
         if (keyboard.left) {
-            player.move(2);
+            player.move(2,GAME_SIZE);
         }
         if (keyboard.right) {
-            player.move(3);
+            player.move(3,GAME_SIZE);
         }
         if (keyboard.space) {
         }
