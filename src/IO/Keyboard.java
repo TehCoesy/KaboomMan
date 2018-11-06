@@ -62,18 +62,23 @@ public class Keyboard implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == K_UP) {
             pressUp = false;
+            UP = false;
         }
         if (e.getKeyCode() == K_DOWN) {
             pressDown = false;
+            DOWN = false;
         }
         if (e.getKeyCode() == K_LEFT) {
             pressLeft = false;
+            LEFT = false;
         }
         if (e.getKeyCode() == K_RIGHT) {
             pressRight = false;
+            RIGHT = false;
         }
         if (e.getKeyCode() == K_SPACE) {
             pressSpace = false;
+            SPACE = false;
         }
     }
 
@@ -116,5 +121,18 @@ public class Keyboard implements KeyListener {
         } else {
             return false;
         }
+    }
+
+    public boolean C_UP() {
+        return UP;
+    }
+    public boolean C_DOWN() {
+        return DOWN;
+    }
+    public boolean C_LEFT() {
+        return LEFT;
+    }
+    public boolean C_RIGHT() {
+        return RIGHT;
     }
 }

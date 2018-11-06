@@ -117,8 +117,9 @@ public class Game extends Canvas {
 
         renderStaticEntities(g);
 
+
         g.drawImage(staticSprite.get(0).getSprite(),4 * BLOCK_SIZE, 4 * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
-        g.drawImage(player.getSprite(),player.getX() * BLOCK_SIZE,player.getY() * BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE, null);
+        g.drawImage(player.getSprite(),player.getX(),player.getY(),BLOCK_SIZE,BLOCK_SIZE, null);
 
         g.dispose();
         _strategy.show();
@@ -130,16 +131,16 @@ public class Game extends Canvas {
 
     private void getKey() {
         boolean up = false, down = false, left = false, right = false;
-        if (keyboard.getUp()) {
+        if (keyboard.C_UP()) {
             player.move(0,GAME_SIZE);
         }
-        if (keyboard.getDown()) {
+        if (keyboard.C_DOWN()) {
             player.move(1,GAME_SIZE);
         }
-        if (keyboard.getLeft()) {
+        if (keyboard.C_LEFT()) {
             player.move(2,GAME_SIZE);
         }
-        if (keyboard.getRight()) {
+        if (keyboard.C_RIGHT()) {
             player.move(3,GAME_SIZE);
         }
         if (keyboard.getSpace()) {

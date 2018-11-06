@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
+    private int velocity = 10;
+
     private int orientation = 1; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
     private Sprite playerSprite[] = new Sprite[4];
 
@@ -36,10 +38,10 @@ public class Player extends Entity {
         this.orientation = orientation;
 
         switch(orientation) {
-            case 0: this.posY--; break;
-            case 1: this.posY++; break;
-            case 2: this.posX--; break;
-            case 3: this.posX++; break;
+            case 0: this.posY -= velocity; break;
+            case 1: this.posY += velocity; break;
+            case 2: this.posX -= velocity; break;
+            case 3: this.posX += velocity; break;
         }
     }
 
