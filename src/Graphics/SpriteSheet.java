@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+//Handles loading BufferedImage for Sprites and factoring SpriteSheet
+
 public class SpriteSheet {
     private static BufferedImage spriteSheet;
     private static final int TILE_SIZE = 32;

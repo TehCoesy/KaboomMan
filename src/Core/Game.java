@@ -15,6 +15,9 @@ import java.util.ArrayList;
 //Governs and runs the Game
 //Contain the gameLoop;
 
+/*
+FOR ENTITY DESIGN Consult Entity.java
+ */
 public class Game extends Canvas {
     Frame _frame;
 
@@ -118,8 +121,18 @@ public class Game extends Canvas {
     }
 
     private void getKey() {
+        boolean up = false, down = false, left = false, right = false;
         if (keyboard.up) {
-            player.move(0,GAME_SIZE);
+            if (!up) {
+                up = true;
+            }
+
+            if (up) {
+                player.move(0,GAME_SIZE);
+                if (keyboard.up) {
+                    up = false;
+                }
+            }
         }
         if (keyboard.down) {
             player.move(1,GAME_SIZE);
@@ -136,6 +149,6 @@ public class Game extends Canvas {
 
     private void drawBackground(Graphics g) {
         g.setColor(Color.GREEN);
-        g.drawRect(0,0,WIDTH,HEIGHT);
+        g.fillRect(0,0,WIDTH,HEIGHT);
     }
 }
