@@ -2,17 +2,23 @@ package IO;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class Keyboard implements KeyListener {
     //Predefined Keys
-    private int UP = KeyEvent.VK_UP;
-    private int DOWN = KeyEvent.VK_DOWN;
-    private int LEFT = KeyEvent.VK_LEFT;
-    private int RIGHT = KeyEvent.VK_RIGHT;
-    private int SPACE = KeyEvent.VK_SPACE;
+    private int K_UP = KeyEvent.VK_UP;
+    private int K_DOWN = KeyEvent.VK_DOWN;
+    private int K_LEFT = KeyEvent.VK_LEFT;
+    private int K_RIGHT = KeyEvent.VK_RIGHT;
+    private int K_SPACE = KeyEvent.VK_SPACE;
 
-    public boolean up, down, left, right, space;
+    //Key States
+    private boolean pressUp = false;
+    private boolean pressDown = false;
+    private boolean pressLeft = false;
+    private boolean pressRight = false;
+    private boolean pressSpace = false;
+
+    private boolean UP, DOWN, LEFT, RIGHT, SPACE;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -20,39 +26,95 @@ public class Keyboard implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == UP) {
-            up = true;
+        if (e.getKeyCode() == K_UP) {
+            if (!pressUp) {
+                UP = true;
+            }
+            pressUp = true;
         }
-        if (e.getKeyCode() == DOWN) {
-            down = true;
+        if (e.getKeyCode() == K_DOWN) {
+            if (!pressDown) {
+                DOWN = true;
+            }
+            pressDown = true;
         }
-        if (e.getKeyCode() == LEFT) {
-            left = true;
+        if (e.getKeyCode() == K_LEFT) {
+            if (!pressLeft) {
+                LEFT = true;
+            }
+            pressLeft = true;
         }
-        if (e.getKeyCode() == RIGHT) {
-            right = true;
+        if (e.getKeyCode() == K_RIGHT) {
+            if (!pressRight) {
+                RIGHT = true;
+            }
+            pressRight = true;
         }
-        if (e.getKeyCode() == SPACE) {
-            space = true;
+        if (e.getKeyCode() == K_SPACE) {
+            if (!pressSpace) {
+                SPACE = true;
+            }
+            pressSpace = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == UP) {
-            up = false;
+        if (e.getKeyCode() == K_UP) {
+            pressUp = false;
         }
-        if (e.getKeyCode() == DOWN) {
-            down = false;
+        if (e.getKeyCode() == K_DOWN) {
+            pressDown = false;
         }
-        if (e.getKeyCode() == LEFT) {
-            left = false;
+        if (e.getKeyCode() == K_LEFT) {
+            pressLeft = false;
         }
-        if (e.getKeyCode() == RIGHT) {
-            right = false;
+        if (e.getKeyCode() == K_RIGHT) {
+            pressRight = false;
         }
-        if (e.getKeyCode() == SPACE) {
-            space = false;
+        if (e.getKeyCode() == K_SPACE) {
+            pressSpace = false;
+        }
+    }
+
+    public boolean getUp() {
+        if (UP) {
+            UP = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean getDown() {
+        if (DOWN) {
+            DOWN = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean getLeft() {
+        if (LEFT) {
+            LEFT = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean getRight() {
+        if (RIGHT) {
+            RIGHT = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean getSpace() {
+        if (SPACE) {
+            SPACE = false;
+            return true;
+        } else {
+            return false;
         }
     }
 }

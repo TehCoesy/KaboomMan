@@ -28,13 +28,11 @@ public class Game extends Canvas {
     private boolean _running = true;
     private static final int SCALE = 3;
 
-    public int posX = 0;
-
     public static final String TITLE = "KaBoomMan";
 
     private static final double TARGET_FRAME = 60.0;
 
-    public static final int BLOCK_SIZE = 50;
+    public static final int BLOCK_SIZE = 65;
     public static final int GAME_SIZE = 15;
     public static final int WIDTH = GAME_SIZE * BLOCK_SIZE;
     public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
@@ -122,28 +120,19 @@ public class Game extends Canvas {
 
     private void getKey() {
         boolean up = false, down = false, left = false, right = false;
-        if (keyboard.up) {
-            if (!up) {
-                up = true;
-            }
-
-            if (up) {
-                player.move(0,GAME_SIZE);
-                if (keyboard.up) {
-                    up = false;
-                }
-            }
+        if (keyboard.getUp()) {
+            player.move(0,GAME_SIZE);
         }
-        if (keyboard.down) {
+        if (keyboard.getDown()) {
             player.move(1,GAME_SIZE);
         }
-        if (keyboard.left) {
+        if (keyboard.getLeft()) {
             player.move(2,GAME_SIZE);
         }
-        if (keyboard.right) {
+        if (keyboard.getRight()) {
             player.move(3,GAME_SIZE);
         }
-        if (keyboard.space) {
+        if (keyboard.getSpace()) {
         }
     }
 
