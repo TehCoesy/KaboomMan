@@ -5,7 +5,7 @@ import Graphics.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity {
+public class Player extends AnimatedEntity {
     private int velocity = 10;
 
     private int orientation = 1; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT

@@ -20,6 +20,9 @@ import java.util.ArrayList;
 /*
 FOR ENTITY DESIGN Consult Entity.java
  */
+
+//TODO: Upgrade Entity system
+
 public class Game extends Canvas {
     Frame _frame;
 
