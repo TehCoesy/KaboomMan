@@ -21,4 +21,6 @@ public abstract class Entity {
 
     public int getX() { return this.posX; }
     public int getY() { return this.posY; }
+
+    public void setPosition(int X, int Y) { this.posX = X; this.posY = Y; }
 }

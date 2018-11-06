@@ -3,12 +3,14 @@ package Core;
 import Container.MyFrame;
 import Entities.Entity;
 import Entities.Player;
+import Entities.StaticEntity;
+import Entities.Wall;
 import Graphics.*;
 import IO.Keyboard;
+import Level.LevelLoader;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -21,6 +23,8 @@ FOR ENTITY DESIGN Consult Entity.java
 public class Game extends Canvas {
     Frame _frame;
 
+    //LEVEL
+    LevelLoader _levelLoader = new LevelLoader();
     //IO
     Keyboard keyboard = new Keyboard();
 
@@ -38,6 +42,7 @@ public class Game extends Canvas {
     public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
 
     //GAMEPLAY
+    private List<StaticEntity> staticEntities;
     private Entity[] gameEntities;
     private List<Sprite> staticSprite = new ArrayList<>();
 
@@ -53,10 +58,13 @@ public class Game extends Canvas {
     Player player = new Player();
 
     public void initialize() {
+        _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
     }
 
     private void initEntities() {
+        player.setPosition(1,1);
+        staticEntities = _levelLoader.getStatics();
         staticSprite.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/wall.png")));
     }
 
@@ -107,6 +115,8 @@ public class Game extends Canvas {
 
         drawBackground(g);
 
+        renderStaticEntities(g);
+
         g.drawImage(staticSprite.get(0).getSprite(),4 * BLOCK_SIZE, 4 * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
         g.drawImage(player.getSprite(),player.getX() * BLOCK_SIZE,player.getY() * BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE, null);
 
@@ -139,5 +149,15 @@ public class Game extends Canvas {
     private void drawBackground(Graphics g) {
         g.setColor(Color.GREEN);
         g.fillRect(0,0,WIDTH,HEIGHT);
+    }
+
+    private void renderStaticEntities(Graphics g) {
+        int n = staticEntities.size();
+
+        for (int i = 0; i < n; i++) {
+            if (staticEntities.get(i) instanceof Wall) {
+                g.drawImage(staticSprite.get(0).getSprite(),staticEntities.get(i).getX() * BLOCK_SIZE, staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            }
+        }
     }
 }
