@@ -45,8 +45,7 @@ public class Game extends Canvas {
     public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
 
     //GAMEPLAY
-    private List<StaticEntity> staticEntities;
-    private Entity[] gameEntities;
+    public List<StaticEntity> staticEntities;
     private List<Sprite> staticSprite = new ArrayList<>();
 
     public Game(MyFrame frame) {
@@ -58,7 +57,7 @@ public class Game extends Canvas {
     }
 
     //ENTITIES
-    Player player = new Player();
+    Player player = new Player(this);
 
     public void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
@@ -66,7 +65,7 @@ public class Game extends Canvas {
     }
 
     private void initEntities() {
-        player.setPosition(1,1);
+        player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
         staticEntities = _levelLoader.getStatics();
         staticSprite.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/wall.png")));
     }
@@ -120,8 +119,6 @@ public class Game extends Canvas {
 
         renderStaticEntities(g);
 
-
-        g.drawImage(staticSprite.get(0).getSprite(),4 * BLOCK_SIZE, 4 * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
         g.drawImage(player.getSprite(),player.getX(),player.getY(),BLOCK_SIZE,BLOCK_SIZE, null);
 
         g.dispose();
@@ -135,16 +132,16 @@ public class Game extends Canvas {
     private void getKey() {
         boolean up = false, down = false, left = false, right = false;
         if (keyboard.C_UP()) {
-            player.move(0,staticEntities);
+            player.move(1);
         }
         if (keyboard.C_DOWN()) {
-            player.move(1,staticEntities);
+            player.move(0);
         }
         if (keyboard.C_LEFT()) {
-            player.move(2,staticEntities);
+            player.move(2);
         }
         if (keyboard.C_RIGHT()) {
-            player.move(3,staticEntities);
+            player.move(3);
         }
         if (keyboard.getSpace()) {
         }
@@ -163,5 +160,9 @@ public class Game extends Canvas {
                 g.drawImage(staticSprite.get(0).getSprite(),staticEntities.get(i).getX() * BLOCK_SIZE, staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
             }
         }
+    }
+
+    public int getBlockSize() {
+        return this.BLOCK_SIZE;
     }
 }

@@ -46,7 +46,7 @@ public class LevelLoader {
         return this.statics;
     }
 
-    private void getEntity(char input, int posX, int posY) {
+    private void getEntity(char input, int posY, int posX) {
         switch (input) {
             case '#': {
                 Wall wall = new Wall();
