@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 public class Player extends AnimatedEntity {
     private int velocity = 10;
 
-    private int orientation = 1; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
     private Sprite playerSprite[] = new Sprite[4];
 
     public Player() {
@@ -25,24 +24,17 @@ public class Player extends AnimatedEntity {
 
     @Override
     public BufferedImage getSprite() {
-        switch (orientation) {
-            case 0: return playerSprite[1].getSprite();
-            case 1: return playerSprite[0].getSprite();
-            case 2: return playerSprite[2].getSprite();
-            case 3: return playerSprite[3].getSprite();
-            default: return null;
+        switch (ORIENTATION) {
+            case 0:
+                return playerSprite[1].getSprite();
+            case 1:
+                return playerSprite[0].getSprite();
+            case 2:
+                return playerSprite[2].getSprite();
+            case 3:
+                return playerSprite[3].getSprite();
+            default:
+                return null;
         }
     }
-
-    public void move(int orientation, int bound) {
-        this.orientation = orientation;
-
-        switch(orientation) {
-            case 0: this.posY -= velocity; break;
-            case 1: this.posY += velocity; break;
-            case 2: this.posX -= velocity; break;
-            case 3: this.posX += velocity; break;
-        }
-    }
-
 }

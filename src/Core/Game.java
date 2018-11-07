@@ -135,16 +135,16 @@ public class Game extends Canvas {
     private void getKey() {
         boolean up = false, down = false, left = false, right = false;
         if (keyboard.C_UP()) {
-            player.move(0,GAME_SIZE);
+            player.move(0,staticEntities);
         }
         if (keyboard.C_DOWN()) {
-            player.move(1,GAME_SIZE);
+            player.move(1,staticEntities);
         }
         if (keyboard.C_LEFT()) {
-            player.move(2,GAME_SIZE);
+            player.move(2,staticEntities);
         }
         if (keyboard.C_RIGHT()) {
-            player.move(3,GAME_SIZE);
+            player.move(3,staticEntities);
         }
         if (keyboard.getSpace()) {
         }
