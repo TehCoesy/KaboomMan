@@ -6,7 +6,7 @@ import Graphics.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Player extends AnimatedEntity {
+public class Player extends LocomotiveEntity {
     private int velocity = 10;
 
     private Sprite playerSprite[] = new Sprite[4];

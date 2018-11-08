@@ -1,10 +1,7 @@
 package Core;
 
 import Container.MyFrame;
-import Entities.Entity;
-import Entities.Player;
-import Entities.StaticEntity;
-import Entities.Wall;
+import Entities.*;
 import Graphics.*;
 import IO.Keyboard;
 import Level.LevelLoader;
@@ -47,6 +44,7 @@ public class Game extends Canvas {
     //GAMEPLAY
     public List<StaticEntity> staticEntities;
     private List<Sprite> staticSprite = new ArrayList<>();
+    public List<Bomb> bombs = new ArrayList<>();
 
     public Game(MyFrame frame) {
         this._frame = frame;
@@ -118,6 +116,7 @@ public class Game extends Canvas {
         drawBackground(g);
 
         renderStaticEntities(g);
+        renderBombs(g);
 
         g.drawImage(player.getSprite(),player.getX(),player.getY(),BLOCK_SIZE,BLOCK_SIZE, null);
 
@@ -144,6 +143,10 @@ public class Game extends Canvas {
             player.move(3);
         }
         if (keyboard.getSpace()) {
+            Bomb bomb = new Bomb();
+            Vector2i position = player.getRelativePosition();
+            bomb.setPosition(position.getX(),position.getY());
+            bombs.add(bomb);
         }
     }
 
@@ -159,6 +162,15 @@ public class Game extends Canvas {
             if (staticEntities.get(i) instanceof Wall) {
                 g.drawImage(staticSprite.get(0).getSprite(),staticEntities.get(i).getX() * BLOCK_SIZE, staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
             }
+        }
+    }
+
+    private void renderBombs(Graphics g) {
+        int n = bombs.size();
+
+        for (int i = 0; i < n; i++) {
+            Bomb bomb = bombs.get(i);
+            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
