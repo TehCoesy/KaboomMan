@@ -41,9 +41,15 @@ public class Game extends Canvas {
     public static final int WIDTH = GAME_SIZE * BLOCK_SIZE;
     public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
 
+    private Renderer render = new Renderer(this);
+
     //GAMEPLAY
+
+
+    //ENTITIES
+    public Player player = new Player(this);
     public List<StaticEntity> staticEntities;
-    private List<Sprite> staticSprite = new ArrayList<>();
+
     public List<Bomb> bombs = new ArrayList<>();
 
     public Game(MyFrame frame) {
@@ -54,8 +60,6 @@ public class Game extends Canvas {
         initialize();
     }
 
-    //ENTITIES
-    Player player = new Player(this);
 
     public void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
@@ -65,7 +69,6 @@ public class Game extends Canvas {
     private void initEntities() {
         player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
         staticEntities = _levelLoader.getStatics();
-        staticSprite.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/wall.png")));
     }
 
     public void start() {
@@ -111,20 +114,17 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        g.clearRect(0,0,WIDTH,HEIGHT);
-
-        drawBackground(g);
-
-        renderStaticEntities(g);
-        renderBombs(g);
-
-        g.drawImage(player.getSprite(),player.getX(),player.getY(),BLOCK_SIZE,BLOCK_SIZE, null);
+        render.renderGame(g);
 
         g.dispose();
         _strategy.show();
     }
 
     private void updateGame() {
+
+    }
+
+    private void tick() {
 
     }
 
@@ -147,30 +147,6 @@ public class Game extends Canvas {
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
             bombs.add(bomb);
-        }
-    }
-
-    private void drawBackground(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(0,0,WIDTH,HEIGHT);
-    }
-
-    private void renderStaticEntities(Graphics g) {
-        int n = staticEntities.size();
-
-        for (int i = 0; i < n; i++) {
-            if (staticEntities.get(i) instanceof Wall) {
-                g.drawImage(staticSprite.get(0).getSprite(),staticEntities.get(i).getX() * BLOCK_SIZE, staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
-            }
-        }
-    }
-
-    private void renderBombs(Graphics g) {
-        int n = bombs.size();
-
-        for (int i = 0; i < n; i++) {
-            Bomb bomb = bombs.get(i);
-            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
