@@ -126,6 +126,7 @@ public class Game extends Canvas {
     }
 
     private void tick() {
+        player.tick();
         for (Bomb bomb : bombs) {
             bomb.tick();
         }
@@ -149,7 +150,7 @@ public class Game extends Canvas {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
-            bomb.setStandingSprite(SpriteSheet.getBombSprite());
+            bomb.setStandingSprite(SpriteBuilder.getBombSprite());
             bombs.add(bomb);
         }
     }

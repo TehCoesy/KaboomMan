@@ -35,7 +35,7 @@ public class Renderer {
     }
 
     private void initializeStatics() {
-        staticSprite.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/wall.png")));
+        staticSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/wall.png")));
     }
 
     private void drawBackground(Graphics g) {

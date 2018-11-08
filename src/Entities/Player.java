@@ -3,20 +3,18 @@ package Entities;
 import Core.Game;
 import Graphics.*;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends LocomotiveEntity {
-    private int velocity = 10;
-
-    private Sprite playerSprite[] = new Sprite[4];
+    public boolean movingDown = true, movingUp = true, movingLeft = true, movingRight = true;
 
     public Player(Game game) {
-        playerSprite[0] = new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/player_down.png"));
-        playerSprite[1] = new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/player_up.png"));
-        playerSprite[2] = new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/player_left.png"));
-        playerSprite[3] = new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/player_right.png"));
         setGame(game);
+        this.setStandingSprite(SpriteBuilder.getPlayerSprite0());
+        this.setUpSprite(SpriteBuilder.getPlayerSprite1());
+        this.setLeftSprite(SpriteBuilder.getPlayerSprite2());
+        this.setRightSprite(SpriteBuilder.getPlayerSprite3());
+        this.setDeadSprite(SpriteBuilder.getPlayerSprite4());
     }
 
     @Override
@@ -28,13 +26,29 @@ public class Player extends LocomotiveEntity {
     public BufferedImage getSprite() {
         switch (ORIENTATION) {
             case 0:
-                return playerSprite[0].getSprite();
+                if (movingDown) {
+                    return standingSprite.get(ANIMATION_STEP).getSprite();
+                }
+                //resetAnimation();
+                return standingSprite.get(0).getSprite();
             case 1:
-                return playerSprite[1].getSprite();
+                if (movingUp) {
+                    return UpSprite.get(ANIMATION_STEP).getSprite();
+                }
+                //resetAnimation();
+                return UpSprite.get(0).getSprite();
             case 2:
-                return playerSprite[2].getSprite();
+                if (movingLeft) {
+                    return leftSprite.get(ANIMATION_STEP).getSprite();
+                }
+                //resetAnimation();
+                return leftSprite.get(0).getSprite();
             case 3:
-                return playerSprite[3].getSprite();
+                if (movingRight) {
+                    return rightSprite.get(ANIMATION_STEP).getSprite();
+                }
+                //resetAnimation();
+                return rightSprite.get(0).getSprite();
             default:
                 return null;
         }

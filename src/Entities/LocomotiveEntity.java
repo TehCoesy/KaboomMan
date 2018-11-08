@@ -9,9 +9,10 @@ public abstract class LocomotiveEntity extends AnimatedEntity{
     protected Game _game;
 
     //ENTITY PARAMETER
-    protected int VEL = 8;
+    protected int VEL = 4;
     protected final int TOLERANCE = 10; // Collision tolerances
     protected int ORIENTATION = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
+
 
     //GAME PARAMETER
     private int BLOCK_SIZE;

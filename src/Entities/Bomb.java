@@ -1,6 +1,6 @@
 package Entities;
 
-import Graphics.SpriteSheet;
+import Graphics.SpriteBuilder;
 
 import java.awt.image.BufferedImage;
 
@@ -8,7 +8,7 @@ public class Bomb extends AnimatedEntity {
     BufferedImage bombSprite;
 
     public Bomb() {
-        bombSprite = SpriteSheet.getSpriteImage("Data/Sprite/bomb.png");
+        bombSprite = SpriteBuilder.getSpriteImage("Data/Sprite/bomb.png");
     }
     @Override
     public void update() {
