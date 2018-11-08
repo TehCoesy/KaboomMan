@@ -78,6 +78,18 @@ public abstract class LocomotiveEntity extends AnimatedEntity{
         int gapX = this.posX % BLOCK_SIZE;
         int gapY = this.posY % BLOCK_SIZE;
 
+        if (gapX > BLOCK_SIZE / 2) {
+            gapX = BLOCK_SIZE - gapX;
+            gapX = 0 - gapX;
+
+        }
+
+        if (gapY > BLOCK_SIZE / 2) {
+            gapY = BLOCK_SIZE - gapY;
+            gapY = 0 - gapY;
+
+        }
+
         return new Vector2i((posX - gapX) / BLOCK_SIZE, (posY - gapY) / BLOCK_SIZE);
     }
 }

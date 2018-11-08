@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 //Handles loading BufferedImage for Sprites and factoring SpriteSheet
 
@@ -32,4 +34,14 @@ public class SpriteSheet {
         }
         return spriteImage;
     }
+
+    public static List<Sprite> getBombSprite() {
+        List<Sprite> bombSprites = new ArrayList<>();
+        bombSprites.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/bomb.png")));
+        bombSprites.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/bomb_1.png")));
+        bombSprites.add(new Sprite(SpriteSheet.getSpriteImage("Data/Sprite/bomb_2.png")));
+
+        return bombSprites;
+    }
+
 }

@@ -91,6 +91,7 @@ public class Game extends Canvas {
 
 
             if (delta >= 1) {
+                tick(); // 1/60s
                 getKey();
                 renderScreen();
                 delta--;
@@ -125,7 +126,9 @@ public class Game extends Canvas {
     }
 
     private void tick() {
-
+        for (Bomb bomb : bombs) {
+            bomb.tick();
+        }
     }
 
     private void getKey() {
@@ -146,6 +149,7 @@ public class Game extends Canvas {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
+            bomb.setStandingSprite(SpriteSheet.getBombSprite());
             bombs.add(bomb);
         }
     }
