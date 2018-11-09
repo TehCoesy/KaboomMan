@@ -1,7 +1,6 @@
 package Entities;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import Graphics.Sprite;
 
@@ -13,62 +12,96 @@ AnimatedEntity.java, a base class for all Enemies, Players and other non-static 
 public abstract class AnimatedEntity extends Entity{
     //ANIMATION
     private int ticks = 0;
-    protected int ANIMATION_STEP = 0;
-    private int STEP_SIZE = 0;
-    protected boolean ANIMATED_S = true, ANIMATED_0, ANIMATED_1, ANIMATED_2, ANIMATED_3; //S = Standing, 0 = Down, 1 = Up, 2 = Left, 3 = Right
+    protected int ANIMATION_STEP;
+    private int STEP_SIZE_S, STEP_SIZE_0, STEP_SIZE_1, STEP_SIZE_2, STEP_SIZE_3, STEP_SIZE_D;
+    private int CURRENT_STEP = 4;
 
-    List<Sprite> standingSprite = new ArrayList<>();
+    //General Parameters
+    protected int ORIENTATION = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
+    protected boolean MOVING_0, MOVING_1, MOVING_2, MOVING_3;
+
+    List<Sprite> standingSprite = null;
+    List<Sprite> downSprite = null;
     List<Sprite> leftSprite = null;
     List<Sprite> rightSprite = null;
     List<Sprite> UpSprite = null;
     List<Sprite> deadSprite = null;
 
-    public BufferedImage getStandingSprite() {
-        return standingSprite.get(ANIMATION_STEP).getSprite();
-    }
-
+    //Setting up Sprites
     public void setStandingSprite(List<Sprite> standingSprite) {
         this.standingSprite = standingSprite;
-        STEP_SIZE = standingSprite.size();
+        STEP_SIZE_S = standingSprite.size();
     }
-
+    public void setDownSprite(List<Sprite> downSprite) {
+        this.downSprite = downSprite;
+        this.STEP_SIZE_0 = downSprite.size();
+    }
     public void setLeftSprite(List<Sprite> leftSprite) {
         this.leftSprite = leftSprite;
+        this.STEP_SIZE_2 = leftSprite.size();
     }
-
     public void setRightSprite(List<Sprite> rightSprite) {
         this.rightSprite = rightSprite;
+        this.STEP_SIZE_3 = rightSprite.size();
     }
-
     public void setUpSprite(List<Sprite> upSprite) {
         this.UpSprite = upSprite;
+        this.STEP_SIZE_1 = upSprite.size();
     }
-
     public void setDeadSprite(List<Sprite> deadSprite) {
         this.deadSprite = deadSprite;
-    }
-
-    protected void stopAnimation() {
-        this.ANIMATED_S = true;
-        this.ANIMATED_0 = false;
-        this.ANIMATED_1 = false;
-        this.ANIMATED_2 = false;
-        this.ANIMATED_3 = false;
-    }
-    protected void resetAnimation() {
-        ticks = 0;
-        ANIMATION_STEP = 0;
+        this.STEP_SIZE_D = deadSprite.size();
     }
 
     public void tick() {
         ticks++;
-        if (ticks == 10) {
-            if (ANIMATION_STEP == STEP_SIZE - 1) {
+        if (ticks == 15) {
+            if (ANIMATION_STEP == CURRENT_STEP - 1) {
                 ANIMATION_STEP = 0;
             } else {
                 ANIMATION_STEP++;
             }
             ticks = 0;
+        }
+    }
+
+    public BufferedImage getSprite() {
+        if (!MOVING_0 && !MOVING_1 && !MOVING_2 && !MOVING_3) {
+            if (standingSprite != null) {
+                CURRENT_STEP = STEP_SIZE_S;
+                return standingSprite.get(ANIMATION_STEP).getSprite();
+            }
+        }
+        if (false) {
+            return deadSprite.get(ANIMATION_STEP).getSprite();
+        }
+        switch (ORIENTATION) {
+            case 0:
+                CURRENT_STEP = STEP_SIZE_0;
+                if (MOVING_0) {
+                    return downSprite.get(ANIMATION_STEP).getSprite();
+                }
+                return downSprite.get(0).getSprite();
+            case 1:
+                CURRENT_STEP = STEP_SIZE_1;
+                if (MOVING_1) {
+                    return UpSprite.get(ANIMATION_STEP).getSprite();
+                }
+                return UpSprite.get(0).getSprite();
+            case 2:
+                CURRENT_STEP = STEP_SIZE_2;
+                if (MOVING_2) {
+                    return leftSprite.get(ANIMATION_STEP).getSprite();
+                }
+                return leftSprite.get(0).getSprite();
+            case 3:
+                CURRENT_STEP = STEP_SIZE_3;
+                if (MOVING_3) {
+                    return rightSprite.get(ANIMATION_STEP).getSprite();
+                }
+                return rightSprite.get(0).getSprite();
+            default:
+                return null;
         }
     }
 }

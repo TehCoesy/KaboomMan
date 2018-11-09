@@ -49,6 +49,7 @@ public class Game extends Canvas {
     //ENTITIES
     public Player player = new Player(this);
     public List<StaticEntity> staticEntities;
+    public List<LocomotiveEntity> enemies;
 
     public List<Bomb> bombs = new ArrayList<>();
 
@@ -133,7 +134,6 @@ public class Game extends Canvas {
     }
 
     private void getKey() {
-        boolean up = false, down = false, left = false, right = false;
         if (keyboard.C_UP()) {
             player.moveUp();
         } else if (!keyboard.C_UP()) {
@@ -159,7 +159,6 @@ public class Game extends Canvas {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
-            bomb.setStandingSprite(SpriteBuilder.getBombSprite());
             bombs.add(bomb);
         }
     }

@@ -11,13 +11,9 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //ENTITY PARAMETER
     protected int VEL = 4;
     protected final int TOLERANCE = 10; // Collision tolerances
-    protected int ORIENTATION = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
-    protected boolean moving_0, moving_1, moving_2, moving_3;
-
 
     //GAME PARAMETER
     private int BLOCK_SIZE;
-    private boolean collideDown, collideUp, collideLeft, collideRight;
 
     protected void setGame(Game game) {
         this._game = game;
@@ -71,7 +67,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     }
 
     //Movement
-    public void move(int orientation) {
+    private void move(int orientation) {
         this.ORIENTATION = orientation;
         moveEntity(_game.staticEntities);
     }
@@ -95,41 +91,33 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
         return new Vector2i((posX - gapX) / BLOCK_SIZE, (posY - gapY) / BLOCK_SIZE);
     }
 
-    //Controllers for continuous movement
+    //Controllers for continuous movement and Animation
     public void moveDown() {
-        this.moving_0 = true;
-        this.ANIMATED_0 = true;
-        this.ANIMATED_S = false;
+        this.MOVING_0 = true;
         move(0);
     }
     public void moveUp() {
-        this.moving_1 = true;
-        this.ANIMATED_1 = true;
-        this.ANIMATED_S = false;
+        this.MOVING_1 = true;
         move(1);
     }
     public void moveLeft() {
-        this.moving_2 = true;
-        this.ANIMATED_2 = true;
-        this.ANIMATED_S = false;
+        this.MOVING_2 = true;
         move(2);
     }
     public void moveRight() {
-        this.moving_3 = true;
-        this.ANIMATED_3 = true;
-        this.ANIMATED_S = false;
+        this.MOVING_3 = true;
         move(3);
     }
     public void stopDown() {
-        this.moving_0 = false;
+        this.MOVING_0 = false;
     }
     public void stopUp() {
-        this.moving_1 = false;
+        this.MOVING_1 = false;
     }
     public void stopLeft() {
-        this.moving_2 = false;
+        this.MOVING_2 = false;
     }
     public void stopRight() {
-        this.moving_3 = false;
+        this.MOVING_3 = false;
     }
 }

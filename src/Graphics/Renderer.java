@@ -54,7 +54,11 @@ public class Renderer {
     }
 
     private void renderAnimated(Graphics g) {
+        int n = _game.enemies.size();
 
+        for (int i = 0; i < n; i++) {
+            g.drawImage(_game.enemies.get(i).getSprite(), _game.enemies.get(i).getX(),_game.enemies.get(i).getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+        }
     }
 
     private void renderBombs(Graphics g) {
@@ -62,7 +66,7 @@ public class Renderer {
 
         for (int i = 0; i < n; i++) {
             Bomb bomb = _game.bombs.get(i);
-            g.drawImage(bomb.getStandingSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
+            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
