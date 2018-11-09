@@ -6,7 +6,7 @@ import Graphics.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends LocomotiveEntity {
-    public boolean movingDown = true, movingUp = true, movingLeft = true, movingRight = true;
+    public boolean movingDown, movingUp, movingLeft, movingRight;
 
     public Player(Game game) {
         setGame(game);
@@ -26,25 +26,25 @@ public class Player extends LocomotiveEntity {
     public BufferedImage getSprite() {
         switch (ORIENTATION) {
             case 0:
-                if (movingDown) {
+                if (moving_0) {
                     return standingSprite.get(ANIMATION_STEP).getSprite();
                 }
                 //resetAnimation();
                 return standingSprite.get(0).getSprite();
             case 1:
-                if (movingUp) {
+                if (moving_1) {
                     return UpSprite.get(ANIMATION_STEP).getSprite();
                 }
                 //resetAnimation();
                 return UpSprite.get(0).getSprite();
             case 2:
-                if (movingLeft) {
+                if (moving_2) {
                     return leftSprite.get(ANIMATION_STEP).getSprite();
                 }
                 //resetAnimation();
                 return leftSprite.get(0).getSprite();
             case 3:
-                if (movingRight) {
+                if (moving_3) {
                     return rightSprite.get(ANIMATION_STEP).getSprite();
                 }
                 //resetAnimation();

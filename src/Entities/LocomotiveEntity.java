@@ -5,13 +5,14 @@ import Core.Vector2i;
 
 import java.util.List;
 
-public abstract class LocomotiveEntity extends AnimatedEntity{
+public abstract class LocomotiveEntity extends AnimatedEntity {
     protected Game _game;
 
     //ENTITY PARAMETER
     protected int VEL = 4;
     protected final int TOLERANCE = 10; // Collision tolerances
     protected int ORIENTATION = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
+    protected boolean moving_0, moving_1, moving_2, moving_3;
 
 
     //GAME PARAMETER
@@ -92,5 +93,43 @@ public abstract class LocomotiveEntity extends AnimatedEntity{
         }
 
         return new Vector2i((posX - gapX) / BLOCK_SIZE, (posY - gapY) / BLOCK_SIZE);
+    }
+
+    //Controllers for continuous movement
+    public void moveDown() {
+        this.moving_0 = true;
+        this.ANIMATED_0 = true;
+        this.ANIMATED_S = false;
+        move(0);
+    }
+    public void moveUp() {
+        this.moving_1 = true;
+        this.ANIMATED_1 = true;
+        this.ANIMATED_S = false;
+        move(1);
+    }
+    public void moveLeft() {
+        this.moving_2 = true;
+        this.ANIMATED_2 = true;
+        this.ANIMATED_S = false;
+        move(2);
+    }
+    public void moveRight() {
+        this.moving_3 = true;
+        this.ANIMATED_3 = true;
+        this.ANIMATED_S = false;
+        move(3);
+    }
+    public void stopDown() {
+        this.moving_0 = false;
+    }
+    public void stopUp() {
+        this.moving_1 = false;
+    }
+    public void stopLeft() {
+        this.moving_2 = false;
+    }
+    public void stopRight() {
+        this.moving_3 = false;
     }
 }

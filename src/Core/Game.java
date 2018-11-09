@@ -135,17 +135,26 @@ public class Game extends Canvas {
     private void getKey() {
         boolean up = false, down = false, left = false, right = false;
         if (keyboard.C_UP()) {
-            player.move(1);
+            player.moveUp();
+        } else if (!keyboard.C_UP()) {
+            player.stopUp();
         }
         if (keyboard.C_DOWN()) {
-            player.move(0);
+            player.moveDown();
+        } else if (!keyboard.C_DOWN()) {
+            player.stopDown();
         }
         if (keyboard.C_LEFT()) {
-            player.move(2);
+            player.moveLeft();
+        } else if (!keyboard.C_LEFT()) {
+            player.stopLeft();
         }
         if (keyboard.C_RIGHT()) {
-            player.move(3);
+            player.moveRight();
+        } else if (!keyboard.C_RIGHT()) {
+            player.stopRight();
         }
+
         if (keyboard.getSpace()) {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
