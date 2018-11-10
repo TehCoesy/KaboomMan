@@ -20,4 +20,9 @@ public class Player extends LocomotiveEntity {
     public void update() {
 
     }
+
+    @Override
+    public void kill() {
+
+    }
 }

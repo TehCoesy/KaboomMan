@@ -49,7 +49,7 @@ public class Game extends Canvas {
     //ENTITIES
     public Player player = new Player(this);
     public List<StaticEntity> staticEntities;
-    public List<LocomotiveEntity> enemies;
+    public List<LocomotiveEntity> enemies = new ArrayList<>();
 
     public List<Bomb> bombs = new ArrayList<>();
 
@@ -93,6 +93,7 @@ public class Game extends Canvas {
 
             if (delta >= 1) {
                 tick(); // 1/60s
+                updateGame();
                 getKey();
                 renderScreen();
                 delta--;
@@ -123,7 +124,14 @@ public class Game extends Canvas {
     }
 
     private void updateGame() {
-
+        List<Bomb> exploded = new ArrayList<>();
+        for (Bomb bomb : bombs) {
+            bomb.update();
+            if (bomb.isDead()) {
+                exploded.add(bomb);
+            }
+        }
+        bombs.removeAll(exploded);
     }
 
     private void tick() {

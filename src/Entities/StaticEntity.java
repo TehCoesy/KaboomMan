@@ -14,4 +14,9 @@ public class StaticEntity extends Entity {
     public BufferedImage getSprite() {
         return null;
     }
+
+    @Override
+    public void kill() {
+
+    }
 }

@@ -13,6 +13,7 @@ For non-static Objects (Players and Enemies) load the BufferedImages of the Obje
  */
 
 public abstract class Entity {
+    protected boolean dead;
     protected int posX, posY;
 
     public abstract void update();
@@ -23,4 +24,8 @@ public abstract class Entity {
     public int getY() { return this.posY; }
 
     public void setPosition(int X, int Y) { this.posX = X; this.posY = Y; }
+
+    public abstract void kill();
+
+    public boolean isDead() { return this.dead; }
 }

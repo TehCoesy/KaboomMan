@@ -11,8 +11,8 @@ AnimatedEntity.java, a base class for all Enemies, Players and other non-static 
  */
 public abstract class AnimatedEntity extends Entity{
     //ANIMATION
-    private int ticks = 0;
-    protected int ANIMATION_STEP;
+    protected int GLOBAL_TICKS = 0;
+    private int ANIMATION_STEP;
     private int STEP_SIZE_S, STEP_SIZE_0, STEP_SIZE_1, STEP_SIZE_2, STEP_SIZE_3, STEP_SIZE_D;
     private int CURRENT_STEP = 4;
 
@@ -54,14 +54,16 @@ public abstract class AnimatedEntity extends Entity{
     }
 
     public void tick() {
-        ticks++;
-        if (ticks == 15) {
+        GLOBAL_TICKS++;
+        if (GLOBAL_TICKS % 12 == 0) {
             if (ANIMATION_STEP == CURRENT_STEP - 1) {
                 ANIMATION_STEP = 0;
             } else {
                 ANIMATION_STEP++;
             }
-            ticks = 0;
+        }
+        if (GLOBAL_TICKS > 1000) {
+            GLOBAL_TICKS = 0;
         }
     }
 

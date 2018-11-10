@@ -8,6 +8,18 @@ public class Bomb extends AnimatedEntity {
     }
     @Override
     public void update() {
+        if (this.GLOBAL_TICKS >= 300) {
+            this.kill();
+        }
+    }
+
+    @Override
+    public void kill() {
+        dead = true;
+
+    }
+
+    public void explode() {
 
     }
 }
