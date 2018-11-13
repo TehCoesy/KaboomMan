@@ -144,4 +144,33 @@ public class SpriteBuilder {
         explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last2.png")));
         return explosionDown;
     }
+    //Enemies
+    public static List<Sprite> getBalloomSprite0() {
+        List<Sprite> downBalloomSprites = new ArrayList<>();
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left1.png")));
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left2.png")));
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left3.png")));
+        return downBalloomSprites;
+    }
+    public static List<Sprite> getBalloomSprite1() {
+        List<Sprite> upBalloomSprites = new ArrayList<>();
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right1.png")));
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right2.png")));
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right3.png")));
+        return upBalloomSprites;
+    }
+    public static List<Sprite> getBalloomSprite2() {
+        List<Sprite> leftBalloomSprites = new ArrayList<>();
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left1.png")));
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left2.png")));
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_left3.png")));
+        return leftBalloomSprites;
+    }
+    public static List<Sprite> getBalloomSprite3() {
+        List<Sprite> rightBalloomSprites = new ArrayList<>();
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right1.png")));
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right2.png")));
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right3.png")));
+        return rightBalloomSprites;
+    }
 }
