@@ -14,6 +14,11 @@ public class Wall extends StaticEntity {
     }
 
     @Override
+    public void kill() {
+
+    }
+
+    @Override
     public BufferedImage getSprite() {
         return null;
     }

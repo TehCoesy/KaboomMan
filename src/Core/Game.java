@@ -50,6 +50,7 @@ public class Game extends Canvas {
     public Player player = new Player(this);
     public List<StaticEntity> staticEntities;
     public List<LocomotiveEntity> enemies = new ArrayList<>();
+    public List<Explosion> explosions = new ArrayList<>();
 
     public List<Bomb> bombs = new ArrayList<>();
 

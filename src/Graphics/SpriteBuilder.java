@@ -87,4 +87,61 @@ public class SpriteBuilder {
     }
 
     //Enemies
+
+    //Explosion
+    public static List<Sprite> getExplosionCenter() {
+        List<Sprite> explosionCenter = new ArrayList<>();
+        explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded.png")));
+        explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded1.png")));
+        explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded2.png")));
+        return explosionCenter;
+    }
+
+    public static List<Sprite> getExplosionHorizontal() {
+        List<Sprite> explosionHorizontal = new ArrayList<>();
+        explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal.png")));
+        explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal1.png")));
+        explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal2.png")));
+        return explosionHorizontal;
+    }
+
+    public static List<Sprite> getExplosionVertical() {
+        List<Sprite> explosionVertical = new ArrayList<>();
+        explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical.png")));
+        explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical1.png")));
+        explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical2.png")));
+        return explosionVertical;
+    }
+
+    public static List<Sprite> getExplosionLeft() {
+        List<Sprite> explosionLeft = new ArrayList<>();
+        explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last.png")));
+        explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last1.png")));
+        explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last2.png")));
+        return explosionLeft;
+    }
+
+    public static List<Sprite> getExplosionRight() {
+        List<Sprite> explosionRight = new ArrayList<>();
+        explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last.png")));
+        explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last1.png")));
+        explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last2.png")));
+        return explosionRight;
+    }
+
+    public static List<Sprite> getExplosionTop() {
+        List<Sprite> explosionTop = new ArrayList<>();
+        explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last.png")));
+        explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last1.png")));
+        explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last2.png")));
+        return explosionTop;
+    }
+
+    public static List<Sprite> getExplosionDown() {
+        List<Sprite> explosionDown = new ArrayList<>();
+        explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last.png")));
+        explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last1.png")));
+        explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last2.png")));
+        return explosionDown;
+    }
 }
