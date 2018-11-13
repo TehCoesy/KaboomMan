@@ -30,7 +30,7 @@ public class Renderer {
         renderStatics(g);
         renderAnimated(g);
         renderBombs(g);
-
+        renderExplosion(g);
         g.drawImage(_game.player.getSprite(),_game.player.getX(),_game.player.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
@@ -70,6 +70,14 @@ public class Renderer {
         }
     }
 
+    private void renderExplosion(Graphics g) {
+        int n = _game.explosions.size();
+
+        for (int i = 0; i < n; i++) {
+            Explosion explosion = _game.explosions.get(i);
+            explosion.drawExplosion(g);
+        }
+    }
     public void pauseScreen() {
 
     }

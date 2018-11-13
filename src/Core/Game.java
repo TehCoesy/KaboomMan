@@ -130,6 +130,7 @@ public class Game extends Canvas {
             bomb.update();
             if (bomb.isDead()) {
                 exploded.add(bomb);
+                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 1));
             }
         }
         bombs.removeAll(exploded);

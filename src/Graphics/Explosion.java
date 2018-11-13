@@ -12,9 +12,10 @@ public class Explosion {
     public boolean done = false;
     int posX, posY, BLOCK_SIZE, explosionSize;
 
-    Explosion(int x, int y, int BLOCK_SIZE, int explosionSize) {
+    public Explosion(int x, int y, int BLOCK_SIZE, int explosionSize) {
         this.posX = x; this.posY = y;
         this.BLOCK_SIZE = BLOCK_SIZE;
+        this.explosionSize = explosionSize;
         createExplosion();
     }
 
@@ -47,7 +48,7 @@ public class Explosion {
 
     public void drawExplosion(Graphics g) {
         for (FlameSegment s : flameSegment) {
-            g.drawImage(s.getSprite(), s.getX(), s.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+            g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE, s.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 }
