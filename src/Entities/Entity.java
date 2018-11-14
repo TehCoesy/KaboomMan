@@ -13,7 +13,7 @@ For non-static Objects (Players and Enemies) load the BufferedImages of the Obje
  */
 
 public abstract class Entity {
-    protected boolean dead, done;
+    protected boolean dead = false, done = false;
     protected int posX, posY;
 
     public abstract void update();

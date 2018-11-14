@@ -12,7 +12,7 @@ AnimatedEntity.java, a base class for all Enemies, Players and other non-static 
 public abstract class AnimatedEntity extends Entity{
     //ANIMATION
     protected int GLOBAL_TICKS = 0;
-    private int ANIMATION_STEP, ANIMATION_TIME;
+    private int ANIMATION_STEP, ANIMATION_TIME = 12;
     private int STEP_SIZE_S, STEP_SIZE_0, STEP_SIZE_1, STEP_SIZE_2, STEP_SIZE_3, STEP_SIZE_D;
     private int CURRENT_STEP = 4;
 
@@ -54,16 +54,18 @@ public abstract class AnimatedEntity extends Entity{
     }
 
     public void tick() {
+        if (done) {
+            return;
+        }
         GLOBAL_TICKS++;
         updateAnimation();
+
     }
 
     private void updateAnimation() {
-        if (GLOBAL_TICKS % 12 == 0) {
-            if (ANIMATION_STEP == 0 && isDead()) {
-                done = true;
-            }
-            if (ANIMATION_STEP == CURRENT_STEP - 1) {
+        if (GLOBAL_TICKS % ANIMATION_TIME == 0) {
+            if (ANIMATION_STEP >= CURRENT_STEP - 1) {
+                checkDone();
                 ANIMATION_STEP = 0;
             } else {
                 ANIMATION_STEP++;
@@ -74,19 +76,22 @@ public abstract class AnimatedEntity extends Entity{
         }
     }
 
+    private void checkDone() {
+        if (ANIMATION_STEP >= CURRENT_STEP - 1 && isDead()) {
+            done = true;
+        }
+    }
+
     private void resetAnimation() {
         this.ANIMATION_STEP = 0;
     }
 
     public BufferedImage getSprite() {
-        if (!MOVING_0 && !MOVING_1 && !MOVING_2 && !MOVING_3) {
-            if (standingSprite != null) {
-                CURRENT_STEP = STEP_SIZE_S;
-                return standingSprite.get(ANIMATION_STEP).getSprite();
-            }
+        if (done) {
+            return null;
         }
+
         if (isDead()) {
-            resetAnimation();
             CURRENT_STEP = STEP_SIZE_D;
             if (!done) {
                 return deadSprite.get(ANIMATION_STEP).getSprite();
@@ -94,6 +99,14 @@ public abstract class AnimatedEntity extends Entity{
                 return null;
             }
         }
+
+        if (!MOVING_0 && !MOVING_1 && !MOVING_2 && !MOVING_3) {
+            if (standingSprite != null) {
+                CURRENT_STEP = STEP_SIZE_S;
+                return standingSprite.get(ANIMATION_STEP).getSprite();
+            }
+        }
+
         switch (ORIENTATION) {
             case 0:
                 CURRENT_STEP = STEP_SIZE_0;

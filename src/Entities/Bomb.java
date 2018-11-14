@@ -8,7 +8,7 @@ public class Bomb extends AnimatedEntity {
     }
     @Override
     public void update() {
-        if (this.GLOBAL_TICKS >= 300) {
+        if (this.GLOBAL_TICKS >= 240) {
             this.kill();
         }
     }

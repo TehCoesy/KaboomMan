@@ -25,7 +25,21 @@ public class Explosion {
         flameSegment.add(center);
 
         for (int i = 1; i < explosionSize; i++) {
+            FlameSegment top = new FlameSegment(posX, posY - i);
+            top.setDeadSprite(SpriteBuilder.getExplosionVertical());
+            flameSegment.add(top);
 
+            FlameSegment down = new FlameSegment(posX, posY + i);
+            down.setDeadSprite(SpriteBuilder.getExplosionVertical());
+            flameSegment.add(down);
+
+            FlameSegment left = new FlameSegment(posX - i, posY);
+            left.setDeadSprite(SpriteBuilder.getExplosionHorizontal());
+            flameSegment.add(left);
+
+            FlameSegment right = new FlameSegment(posX + i, posY);
+            right.setDeadSprite(SpriteBuilder.getExplosionHorizontal());
+            flameSegment.add(right);
         }
 
         FlameSegment topLast = new FlameSegment(posX, posY - explosionSize);
@@ -43,9 +57,17 @@ public class Explosion {
         FlameSegment topRight = new FlameSegment(posX + explosionSize, posY);
         topRight.setDeadSprite(SpriteBuilder.getExplosionRight());
         flameSegment.add(topRight);
+
+        for (FlameSegment flame : flameSegment) {
+            flame.setAnimationTime(4);
+        }
     }
 
-
+    public void tick() {
+        for (FlameSegment flame : flameSegment) {
+            flame.tick();
+        }
+    }
     public void drawExplosion(Graphics g) {
         for (FlameSegment s : flameSegment) {
             g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE, s.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);

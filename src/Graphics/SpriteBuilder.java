@@ -94,6 +94,7 @@ public class SpriteBuilder {
         explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded.png")));
         explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded1.png")));
         explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded2.png")));
+        explosionCenter.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/bomb_exploded1.png")));
         return explosionCenter;
     }
 
@@ -102,6 +103,7 @@ public class SpriteBuilder {
         explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal.png")));
         explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal1.png")));
         explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal2.png")));
+        explosionHorizontal.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal1.png")));
         return explosionHorizontal;
     }
 
@@ -110,6 +112,7 @@ public class SpriteBuilder {
         explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical.png")));
         explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical1.png")));
         explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical2.png")));
+        explosionVertical.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical1.png")));
         return explosionVertical;
     }
 
@@ -118,6 +121,7 @@ public class SpriteBuilder {
         explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last.png")));
         explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last1.png")));
         explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last2.png")));
+        explosionLeft.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_left_last1.png")));
         return explosionLeft;
     }
 
@@ -126,6 +130,7 @@ public class SpriteBuilder {
         explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last.png")));
         explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last1.png")));
         explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last2.png")));
+        explosionRight.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_horizontal_right_last1.png")));
         return explosionRight;
     }
 
@@ -134,6 +139,7 @@ public class SpriteBuilder {
         explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last.png")));
         explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last1.png")));
         explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last2.png")));
+        explosionTop.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_top_last1.png")));
         return explosionTop;
     }
 
@@ -142,6 +148,7 @@ public class SpriteBuilder {
         explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last.png")));
         explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last1.png")));
         explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last2.png")));
+        explosionDown.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Explosion/explosion_vertical_down_last1.png")));
         return explosionDown;
     }
     //Enemies

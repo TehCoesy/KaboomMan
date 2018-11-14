@@ -51,7 +51,6 @@ public class Game extends Canvas {
     public List<StaticEntity> staticEntities;
     public List<LocomotiveEntity> enemies = new ArrayList<>();
     public List<Explosion> explosions = new ArrayList<>();
-
     public List<Bomb> bombs = new ArrayList<>();
 
     public Game(MyFrame frame) {
@@ -62,8 +61,7 @@ public class Game extends Canvas {
         initialize();
     }
 
-
-    public void initialize() {
+    private void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
     }
@@ -72,6 +70,7 @@ public class Game extends Canvas {
         player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
         staticEntities = _levelLoader.getStatics();
     }
+
 
     public void start() {
         _running = true;
@@ -124,13 +123,14 @@ public class Game extends Canvas {
         _strategy.show();
     }
 
+
     private void updateGame() {
         List<Bomb> exploded = new ArrayList<>();
         for (Bomb bomb : bombs) {
             bomb.update();
             if (bomb.isDead()) {
                 exploded.add(bomb);
-                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 1));
+                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 2));
             }
         }
         bombs.removeAll(exploded);
@@ -140,6 +140,9 @@ public class Game extends Canvas {
         player.tick();
         for (Bomb bomb : bombs) {
             bomb.tick();
+        }
+        for (Explosion explosion : explosions) {
+            explosion.tick();
         }
     }
 
