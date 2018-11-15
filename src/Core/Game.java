@@ -2,6 +2,7 @@ package Core;
 
 import Container.MyFrame;
 import Entities.*;
+import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
 import Level.LevelLoader;

@@ -1,6 +1,7 @@
-package Entities;
+package Entities.Statics;
 
-import java.awt.*;
+import Entities.Statics.StaticEntity;
+
 import java.awt.image.BufferedImage;
 
 public class Wall extends StaticEntity {

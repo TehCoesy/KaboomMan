@@ -16,7 +16,6 @@ public class MyFrame extends JFrame {
         _containerPane = new JPanel(new BorderLayout());
 
         GamePanel _gamePanel = new GamePanel(this);
-
         add(_gamePanel);
 
         _game = _gamePanel.getGame();

@@ -1,6 +1,9 @@
 package Level;
 
 import Entities.*;
+import Entities.Statics.Brick;
+import Entities.Statics.StaticEntity;
+import Entities.Statics.Wall;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -52,6 +55,12 @@ public class LevelLoader {
                 Wall wall = new Wall();
                 wall.setPosition(posX,posY);
                 statics.add(wall);
+                return;
+            }
+            case '*': {
+                Brick brick = new Brick();
+                brick.setPosition(posX,posY);
+                statics.add(brick);
                 return;
             }
             default: return;

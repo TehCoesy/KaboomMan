@@ -4,7 +4,8 @@ package Graphics;
 
 import Core.Game;
 import Entities.Bomb;
-import Entities.Wall;
+import Entities.Statics.Brick;
+import Entities.Statics.Wall;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Renderer {
 
     private void initializeStatics() {
         staticSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/wall.png")));
+        staticSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/brick.png")));
     }
 
     private void drawBackground(Graphics g) {
@@ -49,6 +51,8 @@ public class Renderer {
         for (int i = 0; i < n; i++) {
             if (_game.staticEntities.get(i) instanceof Wall) {
                 g.drawImage(staticSprite.get(0).getSprite(),_game.staticEntities.get(i).getX() * BLOCK_SIZE, _game.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            } else if (_game.staticEntities.get(i) instanceof Brick) {
+                g.drawImage(staticSprite.get(1).getSprite(),_game.staticEntities.get(i).getX() * BLOCK_SIZE, _game.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
             }
         }
     }

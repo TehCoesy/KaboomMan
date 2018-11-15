@@ -1,4 +1,6 @@
-package Entities;
+package Entities.Statics;
+
+import Entities.Entity;
 
 import java.awt.image.BufferedImage;
 

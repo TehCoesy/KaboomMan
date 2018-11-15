@@ -2,6 +2,7 @@ package Entities;
 
 import Core.Game;
 import Core.Vector2i;
+import Entities.Statics.StaticEntity;
 
 import java.util.List;
 
