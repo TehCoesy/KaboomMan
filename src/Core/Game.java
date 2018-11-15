@@ -131,7 +131,7 @@ public class Game extends Canvas {
         for (Bomb bomb : bombs) {
             bomb.update();
             if (bomb.isDead()) {
-                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 2));
+                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 3, this.staticEntities));
             }
         }
 
