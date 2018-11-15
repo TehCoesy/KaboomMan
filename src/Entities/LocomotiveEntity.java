@@ -11,6 +11,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //ENTITY PARAMETER
     protected int VEL = 4;
     protected final int TOLERANCE = 10; // Collision tolerances
+    protected boolean collide_top, collide_down, collide_left, collide_right;
 
     //GAME PARAMETER
     private int BLOCK_SIZE;
@@ -27,24 +28,44 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
             case 0: {
                 if (canMove(posX, posY + VEL,staticEntities)) {
                     posY += VEL;
+                    if (collide_top) {
+                        collide_top = false;
+                    }
+                } else {
+                    collide_down = true;
                 }
                 break;
             }
             case 1: {
                 if (canMove(posX, posY - VEL,staticEntities)) {
                     posY -= VEL;
+                    if (collide_down) {
+                        collide_down = false;
+                    }
+                } else {
+                    collide_top = true;
                 }
                 break;
             }
             case 2: {
                 if (canMove(posX - VEL, posY,staticEntities)) {
                     posX -= VEL;
+                    if (collide_right) {
+                        collide_right = false;
+                    }
+                } else {
+                    collide_left = true;
                 }
                 break;
             }
             case 3: {
                 if (canMove(posX + VEL, posY,staticEntities)) {
                     posX += VEL;
+                    if (collide_left) {
+                        collide_left = false;
+                    }
+                } else {
+                    collide_right = true;
                 }
                 break;
             }
