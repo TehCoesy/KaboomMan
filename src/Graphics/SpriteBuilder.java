@@ -48,41 +48,41 @@ public class SpriteBuilder {
     //Player
     public static List<Sprite> getPlayerSprite0() {
         List<Sprite> standingSprites = new ArrayList<>();
-        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_down.png")));
-        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_down_1.png")));
-        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_down_2.png")));
-        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_down_1.png")));
+        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_down.png")));
+        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_down_1.png")));
+        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_down_2.png")));
+        standingSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_down_1.png")));
         return standingSprites;
     }
     public static List<Sprite> getPlayerSprite1() {
         List<Sprite> upSprites = new ArrayList<>();
-        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_up.png")));
-        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_up_1.png")));
-        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_up_2.png")));
-        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_up_1.png")));
+        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_up.png")));
+        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_up_1.png")));
+        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_up_2.png")));
+        upSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_up_1.png")));
         return upSprites;
     }
     public static List<Sprite> getPlayerSprite2() {
         List<Sprite> leftSprites = new ArrayList<>();
-        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_left.png")));
-        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_left_1.png")));
-        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_left_2.png")));
-        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_left_1.png")));
+        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_left.png")));
+        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_left_1.png")));
+        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_left_2.png")));
+        leftSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_left_1.png")));
         return leftSprites;
     }
     public static List<Sprite> getPlayerSprite3() {
         List<Sprite> rightSprites = new ArrayList<>();
-        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_right.png")));
-        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_right_1.png")));
-        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_right_2.png")));
-        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_right_1.png")));
+        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_right.png")));
+        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_right_1.png")));
+        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_right_2.png")));
+        rightSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_right_1.png")));
         return rightSprites;
     }
     public static List<Sprite> getPlayerSprite4() {
         List<Sprite> deadSprite = new ArrayList<>();
-        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_dead1.png")));
-        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_dead2.png")));
-        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/player_dead3.png")));
+        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_dead1.png")));
+        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_dead2.png")));
+        deadSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/Player/player_dead3.png")));
         return deadSprite;
     }
 

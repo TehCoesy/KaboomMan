@@ -67,10 +67,28 @@ public class Explosion {
         for (FlameSegment flame : flameSegment) {
             flame.tick();
         }
+        update();
     }
+
+    private void update() {
+        int counter = 0, n = flameSegment.size();
+        for (FlameSegment flame : flameSegment) {
+            if (flame.isDone()) {
+                counter++;
+            }
+        }
+        if (counter >= n) {
+            done = true;
+        }
+    }
+
     public void drawExplosion(Graphics g) {
         for (FlameSegment s : flameSegment) {
             g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE, s.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
         }
+    }
+
+    public List<FlameSegment> getSegments() {
+        return this.flameSegment;
     }
 }

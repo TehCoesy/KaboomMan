@@ -126,15 +126,64 @@ public class Game extends Canvas {
 
 
     private void updateGame() {
-        List<Bomb> exploded = new ArrayList<>();
+        getKills();
+
         for (Bomb bomb : bombs) {
             bomb.update();
             if (bomb.isDead()) {
-                exploded.add(bomb);
                 explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 2));
             }
         }
-        bombs.removeAll(exploded);
+
+
+        collectEntities();
+    }
+
+    private void getKills() {
+        for (Explosion explosion : explosions) {
+            for (FlameSegment flame : explosion.getSegments()) {
+                StaticEntity entity = null;
+                entity = findStatic(flame.getX(),flame.getY());
+                if (entity != null) {
+                    entity.kill();
+                }
+
+                for (Bomb bomb : bombs) {
+                    if (bomb.getX() == flame.getX() && bomb.getY() == flame.getY()) {
+                        bomb.kill();
+                    }
+                }
+            }
+        }
+    }
+
+    private void collectEntities() {
+        List<StaticEntity> removeStatic = new ArrayList<>();
+        for (StaticEntity staticEntity : staticEntities) {
+            if (staticEntity.isDone()) {
+                removeStatic.add(staticEntity);
+            }
+        }
+
+        staticEntities.removeAll(removeStatic);
+
+        List<Bomb> removeBombs = new ArrayList<>();
+        for (Bomb bomb : bombs) {
+            if (bomb.isDead()) {
+                removeBombs.add(bomb);
+            }
+        }
+
+        bombs.removeAll(removeBombs);
+
+        List<Explosion> removeExplosion = new ArrayList<>();
+        for (Explosion explosion : explosions) {
+            if (explosion.done) {
+                removeExplosion.add(explosion);
+            }
+        }
+
+        explosions.removeAll(removeExplosion);
     }
 
     private void tick() {
@@ -145,6 +194,15 @@ public class Game extends Canvas {
         for (Explosion explosion : explosions) {
             explosion.tick();
         }
+    }
+
+    private StaticEntity findStatic(int posX, int posY) {
+        for (StaticEntity entity : staticEntities) {
+            if (entity.getX() == posX && entity.getY() == posY) {
+                return entity;
+            }
+        }
+        return null;
     }
 
     private void getKey() {

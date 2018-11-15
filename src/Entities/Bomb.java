@@ -1,5 +1,6 @@
 package Entities;
 
+import Graphics.Explosion;
 import Graphics.SpriteBuilder;
 
 public class Bomb extends AnimatedEntity {
@@ -16,10 +17,6 @@ public class Bomb extends AnimatedEntity {
     @Override
     public void kill() {
         dead = true;
-
-    }
-
-    public void explode() {
 
     }
 }
