@@ -1,5 +1,6 @@
 package Core;
 
+import Audio.AudioPlayer;
 import Container.MyFrame;
 import Entities.*;
 import Entities.Enemies.Ballom;
@@ -25,6 +26,7 @@ FOR ENTITY DESIGN Consult Entity.java
 
 public class Game extends Canvas {
     Frame _frame;
+    private AudioPlayer myAudio = new AudioPlayer();
 
     //LEVEL
     LevelLoader _levelLoader = new LevelLoader();
@@ -134,7 +136,8 @@ public class Game extends Canvas {
         for (Bomb bomb : bombs) {
             bomb.update();
             if (bomb.isDead()) {
-                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 3, this.staticEntities));
+                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 1, this.staticEntities));
+                myAudio.playExplosion();
             }
         }
 
