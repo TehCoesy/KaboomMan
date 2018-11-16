@@ -1,6 +1,7 @@
 package Level;
 
 import Entities.*;
+import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
 import Entities.Statics.StaticEntity;
 import Entities.Statics.Wall;
@@ -14,7 +15,7 @@ import java.util.List;
 public class LevelLoader {
     private List<StaticEntity> statics = new ArrayList<>();
     private Player player;
-    private List<Entity> enemies = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
 
     public void loadLevel(String file, int GAME_SIZE) {
         FileReader fileReader = null;
@@ -48,6 +49,7 @@ public class LevelLoader {
     public List<StaticEntity> getStatics() {
         return this.statics;
     }
+    public List<Enemy> getEnemies() { return this.enemies; }
 
     private void getEntity(char input, int posY, int posX) {
         switch (input) {

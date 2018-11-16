@@ -180,4 +180,8 @@ public class SpriteBuilder {
         rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right3.png")));
         return rightBalloomSprites;
     }
+    public static List<Sprite> getMobDeadSprite() {
+        List<Sprite> deadSprites = new ArrayList<>();
+        return deadSprites;
+    }
 }

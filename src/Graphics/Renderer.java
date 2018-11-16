@@ -4,6 +4,7 @@ package Graphics;
 
 import Core.Game;
 import Entities.Bomb;
+import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
 import Entities.Statics.Wall;
 
@@ -32,6 +33,7 @@ public class Renderer {
         renderAnimated(g);
         renderBombs(g);
         renderExplosion(g);
+        renderEnemies(g);
         g.drawImage(_game.player.getSprite(),_game.player.getX(),_game.player.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
@@ -80,6 +82,12 @@ public class Renderer {
         for (int i = 0; i < n; i++) {
             Explosion explosion = _game.explosions.get(i);
             explosion.drawExplosion(g);
+        }
+    }
+
+    private void renderEnemies(Graphics g) {
+        for (Enemy enemy : _game.enemies) {
+            g.drawImage(enemy.getSprite(), enemy.getX(), enemy.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
         }
     }
     public void pauseScreen() {

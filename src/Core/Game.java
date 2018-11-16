@@ -2,6 +2,8 @@ package Core;
 
 import Container.MyFrame;
 import Entities.*;
+import Entities.Enemies.Ballom;
+import Entities.Enemies.Enemy;
 import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
@@ -50,7 +52,7 @@ public class Game extends Canvas {
     //ENTITIES
     public Player player = new Player(this);
     public List<StaticEntity> staticEntities;
-    public List<LocomotiveEntity> enemies = new ArrayList<>();
+    public List<Enemy> enemies = new ArrayList<>();
     public List<Explosion> explosions = new ArrayList<>();
     public List<Bomb> bombs = new ArrayList<>();
 
@@ -65,6 +67,7 @@ public class Game extends Canvas {
     private void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
+        enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
     }
 
     private void initEntities() {
@@ -193,6 +196,9 @@ public class Game extends Canvas {
         }
         for (Explosion explosion : explosions) {
             explosion.tick();
+        }
+        for (Enemy enemy : enemies) {
+            enemy.tick();
         }
     }
 

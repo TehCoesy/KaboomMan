@@ -32,8 +32,6 @@ public class Explosion {
         center.setDeadSprite(SpriteBuilder.getExplosionCenter());
         flameSegment.add(center);
 
-        System.out.println(space_down + " " + space_top + " " + space_left + " " + space_right);
-
         for (int i = 1; i < explosionSize; i++) {
 
             if (i < space_top) {
