@@ -1,6 +1,7 @@
 package Core;
 
 import Audio.AudioPlayer;
+import Audio.SoundEffect;
 import Container.MyFrame;
 import Entities.*;
 import Entities.Enemies.Ballom;
@@ -137,11 +138,11 @@ public class Game extends Canvas {
             bomb.update();
             if (bomb.isDead()) {
                 explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 1, this.staticEntities));
-                myAudio.playExplosion();
+                myAudio.EXPLODE();
             }
         }
 
-
+        myAudio.update();
         collectEntities();
     }
 

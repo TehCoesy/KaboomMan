@@ -1,20 +1,21 @@
 package Audio;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
+import java.io.File;
 
-public class myAudio {
+public class SoundEffect {
     private boolean done;
 
-    public myAudio(AudioInputStream _AIS) {
+    public SoundEffect(AudioInputStream _AIS) {
         try {
             Clip clip = AudioSystem.getClip();
+
             clip.open(_AIS);
+
             clip.start();
 
             while (clip.isActive()) {
-
+                continue;
             }
 
             done = true;
@@ -23,7 +24,5 @@ public class myAudio {
         }
     }
 
-    public boolean isDone() {
-        return this.done;
-    }
+    public boolean isDone() { return this.done; }
 }

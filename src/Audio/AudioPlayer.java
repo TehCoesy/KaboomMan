@@ -7,27 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AudioPlayer {
-    List<myAudio> Sounds = new ArrayList<>();
-
-    public void playExplosion() {
-        try {
-            File file = new File("Data/Audio/Bomb.wav");
-            AudioInputStream _AIS = AudioSystem.getAudioInputStream(file);
-            Sounds.add(new myAudio(_AIS));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    List<SoundEffect> soundEffects = new ArrayList<>();
 
     public void update() {
-        List<myAudio> done = new ArrayList<>();
+        List<SoundEffect> remove = new ArrayList<>();
 
-        for (myAudio audio : Sounds) {
-            if (audio.isDone()) {
-                done.add(audio);
+        for (SoundEffect element : soundEffects) {
+            if (element.isDone()) {
+                remove.add(element);
             }
         }
 
-        Sounds.removeAll(done);
+        soundEffects.removeAll(remove);
+    }
+
+    public void EXPLODE() {
+        try {
+            AudioInputStream _AIS = AudioSystem.getAudioInputStream(new File("Data/Audio/bomb_explode.wav"));
+            soundEffects.add(new SoundEffect(_AIS));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
