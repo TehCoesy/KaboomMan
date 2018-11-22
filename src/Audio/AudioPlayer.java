@@ -50,6 +50,6 @@ public class AudioPlayer {
     }
 
     public void playMusic() {
-        music.gameMusic();
+        music.playMusic();
     }
 }

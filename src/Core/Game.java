@@ -12,11 +12,9 @@ import IO.Keyboard;
 import IO.Mouse;
 import Level.LevelLoader;
 import States.ApplicationSetting;
+import States.PlayerState;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.List;
 import java.util.ArrayList;
@@ -49,6 +47,7 @@ public class Game extends Canvas {
 
     //GAMEPLAY
     int tickCounter = 0;
+    public PlayerState playerState = new PlayerState();
 
     //ENTITIES
     public Player player = new Player(this);
@@ -105,7 +104,7 @@ public class Game extends Canvas {
         for (Bomb bomb : bombs) {
             bomb.update();
             if (bomb.isDead()) {
-                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, 1, this.staticEntities));
+                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, playerState.BOMB_POWER, this.staticEntities));
                 myAudio.EXPLODE();
             }
         }

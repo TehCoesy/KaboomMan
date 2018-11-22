@@ -1,20 +1,37 @@
 package Audio;
 
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class GameMusic {
-    public void gameMusic() {
-        final JFXPanel fxPanel = new JFXPanel();
+    File music1 = new File("Data/Audio/game.wav");
+    private Clip clip;
 
-        String music = "Data/Audio/game.mp3";
+    public GameMusic() {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        Media hit = new Media(new File(music).toURI().toString());
+    public void playMusic() {
+        try {
+            if (clip.isActive()) {
+                clip.stop();
+            }
 
-        MediaPlayer player = new MediaPlayer(hit);
-        player.play();
+            AudioInputStream _AIS = AudioSystem.getAudioInputStream(music1);
+
+            clip.open(_AIS);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
