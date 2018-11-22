@@ -23,8 +23,6 @@ import java.util.ArrayList;
 FOR ENTITY DESIGN Consult Entity.java
  */
 
-//TODO: Upgrade Entity system
-
 public class Game extends Canvas {
     Frame _frame;
     private AudioPlayer myAudio = new AudioPlayer();
@@ -67,7 +65,7 @@ public class Game extends Canvas {
         initialize();
     }
 
-    private void initialize() {
+    public void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
         enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
