@@ -1,51 +1,18 @@
-package Container;
+package Core;
 
-import Core.MyCanvas;
 import Graphics.SpriteBuilder;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class WelcomePane extends JPanel {
-    private boolean done;
-    private PanelCanvas panelCanvas;
-
-    public WelcomePane(int sizeX, int sizeY) {
-        this.panelCanvas = new PanelCanvas(sizeX, sizeY);
-
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(sizeX, sizeY));
-
-        setBackground(Color.WHITE);
-        add(panelCanvas);
-
-        setVisible(true);
-        setFocusable(true);
-    }
-
-    public void update() {
-        panelCanvas.renderCanvas();
-        if (panelCanvas.checkDone()) {
-            this.done = true;
-        }
-    }
-
-    public void tick() {
-        panelCanvas.tick();
-    }
-
-    public boolean isDone() { return this.done; }
-}
-
-class PanelCanvas extends MyCanvas {
+public class SplashScreen extends MyCanvas{
     private BufferedImage welcomeLogo;
     private int currentTick = 0, duration = 5 * 60; //5 seconds
     private float opacity = 0;
     private int triplet = duration / 3;
     private float step = 1f / triplet;
 
-    public PanelCanvas(int sizeX, int sizeY) {
+    public SplashScreen(int sizeX, int sizeY) {
         this.size.set(sizeX, sizeY);
         this.welcomeLogo = SpriteBuilder.getSpriteImage("Data/Sprite/pusheen.png");
     }

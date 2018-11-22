@@ -9,9 +9,13 @@ import Entities.Enemies.Enemy;
 import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
+import IO.Mouse;
 import Level.LevelLoader;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.List;
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ FOR ENTITY DESIGN Consult Entity.java
  */
 
 public class Game extends Canvas {
-    Frame _frame;
     private AudioPlayer myAudio = new AudioPlayer();
 
     //LEVEL
@@ -33,12 +36,8 @@ public class Game extends Canvas {
     Keyboard keyboard = new Keyboard();
 
     //GAME PARAMETERS
-    private boolean _running = true;
+    private boolean _stop;
     private static final int SCALE = 3;
-
-    public static final String TITLE = "KaBoomMan";
-
-    private static final double TARGET_FRAME = 60.0;
 
     public static final int BLOCK_SIZE = 65;
     public static final int GAME_SIZE = 15;
@@ -57,10 +56,7 @@ public class Game extends Canvas {
     public List<Explosion> explosions = new ArrayList<>();
     public List<Bomb> bombs = new ArrayList<>();
 
-    public Game(MyFrame frame) {
-        this._frame = frame;
-        _frame.setTitle(TITLE);
-
+    public Game() {
         addKeyListener(keyboard);
         initialize();
     }
@@ -210,7 +206,15 @@ public class Game extends Canvas {
         }
     }
 
+    public void stop() {
+        this._stop = true;
+    }
+
     public int getBlockSize() {
         return this.BLOCK_SIZE;
+    }
+
+    public int getStateRequest() {
+        return 2;
     }
 }
