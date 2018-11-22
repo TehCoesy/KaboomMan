@@ -8,6 +8,7 @@ import java.util.List;
 
 public class AudioPlayer {
     List<SoundEffect> soundEffects = new ArrayList<>();
+    GameMusic music = new GameMusic();
 
     public void update() {
         List<SoundEffect> remove = new ArrayList<>();
@@ -28,5 +29,27 @@ public class AudioPlayer {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void SPLASH_MUSIC() {
+        try {
+            AudioInputStream _AIS = AudioSystem.getAudioInputStream(new File("Data/Audio/oxp.wav"));
+            soundEffects.add(new SoundEffect(_AIS));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void PLAYER_WALK() {
+        try {
+            AudioInputStream _AIS = AudioSystem.getAudioInputStream(new File("Data/Audio/player_walk.wav"));
+            soundEffects.add(new SoundEffect(_AIS));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void playMusic() {
+        music.gameMusic();
     }
 }

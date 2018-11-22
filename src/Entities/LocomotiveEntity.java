@@ -142,4 +142,11 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     public void stopRight() {
         this.MOVING_3 = false;
     }
+
+    public boolean moving() {
+        if (MOVING_0 || MOVING_1 || MOVING_2 || MOVING_3) {
+            return true;
+        }
+        return false;
+    }
 }

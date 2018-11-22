@@ -17,6 +17,7 @@ public class MainMenu extends MyCanvas {
     private Keyboard keyboard;
 
     public MainMenu() {
+        setFocusable(true);
         keyboard = new Keyboard();
 
         addKeyListener(keyboard);

@@ -1,5 +1,6 @@
 package Container;
 
+import Audio.AudioPlayer;
 import Core.Game;
 import Core.MainMenu;
 import Core.SplashScreen;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ContainerPanel extends JPanel {
+    private AudioPlayer myAudio = new AudioPlayer();
     private Game _game;
     private SplashScreen _splash;
     private MainMenu _mainMenu;
@@ -20,10 +22,11 @@ public class ContainerPanel extends JPanel {
         setLayout(new BorderLayout());
         setVisible(true);
         setPreferredSize(new Dimension(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT));
-        requestFocus();
+        setFocusable(true);
 
         _splash = new SplashScreen(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT);
         add(_splash);
+        myAudio.SPLASH_MUSIC();
 
         //_game = new Game();
         //add(_game);
@@ -88,6 +91,7 @@ public class ContainerPanel extends JPanel {
         removeAll();
 
         _game = new Game();
+        _game.setAudio(this.myAudio);
         _game.requestFocusInWindow();
 
         add(_game);

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class SplashScreen extends MyCanvas{
     private BufferedImage welcomeLogo;
-    private int currentTick = 0, duration = 5 * 60; //5 seconds
+    private int currentTick = 0, duration = 4 * 60; //5 seconds
     private float opacity = 0;
     private int triplet = duration / 3;
     private float step = 1f / triplet;

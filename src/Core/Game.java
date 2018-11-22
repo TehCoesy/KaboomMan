@@ -11,6 +11,7 @@ import Graphics.*;
 import IO.Keyboard;
 import IO.Mouse;
 import Level.LevelLoader;
+import States.ApplicationSetting;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -28,7 +29,7 @@ FOR ENTITY DESIGN Consult Entity.java
  */
 
 public class Game extends Canvas {
-    private AudioPlayer myAudio = new AudioPlayer();
+    private AudioPlayer myAudio;
 
     //LEVEL
     LevelLoader _levelLoader = new LevelLoader();
@@ -39,15 +40,15 @@ public class Game extends Canvas {
     private boolean _stop;
     private static final int SCALE = 3;
 
-    public static final int BLOCK_SIZE = 65;
-    public static final int GAME_SIZE = 15;
-    public static final int WIDTH = GAME_SIZE * BLOCK_SIZE;
-    public static final int HEIGHT = GAME_SIZE * BLOCK_SIZE;
+    public static final int BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
+    public static final int GAME_SIZE = ApplicationSetting.GAME_SIZE;
+    public static final int WIDTH = ApplicationSetting.WIDTH;
+    public static final int HEIGHT = ApplicationSetting.HEIGHT;
 
     private Renderer render = new Renderer(this);
 
     //GAMEPLAY
-
+    int tickCounter = 0;
 
     //ENTITIES
     public Player player = new Player(this);
@@ -57,8 +58,14 @@ public class Game extends Canvas {
     public List<Bomb> bombs = new ArrayList<>();
 
     public Game() {
+        setFocusable(true);
         addKeyListener(keyboard);
         initialize();
+    }
+
+    public void setAudio(AudioPlayer myAudio) {
+        this.myAudio = myAudio;
+        this.myAudio.playMusic();
     }
 
     public void initialize() {
@@ -92,6 +99,7 @@ public class Game extends Canvas {
 
 
     public void updateGame() {
+
         getKills();
 
         for (Bomb bomb : bombs) {
@@ -102,6 +110,7 @@ public class Game extends Canvas {
             }
         }
 
+        playAudio();
         myAudio.update();
         collectEntities();
         getKey();
@@ -155,6 +164,12 @@ public class Game extends Canvas {
     }
 
     public void tick() {
+        if (tickCounter == 600) {
+            tickCounter = 0; //Maximum 10 seconds
+        }
+
+        tickCounter++;
+
         player.tick();
         for (Bomb bomb : bombs) {
             bomb.tick();
@@ -203,6 +218,12 @@ public class Game extends Canvas {
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
             bombs.add(bomb);
+        }
+    }
+
+    private void playAudio() {
+        if (tickCounter % 30 == 0 && player.moving()) {
+            myAudio.PLAYER_WALK();
         }
     }
 
