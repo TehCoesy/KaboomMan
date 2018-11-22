@@ -32,7 +32,7 @@ public class ContainerPanel extends JPanel {
     public void tick() {
         switch (gameState) {
             case 0: _splash.tick(); break;
-            case 1: break;
+            case 1: _mainMenu.tick(); break;
             case 2: _game.tick(); _game.updateGame(); break;
         }
     }
@@ -50,7 +50,7 @@ public class ContainerPanel extends JPanel {
     private void checkState() {
         if (_splash != null && gameState == 0) {
             if (_splash.checkDone()) {
-                requestChangeState = 2;
+                requestChangeState = 1;
             }
         }
 
@@ -74,6 +74,7 @@ public class ContainerPanel extends JPanel {
         removeAll();
 
         _mainMenu = new MainMenu();
+        _mainMenu.requestFocusInWindow();
 
         add(_mainMenu);
 
@@ -87,6 +88,7 @@ public class ContainerPanel extends JPanel {
         removeAll();
 
         _game = new Game();
+        _game.requestFocusInWindow();
 
         add(_game);
 
