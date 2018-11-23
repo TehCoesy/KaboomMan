@@ -32,7 +32,7 @@ public class Game extends Canvas {
     //LEVEL
     LevelLoader _levelLoader = new LevelLoader();
     //IO
-    Keyboard keyboard = new Keyboard();
+    Keyboard keyboard;
 
     //GAME PARAMETERS
     private boolean _stop;
@@ -56,9 +56,9 @@ public class Game extends Canvas {
     public List<Explosion> explosions = new ArrayList<>();
     public List<Bomb> bombs = new ArrayList<>();
 
-    public Game() {
+    public Game(Keyboard key) {
+        this.keyboard = key;
         setFocusable(true);
-        addKeyListener(keyboard);
         initialize();
     }
 

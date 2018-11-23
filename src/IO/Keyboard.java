@@ -3,7 +3,7 @@ package IO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Keyboard implements KeyListener {
+public class Keyboard{
     //Predefined Keys
     private int K_UP = KeyEvent.VK_UP;
     private int K_DOWN = KeyEvent.VK_DOWN;
@@ -20,37 +20,32 @@ public class Keyboard implements KeyListener {
 
     private boolean UP, DOWN, LEFT, RIGHT, SPACE;
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == K_UP) {
+    public void keyPressed(int e) {
+        if (e == K_UP) {
             if (!pressUp) {
                 UP = true;
             }
             pressUp = true;
         }
-        if (e.getKeyCode() == K_DOWN) {
+        if (e == K_DOWN) {
             if (!pressDown) {
                 DOWN = true;
             }
             pressDown = true;
         }
-        if (e.getKeyCode() == K_LEFT) {
+        if (e == K_LEFT) {
             if (!pressLeft) {
                 LEFT = true;
             }
             pressLeft = true;
         }
-        if (e.getKeyCode() == K_RIGHT) {
+        if (e == K_RIGHT) {
             if (!pressRight) {
                 RIGHT = true;
             }
             pressRight = true;
         }
-        if (e.getKeyCode() == K_SPACE) {
+        if (e == K_SPACE) {
             if (!pressSpace) {
                 SPACE = true;
             }
@@ -58,25 +53,24 @@ public class Keyboard implements KeyListener {
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == K_UP) {
+    public void keyReleased(int e) {
+        if (e == K_UP) {
             pressUp = false;
             UP = false;
         }
-        if (e.getKeyCode() == K_DOWN) {
+        if (e == K_DOWN) {
             pressDown = false;
             DOWN = false;
         }
-        if (e.getKeyCode() == K_LEFT) {
+        if (e == K_LEFT) {
             pressLeft = false;
             LEFT = false;
         }
-        if (e.getKeyCode() == K_RIGHT) {
+        if (e == K_RIGHT) {
             pressRight = false;
             RIGHT = false;
         }
-        if (e.getKeyCode() == K_SPACE) {
+        if (e == K_SPACE) {
             pressSpace = false;
             SPACE = false;
         }

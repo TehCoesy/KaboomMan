@@ -4,6 +4,8 @@ import Audio.AudioPlayer;
 import Core.Game;
 import Core.MainMenu;
 import Core.SplashScreen;
+import IO.KeyBinding;
+import IO.Keyboard;
 import States.ApplicationSetting;
 
 import javax.swing.*;
@@ -14,6 +16,8 @@ public class ContainerPanel extends JPanel {
     private Game _game;
     private SplashScreen _splash;
     private MainMenu _mainMenu;
+    private KeyBinding keyBinding;
+    private Keyboard keyboard;
 
     private int gameState = 0; //0 = _splash, 1 = _mainMenu, 2 = _game;
     private int requestChangeState = 0;
@@ -23,6 +27,9 @@ public class ContainerPanel extends JPanel {
         setVisible(true);
         setPreferredSize(new Dimension(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT));
         setFocusable(true);
+
+        keyboard = new Keyboard();
+        keyBinding = new KeyBinding(this, keyboard);
 
         _splash = new SplashScreen(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT);
         add(_splash);
@@ -76,7 +83,7 @@ public class ContainerPanel extends JPanel {
     private void openMenu() {
         removeAll();
 
-        _mainMenu = new MainMenu();
+        _mainMenu = new MainMenu(keyboard);
         _mainMenu.requestFocusInWindow();
 
         add(_mainMenu);
@@ -90,7 +97,7 @@ public class ContainerPanel extends JPanel {
     private void openGame() {
         removeAll();
 
-        _game = new Game();
+        _game = new Game(keyboard);
         _game.setAudio(this.myAudio);
         _game.requestFocusInWindow();
 

@@ -16,11 +16,9 @@ public class MainMenu extends MyCanvas {
     List<MyButton> menuButtons = new ArrayList<>();
     private Keyboard keyboard;
 
-    public MainMenu() {
+    public MainMenu(Keyboard key) {
         setFocusable(true);
-        keyboard = new Keyboard();
-
-        addKeyListener(keyboard);
+        this.keyboard = key;
 
         MyButton startButton = new MyButton(new Vector2i(100,100), new Vector2i(150,150));
         startButton.text = "Start";
