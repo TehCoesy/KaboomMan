@@ -7,6 +7,8 @@ import Entities.Bomb;
 import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
 import Entities.Statics.Wall;
+import Container.GameEntities;
+import States.ApplicationSetting;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,19 +16,20 @@ import java.util.List;
 
 public class Renderer {
     int BLOCK_SIZE;
-    private Game _game;
+    private GameEntities gameEntities;
 
+    private int WIDTH = ApplicationSetting.WIDTH, HEIGHT = ApplicationSetting.HEIGHT;
     //Sprites
     private List<Sprite> staticSprite = new ArrayList<>();
 
-    public Renderer(Game game) {
-        this._game = game;
-        BLOCK_SIZE = _game.getBlockSize();
+    public Renderer(GameEntities gameEntities) {
+        this.gameEntities = gameEntities;
+        BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
         initializeStatics();
     }
 
     public void renderGame(Graphics g) {
-        g.clearRect(0,0, _game.WIDTH, _game.HEIGHT);
+        g.clearRect(0,0, WIDTH, HEIGHT);
 
         drawBackground(g);
         renderStatics(g);
@@ -34,7 +37,7 @@ public class Renderer {
         renderBombs(g);
         renderExplosion(g);
         renderEnemies(g);
-        g.drawImage(_game.player.getSprite(),_game.player.getX(),_game.player.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
+        g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX(),gameEntities.player.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
     private void initializeStatics() {
@@ -44,49 +47,49 @@ public class Renderer {
 
     private void drawBackground(Graphics g) {
         g.setColor(Color.GREEN);
-        g.fillRect(0,0,_game.WIDTH,_game.HEIGHT);
+        g.fillRect(0,0,WIDTH,HEIGHT);
     }
 
     private void renderStatics(Graphics g) {
-        int n = _game.staticEntities.size();
+        int n = gameEntities.staticEntities.size();
 
         for (int i = 0; i < n; i++) {
-            if (_game.staticEntities.get(i) instanceof Wall) {
-                g.drawImage(staticSprite.get(0).getSprite(),_game.staticEntities.get(i).getX() * BLOCK_SIZE, _game.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
-            } else if (_game.staticEntities.get(i) instanceof Brick) {
-                g.drawImage(staticSprite.get(1).getSprite(),_game.staticEntities.get(i).getX() * BLOCK_SIZE, _game.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            if (gameEntities.staticEntities.get(i) instanceof Wall) {
+                g.drawImage(staticSprite.get(0).getSprite(),gameEntities.staticEntities.get(i).getX() * BLOCK_SIZE, gameEntities.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            } else if (gameEntities.staticEntities.get(i) instanceof Brick) {
+                g.drawImage(staticSprite.get(1).getSprite(),gameEntities.staticEntities.get(i).getX() * BLOCK_SIZE, gameEntities.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
             }
         }
     }
 
     private void renderAnimated(Graphics g) {
-        int n = _game.enemies.size();
+        int n = gameEntities.enemies.size();
 
         for (int i = 0; i < n; i++) {
-            g.drawImage(_game.enemies.get(i).getSprite(), _game.enemies.get(i).getX(),_game.enemies.get(i).getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+            g.drawImage(gameEntities.enemies.get(i).getSprite(), gameEntities.enemies.get(i).getX(),gameEntities.enemies.get(i).getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 
     private void renderBombs(Graphics g) {
-        int n = _game.bombs.size();
+        int n = gameEntities.bombs.size();
 
         for (int i = 0; i < n; i++) {
-            Bomb bomb = _game.bombs.get(i);
+            Bomb bomb = gameEntities.bombs.get(i);
             g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
     private void renderExplosion(Graphics g) {
-        int n = _game.explosions.size();
+        int n = gameEntities.explosions.size();
 
         for (int i = 0; i < n; i++) {
-            Explosion explosion = _game.explosions.get(i);
+            Explosion explosion = gameEntities.explosions.get(i);
             explosion.drawExplosion(g);
         }
     }
 
     private void renderEnemies(Graphics g) {
-        for (Enemy enemy : _game.enemies) {
+        for (Enemy enemy : gameEntities.enemies) {
             g.drawImage(enemy.getSprite(), enemy.getX(), enemy.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
         }
     }

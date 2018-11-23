@@ -13,6 +13,7 @@ import IO.Mouse;
 import Level.LevelLoader;
 import States.ApplicationSetting;
 import States.PlayerState;
+import Container.GameEntities;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -43,21 +44,21 @@ public class Game extends Canvas {
     public static final int WIDTH = ApplicationSetting.WIDTH;
     public static final int HEIGHT = ApplicationSetting.HEIGHT;
 
-    private Renderer render = new Renderer(this);
+    private Renderer render;
 
     //GAMEPLAY
     int tickCounter = 0;
     public PlayerState playerState = new PlayerState();
 
     //ENTITIES
-    public Player player = new Player(this);
-    public List<StaticEntity> staticEntities;
-    public List<Enemy> enemies = new ArrayList<>();
-    public List<Explosion> explosions = new ArrayList<>();
-    public List<Bomb> bombs = new ArrayList<>();
+    public GameEntities gameEntities = new GameEntities();
+    public Player player;
 
     public Game(Keyboard key) {
         this.keyboard = key;
+        this.player = gameEntities.player;
+        this.render = new Renderer(gameEntities);
+
         setFocusable(true);
         initialize();
     }
@@ -70,12 +71,12 @@ public class Game extends Canvas {
     public void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
-        enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
+        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
     }
 
     private void initEntities() {
         player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
-        staticEntities = _levelLoader.getStatics();
+        gameEntities.staticEntities = _levelLoader.getStatics();
     }
 
 
@@ -101,10 +102,10 @@ public class Game extends Canvas {
 
         getKills();
 
-        for (Bomb bomb : bombs) {
+        for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
             if (bomb.isDead()) {
-                explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, playerState.BOMB_POWER, this.staticEntities));
+                gameEntities.explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, playerState.BOMB_POWER, gameEntities.staticEntities));
                 myAudio.EXPLODE();
             }
         }
@@ -116,7 +117,7 @@ public class Game extends Canvas {
     }
 
     private void getKills() {
-        for (Explosion explosion : explosions) {
+        for (Explosion explosion : gameEntities.explosions) {
             for (FlameSegment flame : explosion.getSegments()) {
                 StaticEntity entity = null;
                 entity = findStatic(flame.getX(),flame.getY());
@@ -124,7 +125,7 @@ public class Game extends Canvas {
                     entity.kill();
                 }
 
-                for (Bomb bomb : bombs) {
+                for (Bomb bomb : gameEntities.bombs) {
                     if (bomb.getX() == flame.getX() && bomb.getY() == flame.getY()) {
                         bomb.kill();
                     }
@@ -135,31 +136,31 @@ public class Game extends Canvas {
 
     private void collectEntities() {
         List<StaticEntity> removeStatic = new ArrayList<>();
-        for (StaticEntity staticEntity : staticEntities) {
+        for (StaticEntity staticEntity : gameEntities.staticEntities) {
             if (staticEntity.isDone()) {
                 removeStatic.add(staticEntity);
             }
         }
 
-        staticEntities.removeAll(removeStatic);
+        gameEntities.staticEntities.removeAll(removeStatic);
 
         List<Bomb> removeBombs = new ArrayList<>();
-        for (Bomb bomb : bombs) {
+        for (Bomb bomb : gameEntities.bombs) {
             if (bomb.isDead()) {
                 removeBombs.add(bomb);
             }
         }
 
-        bombs.removeAll(removeBombs);
+        gameEntities.bombs.removeAll(removeBombs);
 
         List<Explosion> removeExplosion = new ArrayList<>();
-        for (Explosion explosion : explosions) {
+        for (Explosion explosion : gameEntities.explosions) {
             if (explosion.done) {
                 removeExplosion.add(explosion);
             }
         }
 
-        explosions.removeAll(removeExplosion);
+        gameEntities.explosions.removeAll(removeExplosion);
     }
 
     public void tick() {
@@ -170,19 +171,19 @@ public class Game extends Canvas {
         tickCounter++;
 
         player.tick();
-        for (Bomb bomb : bombs) {
+        for (Bomb bomb : gameEntities.bombs) {
             bomb.tick();
         }
-        for (Explosion explosion : explosions) {
+        for (Explosion explosion : gameEntities.explosions) {
             explosion.tick();
         }
-        for (Enemy enemy : enemies) {
+        for (Enemy enemy : gameEntities.enemies) {
             enemy.tick();
         }
     }
 
     private StaticEntity findStatic(int posX, int posY) {
-        for (StaticEntity entity : staticEntities) {
+        for (StaticEntity entity : gameEntities.staticEntities) {
             if (entity.getX() == posX && entity.getY() == posY) {
                 return entity;
             }
@@ -216,7 +217,7 @@ public class Game extends Canvas {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
-            bombs.add(bomb);
+            gameEntities.bombs.add(bomb);
         }
     }
 

@@ -1,13 +1,15 @@
 package Entities;
 
+import Container.GameEntities;
 import Core.Game;
 import Core.Vector2i;
 import Entities.Statics.StaticEntity;
+import States.ApplicationSetting;
 
 import java.util.List;
 
 public abstract class LocomotiveEntity extends AnimatedEntity {
-    protected Game _game;
+    protected GameEntities gameEntities;
 
     //ENTITY PARAMETER
     protected int VEL = 4;
@@ -17,9 +19,9 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //GAME PARAMETER
     private int BLOCK_SIZE;
 
-    protected void setGame(Game game) {
-        this._game = game;
-        this.BLOCK_SIZE = game.getBlockSize();
+    protected void setGame(GameEntities gameEntities) {
+        this.gameEntities = gameEntities;
+        this.BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
     }
 
     //Collision
@@ -91,7 +93,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //Movement
     private void move(int orientation) {
         this.ORIENTATION = orientation;
-        moveEntity(_game.staticEntities);
+        moveEntity(gameEntities.staticEntities);
     }
 
     public Vector2i getRelativePosition() {
