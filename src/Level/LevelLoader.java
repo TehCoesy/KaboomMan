@@ -1,8 +1,10 @@
 package Level;
 
+import Container.GameEntities;
 import Entities.*;
 import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
+import Entities.Statics.Portal;
 import Entities.Statics.StaticEntity;
 import Entities.Statics.Wall;
 
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
+    private GameEntities gameEntities = new GameEntities();
     private List<StaticEntity> statics = new ArrayList<>();
     private Player player;
     private List<Enemy> enemies = new ArrayList<>();
@@ -30,6 +33,7 @@ public class LevelLoader {
         }
 
         String line = null;
+
 
         try {
             for (int i = 0; i < GAME_SIZE; i++) {
@@ -63,6 +67,12 @@ public class LevelLoader {
                 Brick brick = new Brick();
                 brick.setPosition(posX,posY);
                 statics.add(brick);
+                return;
+            }
+            case 'P': {
+                Portal portal = new Portal();
+                portal.setPosition(posX, posY);
+                statics.add(portal);
                 return;
             }
             default: return;

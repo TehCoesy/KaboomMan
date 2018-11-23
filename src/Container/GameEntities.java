@@ -1,5 +1,6 @@
 package Container;
 
+import Core.Vector2i;
 import Entities.*;
 import Entities.Enemies.*;
 import Entities.Statics.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameEntities {
+    public Vector2i gameSize;
     public Player player;
     public List<StaticEntity> staticEntities = new ArrayList<>();
     public List<Enemy> enemies = new ArrayList<>();
@@ -17,6 +19,7 @@ public class GameEntities {
 
     public GameEntities() {
         player = new Player(this);
+        gameSize = new Vector2i(15,15);
     }
     public void update() {
         garbageCollection(staticEntities);

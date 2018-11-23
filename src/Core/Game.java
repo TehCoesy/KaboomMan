@@ -32,13 +32,13 @@ public class Game extends Canvas {
 
     //LEVEL
     LevelLoader _levelLoader = new LevelLoader();
+
     //IO
     Keyboard keyboard;
 
     //GAME PARAMETERS
-    private boolean _stop;
+    private boolean _pause;
     private static final int SCALE = 3;
-
     public static final int BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
     public static final int GAME_SIZE = ApplicationSetting.GAME_SIZE;
     public static final int WIDTH = ApplicationSetting.WIDTH;
@@ -54,18 +54,37 @@ public class Game extends Canvas {
     public GameEntities gameEntities = new GameEntities();
     public Player player;
 
+
     public Game(Keyboard key) {
         this.keyboard = key;
         this.player = gameEntities.player;
         this.render = new Renderer(gameEntities);
 
         setFocusable(true);
-        initialize();
     }
 
     public void setAudio(AudioPlayer myAudio) {
         this.myAudio = myAudio;
-        this.myAudio.playMusic();
+    }
+
+    public void newGame() {
+        initialize();
+        myAudio.playMusic();
+    }
+
+    public void clearGame() {
+
+    }
+
+    public void nextLevel() {
+
+    }
+
+    public void pause() {
+
+    }
+    public void unpause() {
+
     }
 
     public void initialize() {
@@ -113,7 +132,6 @@ public class Game extends Canvas {
         playAudio();
         myAudio.update();
         gameEntities.update();
-        //collectEntities();
         getKey();
     }
 
@@ -197,14 +215,6 @@ public class Game extends Canvas {
         if (tickCounter % 30 == 0 && player.moving()) {
             myAudio.PLAYER_WALK();
         }
-    }
-
-    public void stop() {
-        this._stop = true;
-    }
-
-    public int getBlockSize() {
-        return this.BLOCK_SIZE;
     }
 
     public int getStateRequest() {

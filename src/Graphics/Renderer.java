@@ -6,6 +6,8 @@ import Core.Game;
 import Entities.Bomb;
 import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
+import Entities.Statics.Portal;
+import Entities.Statics.StaticEntity;
 import Entities.Statics.Wall;
 import Container.GameEntities;
 import States.ApplicationSetting;
@@ -54,10 +56,13 @@ public class Renderer {
         int n = gameEntities.staticEntities.size();
 
         for (int i = 0; i < n; i++) {
-            if (gameEntities.staticEntities.get(i) instanceof Wall) {
-                g.drawImage(staticSprite.get(0).getSprite(),gameEntities.staticEntities.get(i).getX() * BLOCK_SIZE, gameEntities.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
-            } else if (gameEntities.staticEntities.get(i) instanceof Brick) {
-                g.drawImage(staticSprite.get(1).getSprite(),gameEntities.staticEntities.get(i).getX() * BLOCK_SIZE, gameEntities.staticEntities.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            StaticEntity entity = gameEntities.staticEntities.get(i);
+            if (entity instanceof Wall) {
+                g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            } else if (entity instanceof Brick) {
+                g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+            } else if (entity instanceof Portal) {
+                g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
     }

@@ -106,6 +106,7 @@ public class ContainerPanel extends JPanel {
         repaint();
         revalidate();
 
+        _game.newGame();
         _game.setVisible(true);
     }
 
