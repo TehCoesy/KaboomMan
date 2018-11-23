@@ -112,7 +112,8 @@ public class Game extends Canvas {
 
         playAudio();
         myAudio.update();
-        collectEntities();
+        gameEntities.update();
+        //collectEntities();
         getKey();
     }
 
@@ -132,35 +133,6 @@ public class Game extends Canvas {
                 }
             }
         }
-    }
-
-    private void collectEntities() {
-        List<StaticEntity> removeStatic = new ArrayList<>();
-        for (StaticEntity staticEntity : gameEntities.staticEntities) {
-            if (staticEntity.isDone()) {
-                removeStatic.add(staticEntity);
-            }
-        }
-
-        gameEntities.staticEntities.removeAll(removeStatic);
-
-        List<Bomb> removeBombs = new ArrayList<>();
-        for (Bomb bomb : gameEntities.bombs) {
-            if (bomb.isDead()) {
-                removeBombs.add(bomb);
-            }
-        }
-
-        gameEntities.bombs.removeAll(removeBombs);
-
-        List<Explosion> removeExplosion = new ArrayList<>();
-        for (Explosion explosion : gameEntities.explosions) {
-            if (explosion.done) {
-                removeExplosion.add(explosion);
-            }
-        }
-
-        gameEntities.explosions.removeAll(removeExplosion);
     }
 
     public void tick() {

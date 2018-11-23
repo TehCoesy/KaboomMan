@@ -20,9 +20,10 @@ public class GameEntities {
     }
     public void update() {
         garbageCollection(staticEntities);
-        garbageCollection(enemies);
         garbageCollection(bombs);
         collectExplosions();
+        garbageCollection(enemies);
+
     }
 
     private void collectExplosions() {

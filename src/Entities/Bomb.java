@@ -17,6 +17,6 @@ public class Bomb extends AnimatedEntity {
     @Override
     public void kill() {
         dead = true;
-
+        done = true;
     }
 }
