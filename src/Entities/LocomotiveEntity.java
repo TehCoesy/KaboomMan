@@ -19,7 +19,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //GAME PARAMETER
     private int BLOCK_SIZE;
 
-    protected void setGame(GameEntities gameEntities) {
+    public void setGame(GameEntities gameEntities) {
         this.gameEntities = gameEntities;
         this.BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
     }
