@@ -11,4 +11,5 @@ public class Ballom extends Enemy {
         this.setRightSprite(SpriteBuilder.getBalloomSprite3());
         this.setDeadSprite(SpriteBuilder.getMobDeadSprite());
     }
+
 }

@@ -1,7 +1,6 @@
 package Core;
 
 import Audio.AudioPlayer;
-import Audio.SoundEffect;
 import Container.MyFrame;
 import Entities.*;
 import Entities.Enemies.Ballom;
@@ -70,12 +69,13 @@ public class Game extends Canvas {
     private void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
-        enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
+        enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE));
     }
 
     private void initEntities() {
         player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
         staticEntities = _levelLoader.getStatics();
+
     }
 
 
@@ -108,9 +108,13 @@ public class Game extends Canvas {
             }
         }
 
+        for (Enemy elemnt : enemies) {
+            elemnt.moveEnemy();
+        }
         myAudio.update();
         collectEntities();
         getKey();
+
     }
 
     private void getKills() {
@@ -215,4 +219,7 @@ public class Game extends Canvas {
     public int getBlockSize() {
         return this.BLOCK_SIZE;
     }
+
+
+
 }

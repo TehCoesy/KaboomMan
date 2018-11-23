@@ -89,7 +89,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     }
 
     //Movement
-    private void move(int orientation) {
+    protected void move(int orientation) {
         this.ORIENTATION = orientation;
         moveEntity(_game.staticEntities);
     }
