@@ -1,5 +1,6 @@
 package Graphics;
 
+import Core.Vector2i;
 import Entities.FlameSegment;
 import Entities.Statics.Brick;
 import Entities.Statics.StaticEntity;
@@ -108,9 +109,9 @@ public class Explosion {
         }
     }
 
-    public void drawExplosion(Graphics g) {
+    public void drawExplosion(Graphics g, Vector2i translation) {
         for (FlameSegment s : flameSegment) {
-            g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE, s.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+            g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE + translation.getX(), s.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 

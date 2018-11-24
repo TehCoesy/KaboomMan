@@ -7,6 +7,7 @@ import Entities.Statics.Brick;
 import Entities.Statics.Portal;
 import Entities.Statics.StaticEntity;
 import Entities.Statics.Wall;
+import States.ApplicationSetting;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class LevelLoader {
     private GameEntities gameEntities;
+    private ApplicationSetting settings;
     private List<StaticEntity> statics = new ArrayList<>();
     private Player player;
     private List<Enemy> enemies = new ArrayList<>();

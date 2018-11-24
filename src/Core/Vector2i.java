@@ -14,4 +14,7 @@ public class Vector2i {
 
     public int getX() { return this.X; }
     public int getY() { return this.Y; }
+
+    public void translateX(int value) { this.X += value; }
+    public void translateY(int value) { this.Y += value; }
 }

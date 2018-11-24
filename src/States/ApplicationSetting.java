@@ -1,10 +1,10 @@
 package States;
 
-public enum ApplicationSetting {
-    APPLICATION;
-
-    public static final String TITLE = "KaboomMan";
-    public static final int BLOCK_SIZE = 65;
-    public static final int WIDTH = 975;
-    public static final int HEIGHT = 975;
+public class ApplicationSetting {
+    public static String TITLE = "KaboomMan";
+    public static int BLOCK_SIZE = 65;
+    public static int BLOCK_WIDTH = 15;
+    public static int BLOCK_HEIGHT = 15;
+    public static int WIDTH = 975;
+    public static int HEIGHT = 975;
 }

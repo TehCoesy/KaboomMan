@@ -3,6 +3,7 @@ package Graphics;
 //TODO: Transfer rendering from Game.java
 
 import Core.Game;
+import Core.Vector2i;
 import Entities.Bomb;
 import Entities.Enemies.Enemy;
 import Entities.Statics.Brick;
@@ -19,18 +20,25 @@ import java.util.List;
 public class Renderer {
     int BLOCK_SIZE;
     private GameEntities gameEntities;
+    private Camera camera;
+
+    private Vector2i translation;
 
     private int WIDTH = ApplicationSetting.WIDTH, HEIGHT = ApplicationSetting.HEIGHT;
     //Sprites
     private List<Sprite> staticSprite = new ArrayList<>();
 
-    public Renderer(GameEntities gameEntities) {
+    public Renderer(GameEntities gameEntities, Camera camera) {
+        this.translation = new Vector2i();
         this.gameEntities = gameEntities;
+        this.camera = camera;
+
         BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
         initializeStatics();
     }
 
     public void renderGame(Graphics g) {
+        this.translation = camera.getTranslation();
         g.clearRect(0,0, WIDTH, HEIGHT);
 
         drawBackground(g);
@@ -39,7 +47,7 @@ public class Renderer {
         renderBombs(g);
         renderExplosion(g);
         renderEnemies(g);
-        g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX(),gameEntities.player.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
+        g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + translation.getX(),gameEntities.player.getY() + translation.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
     private void initializeStatics() {
@@ -58,11 +66,11 @@ public class Renderer {
         for (int i = 0; i < n; i++) {
             StaticEntity entity = gameEntities.staticEntities.get(i);
             if (entity instanceof Wall) {
-                g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+                g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
             } else if (entity instanceof Brick) {
-                g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE,null);
+                g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
             } else if (entity instanceof Portal) {
-                g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE, entity.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
     }
@@ -71,7 +79,7 @@ public class Renderer {
         int n = gameEntities.enemies.size();
 
         for (int i = 0; i < n; i++) {
-            g.drawImage(gameEntities.enemies.get(i).getSprite(), gameEntities.enemies.get(i).getX(),gameEntities.enemies.get(i).getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+            g.drawImage(gameEntities.enemies.get(i).getSprite(), gameEntities.enemies.get(i).getX() + translation.getX(),gameEntities.enemies.get(i).getY() + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 
@@ -80,7 +88,7 @@ public class Renderer {
 
         for (int i = 0; i < n; i++) {
             Bomb bomb = gameEntities.bombs.get(i);
-            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE, bomb.getY() * BLOCK_SIZE, BLOCK_SIZE,BLOCK_SIZE, null);
+            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE + translation.getX(), bomb.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
@@ -89,13 +97,13 @@ public class Renderer {
 
         for (int i = 0; i < n; i++) {
             Explosion explosion = gameEntities.explosions.get(i);
-            explosion.drawExplosion(g);
+            explosion.drawExplosion(g, translation);
         }
     }
 
     private void renderEnemies(Graphics g) {
         for (Enemy enemy : gameEntities.enemies) {
-            g.drawImage(enemy.getSprite(), enemy.getX(), enemy.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
+            g.drawImage(enemy.getSprite(), enemy.getX() + translation.getX(), enemy.getY() + translation.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
         }
     }
     public void pauseScreen() {

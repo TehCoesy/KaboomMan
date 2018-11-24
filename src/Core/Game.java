@@ -41,6 +41,9 @@ public class Game extends Canvas {
     private static final int SCALE = 3;
     public static final int BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
 
+    private ApplicationSetting settings = new ApplicationSetting();
+    private Camera camera;
+
     private Renderer render;
 
     //GAMEPLAY
@@ -55,7 +58,14 @@ public class Game extends Canvas {
     public Game(Keyboard key) {
         this.keyboard = key;
         this.player = gameEntities.player;
-        this.render = new Renderer(gameEntities);
+
+        this.camera = new Camera(gameEntities, settings);
+        this.render = new Renderer(gameEntities, camera);
+
+        this.settings.BLOCK_WIDTH = gameEntities.gameSize.getX();
+        this.settings.BLOCK_HEIGHT = gameEntities.gameSize.getY();
+
+
 
         setFocusable(true);
     }
@@ -192,21 +202,25 @@ public class Game extends Canvas {
     private void getKey() {
         if (keyboard.C_UP()) {
             player.moveUp();
+            camera.moveUp();
         } else if (!keyboard.C_UP()) {
             player.stopUp();
         }
         if (keyboard.C_DOWN()) {
             player.moveDown();
+            camera.moveDown();
         } else if (!keyboard.C_DOWN()) {
             player.stopDown();
         }
         if (keyboard.C_LEFT()) {
             player.moveLeft();
+            camera.moveLeft();
         } else if (!keyboard.C_LEFT()) {
             player.stopLeft();
         }
         if (keyboard.C_RIGHT()) {
             player.moveRight();
+            camera.moveRight();
         } else if (!keyboard.C_RIGHT()) {
             player.stopRight();
         }

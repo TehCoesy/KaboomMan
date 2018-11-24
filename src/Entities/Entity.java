@@ -1,5 +1,7 @@
 package Entities;
 
+import Core.Vector2i;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -25,6 +27,7 @@ public abstract class Entity {
     public int getY() { return this.posY; }
 
     public void setPosition(int X, int Y) { this.posX = X; this.posY = Y; }
+    public Vector2i getPosition() { return new Vector2i(this.posX, this.posY); }
 
     public void kill() {
         this.dead = true;
