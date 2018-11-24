@@ -90,7 +90,7 @@ public class Game extends Canvas {
     public void initialize() {
         _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
         initEntities();
-        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,4 * BLOCK_SIZE));
+        gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
     }
 
     private void initEntities() {
@@ -127,6 +127,10 @@ public class Game extends Canvas {
                 gameEntities.explosions.add(new Explosion(bomb.getX(), bomb.getY(), BLOCK_SIZE, playerState.BOMB_POWER, gameEntities.staticEntities));
                 myAudio.EXPLODE();
             }
+        }
+
+        for (Enemy enemy : gameEntities.enemies) {
+            enemy.update();
         }
 
         playAudio();

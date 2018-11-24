@@ -13,7 +13,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
 
     //ENTITY PARAMETER
     protected int VEL = 4;
-    protected final int TOLERANCE = 10; // Collision tolerances
+    protected int TOLERANCE = 10; // Collision tolerances
     protected boolean collide_top, collide_down, collide_left, collide_right;
 
     //GAME PARAMETER
@@ -150,5 +150,9 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
             return true;
         }
         return false;
+    }
+
+    public void setTolerance(int tolerance) {
+        this.TOLERANCE = tolerance;
     }
 }
