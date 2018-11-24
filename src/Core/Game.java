@@ -40,9 +40,6 @@ public class Game extends Canvas {
     private boolean _pause;
     private static final int SCALE = 3;
     public static final int BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
-    public static final int GAME_SIZE = ApplicationSetting.GAME_SIZE;
-    public static final int WIDTH = ApplicationSetting.WIDTH;
-    public static final int HEIGHT = ApplicationSetting.HEIGHT;
 
     private Renderer render;
 
@@ -88,9 +85,16 @@ public class Game extends Canvas {
     }
 
     public void initialize() {
-        _levelLoader.loadLevel("Data/Levels/level1.txt",GAME_SIZE);
+        try {
+            _levelLoader.loadLevel("Data/Levels","level1.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         initEntities();
         gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
+        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities));
+        gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
     }
 
     private void initEntities() {

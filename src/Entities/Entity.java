@@ -13,6 +13,7 @@ For non-static Objects (Players and Enemies) load the BufferedImages of the Obje
  */
 
 public abstract class Entity {
+    protected boolean collidable;
     protected boolean dead = false, done = false;
     protected int posX, posY;
 
@@ -31,4 +32,7 @@ public abstract class Entity {
 
     public boolean isDead() { return this.dead; }
     public boolean isDone() { return this.done; }
+
+    public boolean isCollidable() { return this.collidable; }
+    public void setCollidable(boolean set) { this.collidable = set; }
 }
