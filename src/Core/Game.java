@@ -101,7 +101,7 @@ public class Game extends Canvas {
         initEntities();
 
         this.camera = new Camera(gameEntities, settings);
-        this.render = new Renderer(gameEntities, camera);
+        this.render = new Renderer(gameEntities, camera, settings);
 
         gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
         gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities));

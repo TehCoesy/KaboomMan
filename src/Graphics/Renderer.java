@@ -11,6 +11,7 @@ import Container.GameEntities;
 import States.ApplicationSetting;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,18 @@ public class Renderer {
 
     private Vector2i translation;
 
-    private int WIDTH = ApplicationSetting.WIDTH, HEIGHT = ApplicationSetting.HEIGHT;
+    private int WIDTH ,HEIGHT;
     //Sprites
     private List<Sprite> staticSprite = new ArrayList<>();
+    private BufferedImage grassSprite = SpriteBuilder.getSpriteImage("Data/Sprite/grass.png");
 
-    public Renderer(GameEntities gameEntities, Camera camera) {
+    public Renderer(GameEntities gameEntities, Camera camera, ApplicationSetting setting) {
         this.translation = new Vector2i();
         this.gameEntities = gameEntities;
         this.camera = camera;
+
+        this.WIDTH = setting.BLOCK_WIDTH;
+        this.HEIGHT = setting.BLOCK_HEIGHT;
 
         BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
         initializeStatics();
@@ -54,8 +59,11 @@ public class Renderer {
     }
 
     private void drawBackground(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(0,0,WIDTH,HEIGHT);
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int k = 0; k < WIDTH; k++) {
+                g.drawImage(grassSprite, k * BLOCK_SIZE + translation.getX(), i * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+            }
+        }
     }
 
     private void renderStatics(Graphics g) {
