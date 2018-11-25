@@ -6,10 +6,7 @@ import Core.Game;
 import Core.Vector2i;
 import Entities.Bomb;
 import Entities.Enemies.Enemy;
-import Entities.Statics.Brick;
-import Entities.Statics.Portal;
-import Entities.Statics.StaticEntity;
-import Entities.Statics.Wall;
+import Entities.Statics.*;
 import Container.GameEntities;
 import States.ApplicationSetting;
 
@@ -47,6 +44,7 @@ public class Renderer {
         renderBombs(g);
         renderExplosion(g);
         renderEnemies(g);
+        renderPortal(g);
         g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + translation.getX(),gameEntities.player.getY() + translation.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
@@ -69,8 +67,6 @@ public class Renderer {
                 g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
             } else if (entity instanceof Brick) {
                 g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
-            } else if (entity instanceof Portal) {
-                g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
     }
@@ -106,6 +102,22 @@ public class Renderer {
             g.drawImage(enemy.getSprite(), enemy.getX() + translation.getX(), enemy.getY() + translation.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
         }
     }
+
+    private void renderPortal(Graphics g) {
+        Portal entity = gameEntities.portal;
+        g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+    }
+
+    private void renderPowerUps(Graphics g) {
+        for (PowerUp entity : gameEntities.powerUps) {
+            g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+        }
+    }
+
+    private void checkOutOfBounds() {
+
+    }
+
     public void pauseScreen() {
 
     }

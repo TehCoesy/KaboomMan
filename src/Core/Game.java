@@ -17,6 +17,8 @@ import Container.GameEntities;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -51,21 +53,12 @@ public class Game extends Canvas {
     public PlayerState playerState = new PlayerState();
 
     //ENTITIES
-    public GameEntities gameEntities = new GameEntities();
+    public GameEntities gameEntities;
     public Player player;
 
 
     public Game(Keyboard key) {
         this.keyboard = key;
-        this.player = gameEntities.player;
-
-        this.camera = new Camera(gameEntities, settings);
-        this.render = new Renderer(gameEntities, camera);
-
-        this.settings.BLOCK_WIDTH = gameEntities.gameSize.getX();
-        this.settings.BLOCK_HEIGHT = gameEntities.gameSize.getY();
-
-
 
         setFocusable(true);
     }
@@ -96,20 +89,31 @@ public class Game extends Canvas {
 
     public void initialize() {
         try {
-            _levelLoader.loadLevel("Data/Levels","level1.txt");
+            _levelLoader.loadLevel("level1.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         initEntities();
+
+        this.camera = new Camera(gameEntities, settings);
+        this.render = new Renderer(gameEntities, camera);
+
         gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
         gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities));
         gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
     }
 
     private void initEntities() {
-        player.setPosition(BLOCK_SIZE,BLOCK_SIZE);
-        gameEntities.staticEntities = _levelLoader.getStatics();
+        gameEntities = _levelLoader.getEntities();
+        settings = _levelLoader.getSettings();
+
+        player = gameEntities.player;
+        player.setGame(gameEntities);
     }
 
 

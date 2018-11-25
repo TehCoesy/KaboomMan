@@ -3,10 +3,7 @@ package Level;
 import Container.GameEntities;
 import Entities.*;
 import Entities.Enemies.Enemy;
-import Entities.Statics.Brick;
-import Entities.Statics.Portal;
-import Entities.Statics.StaticEntity;
-import Entities.Statics.Wall;
+import Entities.Statics.*;
 import States.ApplicationSetting;
 
 import java.io.BufferedReader;
@@ -16,19 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
+    private String _filePath = "Data/Levels/";
+    private String _fileName;
+
     private GameEntities gameEntities;
     private ApplicationSetting settings;
-    private List<StaticEntity> statics = new ArrayList<>();
-    private Player player;
-    private List<Enemy> enemies = new ArrayList<>();
 
-    public void loadLevel(String path, String level) throws Exception {
+    private List<StaticEntity> statics;
+    private List<Enemy> enemies;
+    private List<PowerUp> powerUps;
+
+    public void loadLevel(String level) throws Exception{
+        this._fileName = level;
+
         gameEntities = new GameEntities();
+        settings = new ApplicationSetting();
+
+        statics = gameEntities.staticEntities;
+        enemies = gameEntities.enemies;
+        powerUps = gameEntities.powerUps;
 
         FileReader fileReader = null;
         BufferedReader reader = null;
 
-        fileReader = new FileReader(path + "\\" + level);
+        fileReader = new FileReader(_filePath + _fileName);
         reader = new BufferedReader(fileReader);
 
         String line = null;
@@ -42,7 +50,8 @@ public class LevelLoader {
         int GAME_HEIGHT = Integer.parseInt(token[0]);
         int GAME_WIDTH = Integer.parseInt(token[1]);
 
-        gameEntities.gameSize.set(GAME_WIDTH,GAME_HEIGHT);
+        this.settings.BLOCK_HEIGHT = GAME_HEIGHT;
+        this.settings.BLOCK_WIDTH = GAME_WIDTH;
 
         for (int i = 0; i < GAME_HEIGHT; i++) {
             line = reader.readLine();
@@ -51,12 +60,12 @@ public class LevelLoader {
                 getEntity(input, i, k);
             }
         }
+
+        validateMap();
     }
 
-    public List<StaticEntity> getStatics() {
-        return this.statics;
-    }
-    public List<Enemy> getEnemies() { return this.enemies; }
+    public GameEntities getEntities() { return this.gameEntities; }
+    public ApplicationSetting getSettings() { return this.settings; }
 
     private void getEntity(char input, int posY, int posX) {
         switch (input) {
@@ -73,12 +82,38 @@ public class LevelLoader {
                 return;
             }
             case 'P': {
-                Portal portal = new Portal();
-                portal.setPosition(posX, posY);
-                statics.add(portal);
+                gameEntities.portal = new Portal();
+                gameEntities.portal.setPosition(posX, posY);
+                return;
+            }
+            case 'C': {
+                gameEntities.player = new Player(null);
+                gameEntities.player.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 return;
             }
             default: return;
+        }
+    }
+
+    private void validateMap() throws Exception {
+        if (gameEntities.player == null) {
+            throw new Exception("LevelLoader: (" + _fileName + ") Player not found on Map.");
+        }
+
+        if (gameEntities.portal == null) {
+            throw new Exception("LevelLoader: (" + _fileName + ") Portal not found on Map.");
+        }
+
+        if (statics.size() == 0) {
+            System.out.println("LevelLoader: (WARNING) (" + _fileName + ") StaticEntities List is empty.");
+        }
+
+        if (enemies.size() == 0) {
+            System.out.println("LevelLoader: (WARNING) (" + _fileName + ") Enemies List is empty");
+        }
+
+        if (powerUps.size() == 0) {
+            System.out.println("LevelLoader: (WARNING) (" + _fileName + ") PowerUps List is empty");
         }
     }
 }
