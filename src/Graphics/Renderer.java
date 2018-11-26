@@ -40,7 +40,11 @@ public class Renderer {
     }
 
     public void renderGame(Graphics g) {
-        this.translation = camera.getTranslation();
+        if (camera != null) {
+            this.translation = camera.getTranslation();
+        } else {
+            this.translation.set(0,0);
+        }
         g.clearRect(0,0, WIDTH, HEIGHT);
 
         drawBackground(g);
@@ -113,6 +117,11 @@ public class Renderer {
 
     private void renderPortal(Graphics g) {
         Portal entity = gameEntities.portal;
+
+        if (entity == null) {
+            return;
+        }
+
         g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
     }
 

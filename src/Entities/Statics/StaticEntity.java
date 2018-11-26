@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 public class StaticEntity extends Entity {
     String type;
 
+    protected boolean collidable = true;
+
     @Override
     public void update() {
 
@@ -21,4 +23,7 @@ public class StaticEntity extends Entity {
     public void kill() {
 
     }
+
+    public boolean isCollidable() { return this.collidable; }
+    public void setCollidable(boolean collidable) { this.collidable = collidable; }
 }

@@ -19,9 +19,9 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //GAME PARAMETER
     private int BLOCK_SIZE;
 
-    public void setGame(GameEntities gameEntities) {
+    public void setGame(GameEntities gameEntities, ApplicationSetting setting) {
         this.gameEntities = gameEntities;
-        this.BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
+        this.BLOCK_SIZE = setting.BLOCK_SIZE;
     }
 
     //Collision
@@ -79,10 +79,10 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
         int n = staticEntities.size();
         for (int i = 0; i < n; i++) {
             StaticEntity element = staticEntities.get(i);
-            if (posX + BLOCK_SIZE - TOLERANCE <= element.posX * 65 || posX >= element.posX * 65 + BLOCK_SIZE - TOLERANCE) {
+            if (posX + BLOCK_SIZE - TOLERANCE <= element.posX * BLOCK_SIZE || posX >= element.posX * BLOCK_SIZE + BLOCK_SIZE - TOLERANCE) {
                 continue;
             }
-            if (posY + BLOCK_SIZE - TOLERANCE <= element.posY * 65 || posY >= element.posY * 65 + BLOCK_SIZE - TOLERANCE) {
+            if (posY + BLOCK_SIZE - TOLERANCE <= element.posY * BLOCK_SIZE || posY >= element.posY * BLOCK_SIZE + BLOCK_SIZE - TOLERANCE) {
                 continue;
             }
             return false;

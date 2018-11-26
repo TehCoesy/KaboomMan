@@ -40,8 +40,7 @@ public class Game extends Canvas {
 
     //GAME PARAMETERS
     private boolean _pause;
-    private static final int SCALE = 3;
-    public static final int BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
+    public static int BLOCK_SIZE;
 
     private ApplicationSetting settings = new ApplicationSetting();
     private Camera camera;
@@ -49,6 +48,7 @@ public class Game extends Canvas {
     private Renderer render;
 
     //GAMEPLAY
+    private boolean canPlaceBomb = true , gameOver;
     int tickCounter = 0;
     public PlayerState playerState = new PlayerState();
 
@@ -59,7 +59,6 @@ public class Game extends Canvas {
 
     public Game(Keyboard key) {
         this.keyboard = key;
-
         setFocusable(true);
     }
 
@@ -103,17 +102,19 @@ public class Game extends Canvas {
         this.camera = new Camera(gameEntities, settings);
         this.render = new Renderer(gameEntities, camera, settings);
 
-        gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
-        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities));
-        gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities));
+        gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
+        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities, settings));
+        gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
     }
 
     private void initEntities() {
         gameEntities = _levelLoader.getEntities();
         settings = _levelLoader.getSettings();
 
+        this.BLOCK_SIZE = settings.BLOCK_SIZE;
+        
         player = gameEntities.player;
-        player.setGame(gameEntities);
+        player.setGame(gameEntities, settings);
     }
 
 
@@ -230,6 +231,12 @@ public class Game extends Canvas {
         }
 
         if (keyboard.getSpace()) {
+            placeBomb();
+        }
+    }
+
+    private void placeBomb() {
+        if (canPlaceBomb) {
             Bomb bomb = new Bomb();
             Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
