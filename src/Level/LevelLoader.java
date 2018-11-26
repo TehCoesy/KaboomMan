@@ -86,6 +86,7 @@ public class LevelLoader {
             case 'P': {
                 gameEntities.portal = new Portal();
                 gameEntities.portal.setPosition(posX, posY);
+                gameEntities.staticEntities.add(gameEntities.portal);
                 return;
             }
             case 'C': {

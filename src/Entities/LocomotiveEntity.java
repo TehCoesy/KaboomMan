@@ -80,6 +80,10 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
         int n = staticEntities.size();
         for (int i = 0; i < n; i++) {
             StaticEntity element = staticEntities.get(i);
+            if (!element.isCollidable()) {
+                continue;
+            }
+
             if (posX + BLOCK_SIZE - TOLERANCE <= element.posX * BLOCK_SIZE || posX >= element.posX * BLOCK_SIZE + BLOCK_SIZE - TOLERANCE) {
                 continue;
             }

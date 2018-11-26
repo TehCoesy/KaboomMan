@@ -15,6 +15,7 @@ public class Portal extends StaticEntity {
     @Override
     public void kill() {
         this.dead = true;
+        this.collidable = false;
     }
 
     @Override
