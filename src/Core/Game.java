@@ -112,9 +112,9 @@ public class Game extends Canvas {
         settings = _levelLoader.getSettings();
 
         this.BLOCK_SIZE = settings.BLOCK_SIZE;
-        
+
         player = gameEntities.player;
-        player.setGame(gameEntities, settings);
+        //player.setGame(gameEntities, settings);
     }
 
 

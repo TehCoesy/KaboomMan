@@ -49,9 +49,9 @@ public class LevelLoader {
 
         int GAME_HEIGHT = Integer.parseInt(token[1]);
         int GAME_WIDTH = Integer.parseInt(token[2]);
-        int BLOCK_SIZE = Integer.parseInt(token[0]);
+        int SCALE = Integer.parseInt(token[0]);
 
-        this.settings.BLOCK_SIZE = BLOCK_SIZE;
+        this.settings.setScale(SCALE);
         this.settings.BLOCK_HEIGHT = GAME_HEIGHT;
         this.settings.BLOCK_WIDTH = GAME_WIDTH;
 
@@ -89,7 +89,7 @@ public class LevelLoader {
                 return;
             }
             case 'C': {
-                gameEntities.player = new Player(null, null);
+                gameEntities.player = new Player(gameEntities, settings);
                 gameEntities.player.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 return;
             }
