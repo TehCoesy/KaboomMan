@@ -204,6 +204,15 @@ public class Game extends Canvas {
         return null;
     }
 
+    private boolean findBomb(int posX, int posY) {
+        for (Bomb bomb : gameEntities.bombs) {
+            if (bomb.getX() == posX && bomb.getY() == posY) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void getKey() {
         if (keyboard.C_UP()) {
             player.moveUp();
@@ -236,9 +245,16 @@ public class Game extends Canvas {
     }
 
     private void placeBomb() {
-        if (canPlaceBomb) {
+        Vector2i position = player.getRelativePosition();
+
+        if (gameEntities.bombs.size() >= playerState.BOMB_COUNT) {
+            canPlaceBomb = false;
+        } else {
+            canPlaceBomb = true;
+        }
+
+        if (!findBomb(position.getX(), position.getY()) && canPlaceBomb) {
             Bomb bomb = new Bomb();
-            Vector2i position = player.getRelativePosition();
             bomb.setPosition(position.getX(),position.getY());
             gameEntities.bombs.add(bomb);
         }

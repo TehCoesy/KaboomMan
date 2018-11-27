@@ -127,6 +127,11 @@ public class Renderer {
 
     private void renderPowerUps(Graphics g) {
         for (PowerUp entity : gameEntities.powerUps) {
+            if (entity.isDead()) {
+                if (entity.getType() == "BOMB_POWER") {
+
+                }
+            }
             g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
