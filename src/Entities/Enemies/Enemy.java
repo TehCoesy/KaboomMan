@@ -19,14 +19,10 @@ public class Enemy extends LocomotiveEntity {
 
     @Override
     public void update() {
-        if (GLOBAL_TICKS % 60 == 0) {
+        if (GLOBAL_TICKS % 15 == 0) {
             Random rand = new Random();
             orient = getRandom(rand,0,3);
-            if (!moveEnemy) {
                 moveEnemy = true;
-            } else {
-                moveEnemy = false;
-            }
         }
 
         if (moveEnemy) {

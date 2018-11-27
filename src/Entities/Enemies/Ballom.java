@@ -9,6 +9,7 @@ public class Ballom extends Enemy {
     public Ballom(int posX, int posY, GameEntities gameEntities, ApplicationSetting setting) {
         this.setGame(gameEntities, setting);
         this.posX = posX; this.posY = posY;
+        this.setTolerance(0);
         this.setUpSprite(SpriteBuilder.getBalloomSprite0());
         this.setDownSprite(SpriteBuilder.getBalloomSprite1());
         this.setLeftSprite(SpriteBuilder.getBalloomSprite2());
