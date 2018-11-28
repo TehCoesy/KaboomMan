@@ -64,6 +64,8 @@ public class LevelLoader {
         }
 
         validateMap();
+
+        gameEntities.staticEntities.addAll(gameEntities.powerUps);
     }
 
     public GameEntities getEntities() { return this.gameEntities; }
@@ -94,6 +96,24 @@ public class LevelLoader {
                 gameEntities.player.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 return;
             }
+            case 'b': {
+                PowerUp POWERUP = new PowerUp("BOMB_COUNT");
+                POWERUP.setPosition(posX, posY);
+                gameEntities.powerUps.add(POWERUP);
+                return;
+            }
+            case 'f': {
+                PowerUp POWERUP = new PowerUp("BOMB_SIZE");
+                POWERUP.setPosition(posX, posY);
+                gameEntities.powerUps.add(POWERUP);
+                return;
+            }
+            case 's': {
+                PowerUp POWERUP = new PowerUp("SPEED");
+                POWERUP.setPosition(posX, posY);
+                gameEntities.powerUps.add(POWERUP);
+                return;
+            }
             default: return;
         }
     }
@@ -117,6 +137,8 @@ public class LevelLoader {
 
         if (powerUps.size() == 0) {
             System.out.println("LevelLoader: (WARNING) (" + _fileName + ") PowerUps List is empty");
+        } else {
+            System.out.println(powerUps.size());
         }
     }
 }

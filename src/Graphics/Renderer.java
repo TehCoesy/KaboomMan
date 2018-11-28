@@ -1,8 +1,5 @@
 package Graphics;
 
-//TODO: Transfer rendering from Game.java
-
-import Core.Game;
 import Core.Vector2i;
 import Entities.Bomb;
 import Entities.Enemies.Enemy;
@@ -26,6 +23,7 @@ public class Renderer {
     //Sprites
     private List<Sprite> staticSprite = new ArrayList<>();
     private BufferedImage grassSprite = SpriteBuilder.getSpriteImage("Data/Sprite/grass.png");
+    private List<Sprite> powerUpSprite = new ArrayList<>();
 
     public Renderer(GameEntities gameEntities, Camera camera, ApplicationSetting setting) {
         this.translation = new Vector2i();
@@ -35,8 +33,8 @@ public class Renderer {
         this.WIDTH = setting.BLOCK_WIDTH;
         this.HEIGHT = setting.BLOCK_HEIGHT;
 
-        BLOCK_SIZE = ApplicationSetting.BLOCK_SIZE;
-        initializeStatics();
+        BLOCK_SIZE = setting.BLOCK_SIZE;
+        initializeSprites();
     }
 
     public void renderGame(Graphics g) {
@@ -54,12 +52,17 @@ public class Renderer {
         renderExplosion(g);
         renderEnemies(g);
         renderPortal(g);
+        renderPowerUps(g);
         g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + translation.getX(),gameEntities.player.getY() + translation.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
-    private void initializeStatics() {
+    private void initializeSprites() {
         staticSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/wall.png")));
         staticSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/brick.png")));
+
+        powerUpSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/powerup_speed.png")));
+        powerUpSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/powerup_flames.png")));
+        powerUpSprite.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/powerup_bombs.png")));
     }
 
     private void drawBackground(Graphics g) {
@@ -128,11 +131,16 @@ public class Renderer {
     private void renderPowerUps(Graphics g) {
         for (PowerUp entity : gameEntities.powerUps) {
             if (entity.isDead()) {
-                if (entity.getType() == "BOMB_POWER") {
-
+                if (entity.getType() == "BOMB_COUNT") {
+                    g.drawImage(powerUpSprite.get(2).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                } else if (entity.getType() == "BOMB_SIZE") {
+                    g.drawImage(powerUpSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                } else if (entity.getType() == "SPEED") {
+                    g.drawImage(powerUpSprite.get(0).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
                 }
+            } else {
+                g.drawImage(staticSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
             }
-            g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 
