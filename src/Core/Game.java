@@ -6,6 +6,7 @@ import Container.MyFrame;
 import Entities.*;
 import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
+import Entities.Statics.PowerUp;
 import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
@@ -114,7 +115,6 @@ public class Game extends Canvas {
         this.BLOCK_SIZE = settings.BLOCK_SIZE;
 
         player = gameEntities.player;
-        //player.setGame(gameEntities, settings);
     }
 
 
@@ -139,6 +139,10 @@ public class Game extends Canvas {
     public void updateGame() {
 
         getKills();
+        getPowerUp();
+        player.setVelocity(playerState.PLAYER_SPEED);
+
+        System.out.println(player.getVelocity());
 
         for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
@@ -171,6 +175,23 @@ public class Game extends Canvas {
                     if (bomb.getX() == flame.getX() && bomb.getY() == flame.getY()) {
                         bomb.kill();
                     }
+                }
+            }
+        }
+    }
+
+    private void getPowerUp() {
+        Vector2i player = gameEntities.player.getRelativePosition();
+
+        for (PowerUp powerUp : gameEntities.powerUps) {
+            if (powerUp.getX() == player.getX() && powerUp.getY() == player.getY()) {
+                String effect = powerUp.eat();
+                if (effect == "BOMB_COUNT") {
+                    playerState.BOMB_COUNT++;
+                } else if (effect == "BOMB_SIZE") {
+                    playerState.BOMB_POWER++;
+                } else if (effect == "SPEED") {
+                    playerState.PLAYER_SPEED++;
                 }
             }
         }

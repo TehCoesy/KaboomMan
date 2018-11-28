@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class LocomotiveEntity extends AnimatedEntity {
     protected GameEntities gameEntities;
-
+    protected ApplicationSetting setting;
     //ENTITY PARAMETER
     protected int VEL = 1;
     protected int TOLERANCE = 10; // Collision tolerances
@@ -21,6 +21,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
 
     public void setGame(GameEntities gameEntities, ApplicationSetting setting) {
         this.gameEntities = gameEntities;
+        this.setting = setting;
         this.BLOCK_SIZE = setting.BLOCK_SIZE;
         this.VEL = this.VEL * setting.SCALE;
     }
@@ -162,4 +163,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     }
 
     public int getVelocity() { return this.VEL; }
+    public void setVelocity(int VEL) {
+        this.VEL = VEL * setting.SCALE;
+    }
 }
