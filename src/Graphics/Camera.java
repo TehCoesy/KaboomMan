@@ -4,12 +4,12 @@ package Graphics;
 import Container.GameEntities;
 import Core.Vector2i;
 import Entities.Player;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 public class Camera {
     private Vector2i translation = new Vector2i();
     private GameEntities gameEntities;
-    private ApplicationSetting setting;
+    private GameSetting setting;
     private Player player;
 
     //PARAMETERS
@@ -17,7 +17,7 @@ public class Camera {
     private Vector2i WINDOW_SIZE;
     private Vector2i CAMERA_LOCATION;
 
-    public Camera(GameEntities gameEntities, ApplicationSetting setting) {
+    public Camera(GameEntities gameEntities, GameSetting setting) {
         this.setting = setting;
         this.gameEntities = gameEntities;
         this.player = gameEntities.player;

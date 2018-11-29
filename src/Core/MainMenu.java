@@ -12,13 +12,13 @@ import java.util.List;
 
 import Container.GameEntities;
 import Level.LevelLoader;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 public class MainMenu extends MyCanvas {
     //BACKGROUND
     private GameEntities backgroundEntities;
     private Renderer backgroundRenderer;
-    private ApplicationSetting settings;
+    private GameSetting settings;
 
     private int currentTick = 0;
     private BufferedImage pusheen;

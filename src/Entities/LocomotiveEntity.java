@@ -1,12 +1,11 @@
 package Entities;
 
-import Container.GameEntities;
 import Core.GameOverseer;
 import Core.Vector2i;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 public abstract class LocomotiveEntity extends AnimatedEntity {
-    protected ApplicationSetting setting;
+    protected GameSetting setting;
     protected GameOverseer overseer;
 
     //ENTITY PARAMETER
@@ -17,7 +16,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //GAME PARAMETER
     private int BLOCK_SIZE;
 
-    public void setGame(GameOverseer gameOverseer, ApplicationSetting setting) {
+    public void setGame(GameOverseer gameOverseer, GameSetting setting) {
         this.overseer = gameOverseer;
         this.setting = setting;
         this.BLOCK_SIZE = setting.BLOCK_SIZE;

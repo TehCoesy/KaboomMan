@@ -5,7 +5,7 @@ import Entities.Bomb;
 import Entities.Enemies.Enemy;
 import Entities.Statics.*;
 import Container.GameEntities;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +15,7 @@ import java.util.List;
 public class Renderer {
     int BLOCK_SIZE;
     private GameEntities gameEntities;
-    private ApplicationSetting setting;
+    private GameSetting setting;
     private Camera camera;
 
     private Vector2i translation;
@@ -26,7 +26,7 @@ public class Renderer {
     private BufferedImage grassSprite = SpriteBuilder.getSpriteImage("Data/Sprite/grass.png");
     private List<Sprite> powerUpSprite = new ArrayList<>();
 
-    public Renderer(GameEntities gameEntities, Camera camera, ApplicationSetting setting) {
+    public Renderer(GameEntities gameEntities, Camera camera, GameSetting setting) {
         this.translation = new Vector2i();
         this.gameEntities = gameEntities;
         this.camera = camera;

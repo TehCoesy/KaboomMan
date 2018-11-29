@@ -1,17 +1,14 @@
 package Level;
 
 import Container.GameEntities;
-import Core.GameOverseer;
 import Entities.*;
 import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
 import Entities.Statics.*;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
@@ -19,7 +16,7 @@ public class LevelLoader {
     private String _fileName;
 
     private GameEntities gameEntities;
-    private ApplicationSetting settings;
+    private GameSetting settings;
 
     private List<StaticEntity> statics;
     private List<Enemy> enemies;
@@ -29,7 +26,7 @@ public class LevelLoader {
         this._fileName = level;
 
         gameEntities = new GameEntities();
-        settings = new ApplicationSetting();
+        settings = new GameSetting();
 
         statics = gameEntities.staticEntities;
         enemies = gameEntities.enemies;
@@ -71,7 +68,7 @@ public class LevelLoader {
     }
 
     public GameEntities getEntities() { return this.gameEntities; }
-    public ApplicationSetting getSettings() { return this.settings; }
+    public GameSetting getSettings() { return this.settings; }
 
     private void getEntity(char input, int posY, int posX) {
         switch (input) {

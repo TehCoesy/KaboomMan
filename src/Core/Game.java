@@ -8,7 +8,7 @@ import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
 import Level.LevelLoader;
-import States.ApplicationSetting;
+import States.GameSetting;
 import States.PlayerState;
 import Container.GameEntities;
 
@@ -37,7 +37,7 @@ public class Game extends Canvas {
     private boolean _pause;
     public static int BLOCK_SIZE;
 
-    private ApplicationSetting settings = new ApplicationSetting();
+    private GameSetting settings = new GameSetting();
     private Camera camera;
 
     private Renderer render;

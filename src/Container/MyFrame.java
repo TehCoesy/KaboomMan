@@ -1,10 +1,8 @@
 package Container;
 
-import Core.Game;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 import javax.swing.*;
-import java.awt.*;
 
 //Creates and maintain the Window of the Game
 
@@ -26,7 +24,7 @@ public class MyFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        setTitle(ApplicationSetting.TITLE);
+        setTitle(GameSetting.TITLE);
 
         runLoop();
     }
