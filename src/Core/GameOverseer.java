@@ -26,6 +26,9 @@ public class GameOverseer {
 
     public void update() {
         getExplosionKills();
+        if (gameEntities.player.isDone()) {
+            game.gameOver();
+        }
     }
 
     public void getExplosionKills() {

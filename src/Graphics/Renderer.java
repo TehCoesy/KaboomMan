@@ -15,6 +15,7 @@ import java.util.List;
 public class Renderer {
     int BLOCK_SIZE;
     private GameEntities gameEntities;
+    private ApplicationSetting setting;
     private Camera camera;
 
     private Vector2i translation;
@@ -29,6 +30,7 @@ public class Renderer {
         this.translation = new Vector2i();
         this.gameEntities = gameEntities;
         this.camera = camera;
+        this.setting = setting;
 
         this.WIDTH = setting.BLOCK_WIDTH;
         this.HEIGHT = setting.BLOCK_HEIGHT;
@@ -142,6 +144,19 @@ public class Renderer {
                 g.drawImage(staticSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
+    }
+
+    public void gameOver(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.BLACK);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+        g2d.fillRect(0,235, 1000, 80);
+
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        g2d.setColor(Color.red);
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+        g2d.drawString("You Died", 380,300);
     }
 
     private void checkOutOfBounds() {

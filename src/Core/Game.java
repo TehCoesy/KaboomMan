@@ -1,16 +1,12 @@
 package Core;
 
 import Audio.AudioPlayer;
-import Audio.SoundEffect;
-import Container.MyFrame;
 import Entities.*;
-import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
 import Entities.Statics.PowerUp;
 import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
-import IO.Mouse;
 import Level.LevelLoader;
 import States.ApplicationSetting;
 import States.PlayerState;
@@ -20,8 +16,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
 
 //Governs and runs the Game
 //Contain the gameLoop;
@@ -49,7 +43,7 @@ public class Game extends Canvas {
     private Renderer render;
 
     //GAMEPLAY
-    private boolean canPlaceBomb = true , gameOver;
+    private boolean canPlaceBomb = true , gameOver, gameCompleted;
     int tickCounter = 0;
     public PlayerState playerState = new PlayerState();
 
@@ -132,7 +126,15 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
+        g.clearRect(0,0, WIDTH, HEIGHT);
+
+
+
         render.renderGame(g);
+
+        if (gameOver) {
+            render.gameOver(g);
+        }
 
         g.dispose();
         _strategy.show();
@@ -140,6 +142,9 @@ public class Game extends Canvas {
 
 
     public void updateGame() {
+        if (gameOver) {
+            return;
+        }
 
         overseer.update();
         getPowerUp();
@@ -197,6 +202,10 @@ public class Game extends Canvas {
         for (Enemy enemy : gameEntities.enemies) {
             enemy.tick();
         }
+    }
+
+    public void gameOver() {
+        this.gameOver = true;
     }
 
     private StaticEntity findStatic(int posX, int posY) {
