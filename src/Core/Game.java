@@ -141,9 +141,7 @@ public class Game extends Canvas {
         getKills();
         getPowerUp();
         player.setVelocity(playerState.PLAYER_SPEED);
-
         System.out.println(player.getVelocity());
-
         for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
             if (bomb.isDead()) {
@@ -153,6 +151,7 @@ public class Game extends Canvas {
         }
 
         for (Enemy enemy : gameEntities.enemies) {
+            enemy.setVelocity(1);
             enemy.update();
         }
 

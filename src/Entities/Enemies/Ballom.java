@@ -6,6 +6,7 @@ import Graphics.SpriteBuilder;
 import States.ApplicationSetting;
 
 public class Ballom extends Enemy {
+    private AI ai = new AI(null, null);
     public Ballom(int posX, int posY, GameEntities gameEntities, ApplicationSetting setting) {
         this.setGame(gameEntities, setting);
         this.posX = posX; this.posY = posY;
@@ -17,4 +18,7 @@ public class Ballom extends Enemy {
         this.setDeadSprite(SpriteBuilder.getMobDeadSprite());
     }
 
+    public void updateAI() {
+
+    }
 }
