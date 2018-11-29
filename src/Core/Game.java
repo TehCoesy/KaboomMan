@@ -8,6 +8,7 @@ import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
 import Level.LevelLoader;
+import States.ApplicationSetting;
 import States.GameSetting;
 import States.PlayerState;
 import Container.GameEntities;
@@ -37,10 +38,7 @@ public class Game extends Canvas {
     private boolean _pause;
     public static int BLOCK_SIZE;
 
-    private GameSetting settings = new GameSetting();
-    private Camera camera;
 
-    private Renderer render;
 
     //GAMEPLAY
     private boolean canPlaceBomb = true , gameOver, gameCompleted;
@@ -48,9 +46,13 @@ public class Game extends Canvas {
     public PlayerState playerState = new PlayerState();
 
     //ENTITIES
-    public GameEntities gameEntities;
-    public Player player;
+    private GameEntities gameEntities;
+    private Player player;
     private GameOverseer overseer;
+    private GameSetting gameSetting = new GameSetting();
+    private ApplicationSetting applicationSetting = new ApplicationSetting();
+    private Camera camera;
+    private Renderer render;
 
 
     public Game(Keyboard key) {
@@ -96,20 +98,20 @@ public class Game extends Canvas {
         initEntities();
 
 
-        this.camera = new Camera(gameEntities, settings);
-        this.render = new Renderer(gameEntities, camera, settings);
+        this.camera = new Camera(gameEntities, gameSetting);
+        this.render = new Renderer(gameEntities, camera, gameSetting, applicationSetting);
     }
 
     private void initEntities() {
         gameEntities = _levelLoader.getEntities();
-        settings = _levelLoader.getSettings();
+        gameSetting = _levelLoader.getSettings();
         overseer = new GameOverseer();
 
-        overseer.set(gameEntities, settings, this);
+        overseer.set(gameEntities, gameSetting, this);
 
-        gameEntities.subscribeAll(overseer, settings);
+        gameEntities.subscribeAll(overseer, gameSetting);
 
-        this.BLOCK_SIZE = settings.BLOCK_SIZE;
+        this.BLOCK_SIZE = gameSetting.BLOCK_SIZE;
 
         player = gameEntities.player;
     }
@@ -130,6 +132,7 @@ public class Game extends Canvas {
 
 
         if (!gameCompleted) {
+            render.drawScoreBar(g, gameSetting.CURRENT_SCORE, gameSetting.CURRENT_LIVES);
             render.renderGame(g);
         } else {
             render.endScreen(g);

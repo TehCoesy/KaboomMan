@@ -79,7 +79,7 @@ public class MainMenu extends MyCanvas {
         backgroundEntities = _loader.getEntities();
         settings = _loader.getSettings();
 
-        backgroundRenderer = new Renderer(backgroundEntities,null, settings);
+        backgroundRenderer = new Renderer(backgroundEntities,null, settings, null);
     }
     public void tick() {
         currentTick++;

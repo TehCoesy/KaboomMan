@@ -5,6 +5,7 @@ import Entities.Bomb;
 import Entities.Enemies.Enemy;
 import Entities.Statics.*;
 import Container.GameEntities;
+import States.ApplicationSetting;
 import States.GameSetting;
 
 import java.awt.*;
@@ -13,29 +14,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer {
-    int BLOCK_SIZE;
     private GameEntities gameEntities;
-    private GameSetting setting;
+    private GameSetting gameSetting;
+    private ApplicationSetting applicationSetting;
     private Camera camera;
 
+    //Rendering Parameters
+    private int BLOCK_SIZE;
     private Vector2i translation;
-
     private int WIDTH ,HEIGHT;
-    //Sprites
+    private int WINDOW_WIDTH, WINDOW_HEIGHT;
+    private int modifierX, modifierY;
+
+    //Ready-made Sprites
     private List<Sprite> staticSprite = new ArrayList<>();
     private BufferedImage grassSprite = SpriteBuilder.getSpriteImage("Data/Sprite/grass.png");
     private List<Sprite> powerUpSprite = new ArrayList<>();
 
-    public Renderer(GameEntities gameEntities, Camera camera, GameSetting setting) {
+    public Renderer(GameEntities gameEntities, Camera camera, GameSetting gameSetting, ApplicationSetting applicationSetting) {
         this.translation = new Vector2i();
         this.gameEntities = gameEntities;
         this.camera = camera;
-        this.setting = setting;
+        this.gameSetting = gameSetting;
 
-        this.WIDTH = setting.BLOCK_WIDTH;
-        this.HEIGHT = setting.BLOCK_HEIGHT;
+        if (applicationSetting == null) {
+            this.applicationSetting = new ApplicationSetting();
+        } else {
+            this.applicationSetting = applicationSetting;
+        }
 
-        BLOCK_SIZE = setting.BLOCK_SIZE;
+
+        this.WINDOW_WIDTH = applicationSetting.WINDOW_WIDTH;
+        this.WINDOW_HEIGHT = applicationSetting.WINDOW_HEIGHT;
+
+        this.WIDTH = gameSetting.BLOCK_WIDTH;
+        this.HEIGHT = gameSetting.BLOCK_HEIGHT;
+        this.BLOCK_SIZE = gameSetting.BLOCK_SIZE;
+
         initializeSprites();
     }
 
@@ -47,15 +62,18 @@ public class Renderer {
         }
         g.clearRect(0,0, WIDTH, HEIGHT);
 
+        modifierX = translation.getX() + gameSetting.GAME_SCREEN_OFFSET_X;
+        modifierY = translation.getY() + gameSetting.GAME_SCREEN_OFFSET_Y;
+
         drawBackground(g);
         renderStatics(g);
-        renderAnimated(g);
         renderBombs(g);
         renderExplosion(g);
         renderEnemies(g);
         renderPortal(g);
         renderPowerUps(g);
-        g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + translation.getX(),gameEntities.player.getY() + translation.getY(),BLOCK_SIZE,BLOCK_SIZE,null);
+
+        g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + modifierX,gameEntities.player.getY() + modifierY,BLOCK_SIZE,BLOCK_SIZE,null);
     }
 
     private void initializeSprites() {
@@ -70,7 +88,7 @@ public class Renderer {
     private void drawBackground(Graphics g) {
         for (int i = 0; i < HEIGHT; i++) {
             for (int k = 0; k < WIDTH; k++) {
-                g.drawImage(grassSprite, k * BLOCK_SIZE + translation.getX(), i * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                g.drawImage(grassSprite, k * BLOCK_SIZE + modifierX, i * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
     }
@@ -81,18 +99,10 @@ public class Renderer {
         for (int i = 0; i < n; i++) {
             StaticEntity entity = gameEntities.staticEntities.get(i);
             if (entity instanceof Wall) {
-                g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
+                g.drawImage(staticSprite.get(0).getSprite(),entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE,BLOCK_SIZE,null);
             } else if (entity instanceof Brick) {
-                g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE,null);
+                g.drawImage(staticSprite.get(1).getSprite(),entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE,BLOCK_SIZE,null);
             }
-        }
-    }
-
-    private void renderAnimated(Graphics g) {
-        int n = gameEntities.enemies.size();
-
-        for (int i = 0; i < n; i++) {
-            g.drawImage(gameEntities.enemies.get(i).getSprite(), gameEntities.enemies.get(i).getX() + translation.getX(),gameEntities.enemies.get(i).getY() + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 
@@ -101,7 +111,7 @@ public class Renderer {
 
         for (int i = 0; i < n; i++) {
             Bomb bomb = gameEntities.bombs.get(i);
-            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE + translation.getX(), bomb.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE,BLOCK_SIZE, null);
+            g.drawImage(bomb.getSprite(),bomb.getX() * BLOCK_SIZE + modifierX, bomb.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE,BLOCK_SIZE, null);
         }
     }
 
@@ -116,7 +126,7 @@ public class Renderer {
 
     private void renderEnemies(Graphics g) {
         for (Enemy enemy : gameEntities.enemies) {
-            g.drawImage(enemy.getSprite(), enemy.getX() + translation.getX(), enemy.getY() + translation.getY(), BLOCK_SIZE, BLOCK_SIZE,null);
+            g.drawImage(enemy.getSprite(), enemy.getX() + modifierX, enemy.getY() + modifierY, BLOCK_SIZE, BLOCK_SIZE,null);
         }
     }
 
@@ -127,21 +137,21 @@ public class Renderer {
             return;
         }
 
-        g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+        g.drawImage(entity.getSprite(), entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
     }
 
     private void renderPowerUps(Graphics g) {
         for (PowerUp entity : gameEntities.powerUps) {
             if (entity.isDead()) {
                 if (entity.getType() == "BOMB_COUNT") {
-                    g.drawImage(powerUpSprite.get(2).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                    g.drawImage(powerUpSprite.get(2).getSprite(), entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
                 } else if (entity.getType() == "BOMB_SIZE") {
-                    g.drawImage(powerUpSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                    g.drawImage(powerUpSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
                 } else if (entity.getType() == "SPEED") {
-                    g.drawImage(powerUpSprite.get(0).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                    g.drawImage(powerUpSprite.get(0).getSprite(), entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
             } else {
-                g.drawImage(staticSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + translation.getX(), entity.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+                g.drawImage(staticSprite.get(1).getSprite(), entity.getX() * BLOCK_SIZE + modifierX, entity.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
             }
         }
     }
@@ -170,7 +180,21 @@ public class Renderer {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 60));
         g2d.drawString("You Have Completed the Game!", 55,300);
+        g2d.dispose();
     }
+
+    public void drawScoreBar(Graphics g, int score, int lives) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, WINDOW_WIDTH, 50);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g2d.drawString("Score: " + score, 40, 30);
+        g2d.drawString("Lives: " + lives, 640, 30);
+    }
+
     private void checkOutOfBounds() {
 
     }

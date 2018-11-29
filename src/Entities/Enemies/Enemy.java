@@ -64,7 +64,9 @@ public class Enemy extends LocomotiveEntity {
 
     @Override
     public void kill() {
-        resetAnimation();
-        dead = true;
+        if (!isDead()) {
+            resetAnimation();
+            dead = true;
+        }
     }
 }
