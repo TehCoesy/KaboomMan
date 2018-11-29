@@ -143,7 +143,7 @@ public class Game extends Canvas {
 
         overseer.update();
         getPowerUp();
-        player.setVelocity(playerState.PLAYER_SPEED);
+        //player.setVelocity(playerState.PLAYER_SPEED);
 
         for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
@@ -174,7 +174,7 @@ public class Game extends Canvas {
                 } else if (effect == "BOMB_SIZE") {
                     playerState.BOMB_POWER++;
                 } else if (effect == "SPEED") {
-                    playerState.PLAYER_SPEED++;
+                    this.player.addVelocity(1);
                 }
             }
         }

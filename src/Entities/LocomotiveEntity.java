@@ -176,4 +176,7 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     public void setVelocity(int VEL) {
         this.VEL = VEL * setting.SCALE;
     }
+    public void addVelocity(int VEL) {
+        this.VEL += VEL;
+    }
 }

@@ -18,6 +18,7 @@ public class Player extends LocomotiveEntity {
 
     @Override
     public void kill() {
+        resetAnimation();
         dead = true;
     }
 }
