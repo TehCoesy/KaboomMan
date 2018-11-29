@@ -61,4 +61,9 @@ public class Enemy extends LocomotiveEntity {
             }; break;
         }
     }
+
+    @Override
+    public void kill() {
+        dead = true;
+    }
 }

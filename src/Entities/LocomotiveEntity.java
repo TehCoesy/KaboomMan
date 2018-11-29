@@ -1,16 +1,14 @@
 package Entities;
 
 import Container.GameEntities;
-import Core.Game;
+import Core.GameOverseer;
 import Core.Vector2i;
-import Entities.Statics.StaticEntity;
 import States.ApplicationSetting;
 
-import java.util.List;
-
 public abstract class LocomotiveEntity extends AnimatedEntity {
-    protected GameEntities gameEntities;
     protected ApplicationSetting setting;
+    protected GameOverseer overseer;
+
     //ENTITY PARAMETER
     protected int VEL = 1;
     protected int TOLERANCE = 10; // Collision tolerances
@@ -19,8 +17,8 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     //GAME PARAMETER
     private int BLOCK_SIZE;
 
-    public void setGame(GameEntities gameEntities, ApplicationSetting setting) {
-        this.gameEntities = gameEntities;
+    public void setGame(GameOverseer gameOverseer, ApplicationSetting setting) {
+        this.overseer = gameOverseer;
         this.setting = setting;
         this.BLOCK_SIZE = setting.BLOCK_SIZE;
         this.VEL = this.VEL * setting.SCALE;
@@ -28,78 +26,55 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
 
     //Collision
 
-    private void moveEntity(List<StaticEntity> staticEntities) {
+    private void moveEntity() {
         switch (ORIENTATION) {
             case 0: {
-                if (canMove(posX, posY + VEL,staticEntities)) {
+                if (!collide_down) {
                     posY += VEL;
                     if (collide_top) {
                         collide_top = false;
                     }
-                } else {
-                    collide_down = true;
                 }
                 break;
             }
             case 1: {
-                if (canMove(posX, posY - VEL,staticEntities)) {
+                if (!collide_top) {
                     posY -= VEL;
                     if (collide_down) {
                         collide_down = false;
                     }
-                } else {
-                    collide_top = true;
                 }
                 break;
             }
             case 2: {
-                if (canMove(posX - VEL, posY,staticEntities)) {
+                if (!collide_left) {
                     posX -= VEL;
                     if (collide_right) {
                         collide_right = false;
                     }
-                } else {
-                    collide_left = true;
                 }
                 break;
             }
             case 3: {
-                if (canMove(posX + VEL, posY,staticEntities)) {
+                if (!collide_right) {
                     posX += VEL;
                     if (collide_left) {
                         collide_left = false;
                     }
-                } else {
-                    collide_right = true;
                 }
                 break;
             }
         }
-    }
-
-    private boolean canMove(int posX, int posY, List<StaticEntity> staticEntities) {
-        int n = staticEntities.size();
-        for (int i = 0; i < n; i++) {
-            StaticEntity element = staticEntities.get(i);
-            if (!element.isCollidable()) {
-                continue;
-            }
-
-            if (posX + BLOCK_SIZE - TOLERANCE <= element.posX * BLOCK_SIZE || posX >= element.posX * BLOCK_SIZE + BLOCK_SIZE - TOLERANCE) {
-                continue;
-            }
-            if (posY + BLOCK_SIZE - TOLERANCE <= element.posY * BLOCK_SIZE || posY >= element.posY * BLOCK_SIZE + BLOCK_SIZE - TOLERANCE) {
-                continue;
-            }
-            return false;
-        }
-        return true;
     }
 
     //Movement
     private void move(int orientation) {
         this.ORIENTATION = orientation;
-        moveEntity(gameEntities.staticEntities);
+        if (!isDead()) {
+            if (overseer.requestMove(this)) {
+                moveEntity();
+            }
+        }
     }
 
     public Vector2i getRelativePosition() {
@@ -151,6 +126,15 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
         this.MOVING_3 = false;
     }
 
+    public void collide(int SIDE, boolean modifier) {
+        switch (SIDE) {
+            case 0: collide_down = modifier; break;
+            case 1: collide_top = modifier; break;
+            case 2: collide_left = modifier; break;
+            case 3: collide_right = modifier; break;
+        }
+    }
+
     public boolean moving() {
         if (MOVING_0 || MOVING_1 || MOVING_2 || MOVING_3) {
             return true;
@@ -161,8 +145,12 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
     public void setTolerance(int tolerance) {
         this.TOLERANCE = tolerance;
     }
+    public int getTolenrance() { return this.TOLERANCE; }
+
+    public int getOrientation() { return this.ORIENTATION; }
 
     public int getVelocity() { return this.VEL; }
+
     public void setVelocity(int VEL) {
         this.VEL = VEL * setting.SCALE;
     }

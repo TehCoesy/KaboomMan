@@ -56,6 +56,7 @@ public class Game extends Canvas {
     //ENTITIES
     public GameEntities gameEntities;
     public Player player;
+    private GameOverseer overseer;
 
 
     public Game(Keyboard key) {
@@ -100,17 +101,19 @@ public class Game extends Canvas {
 
         initEntities();
 
+
         this.camera = new Camera(gameEntities, settings);
         this.render = new Renderer(gameEntities, camera, settings);
-
-        gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
-        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities, settings));
-        gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
     }
 
     private void initEntities() {
         gameEntities = _levelLoader.getEntities();
         settings = _levelLoader.getSettings();
+        overseer = new GameOverseer();
+
+        overseer.set(gameEntities, settings, this);
+
+        gameEntities.subscribeAll(overseer, settings);
 
         this.BLOCK_SIZE = settings.BLOCK_SIZE;
 
@@ -142,8 +145,6 @@ public class Game extends Canvas {
         getPowerUp();
         player.setVelocity(playerState.PLAYER_SPEED);
 
-        System.out.println(player.getVelocity());
-
         for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
             if (bomb.isDead()) {
@@ -169,6 +170,18 @@ public class Game extends Canvas {
                 entity = findStatic(flame.getX(),flame.getY());
                 if (entity != null) {
                     entity.kill();
+                }
+
+                Vector2i playerPOS = player.getRelativePosition();
+                if (flame.getX() == playerPOS.getX() && flame.getY() == playerPOS.getY()) {
+                    player.kill();
+                }
+
+                for (Enemy enemy : gameEntities.enemies) {
+                    Vector2i enemyPOS = enemy.getRelativePosition();
+                    if (flame.getX() == enemyPOS.getX() && flame.getY() == enemyPOS.getY()) {
+                        enemy.kill();
+                    }
                 }
 
                 for (Bomb bomb : gameEntities.bombs) {

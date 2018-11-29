@@ -15,6 +15,7 @@ public abstract class AnimatedEntity extends Entity{
     private int ANIMATION_STEP, ANIMATION_TIME = 12;
     private int STEP_SIZE_S, STEP_SIZE_0, STEP_SIZE_1, STEP_SIZE_2, STEP_SIZE_3, STEP_SIZE_D;
     private int CURRENT_STEP = 4;
+    private boolean DEAD_DEFAULT;
 
     //General Parameters
     protected int ORIENTATION = 0; // 0 = DOWN, 1 = UP, 2 = LEFT, 3 = RIGHT
@@ -73,6 +74,11 @@ public abstract class AnimatedEntity extends Entity{
         }
         if (GLOBAL_TICKS > 1000) {
             GLOBAL_TICKS = 0;
+        }
+
+        if (DEAD_DEFAULT != isDead()) {
+            resetAnimation();
+            DEAD_DEFAULT = true;
         }
     }
 

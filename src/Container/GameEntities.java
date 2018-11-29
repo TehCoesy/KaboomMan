@@ -1,16 +1,19 @@
 package Container;
 
+import Core.Game;
+import Core.GameOverseer;
 import Entities.*;
 import Entities.Enemies.*;
 import Entities.Statics.*;
 import Graphics.Explosion;
+import States.ApplicationSetting;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameEntities {
-    public Player player;
-    public Portal portal;
+    public Player player = new Player();
+    public Portal portal = new Portal();
     public List<StaticEntity> staticEntities = new ArrayList<>();
     public List<Enemy> enemies = new ArrayList<>();
     public List<Explosion> explosions = new ArrayList<>();
@@ -47,5 +50,15 @@ public class GameEntities {
         }
 
         entityList.removeAll(removal);
+    }
+
+    public void subscribeAll(GameOverseer overseer, ApplicationSetting setting) {
+        player.setGame(overseer, setting);
+
+        for (Enemy enemy : enemies) {
+            enemy.setGame(overseer, setting);
+        }
+
+
     }
 }
