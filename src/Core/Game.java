@@ -141,7 +141,7 @@ public class Game extends Canvas {
 
     public void updateGame() {
 
-        getKills();
+        overseer.update();
         getPowerUp();
         player.setVelocity(playerState.PLAYER_SPEED);
 
@@ -161,36 +161,6 @@ public class Game extends Canvas {
         myAudio.update();
         gameEntities.update();
         getKey();
-    }
-
-    private void getKills() {
-        for (Explosion explosion : gameEntities.explosions) {
-            for (FlameSegment flame : explosion.getSegments()) {
-                StaticEntity entity = null;
-                entity = findStatic(flame.getX(),flame.getY());
-                if (entity != null) {
-                    entity.kill();
-                }
-
-                Vector2i playerPOS = player.getRelativePosition();
-                if (flame.getX() == playerPOS.getX() && flame.getY() == playerPOS.getY()) {
-                    player.kill();
-                }
-
-                for (Enemy enemy : gameEntities.enemies) {
-                    Vector2i enemyPOS = enemy.getRelativePosition();
-                    if (flame.getX() == enemyPOS.getX() && flame.getY() == enemyPOS.getY()) {
-                        enemy.kill();
-                    }
-                }
-
-                for (Bomb bomb : gameEntities.bombs) {
-                    if (bomb.getX() == flame.getX() && bomb.getY() == flame.getY()) {
-                        bomb.kill();
-                    }
-                }
-            }
-        }
     }
 
     private void getPowerUp() {
@@ -251,24 +221,28 @@ public class Game extends Canvas {
         if (keyboard.C_UP()) {
             player.moveUp();
             camera.moveUp();
+            overseer.playerUp();
         } else if (!keyboard.C_UP()) {
             player.stopUp();
         }
         if (keyboard.C_DOWN()) {
             player.moveDown();
             camera.moveDown();
+            overseer.playerDown();
         } else if (!keyboard.C_DOWN()) {
             player.stopDown();
         }
         if (keyboard.C_LEFT()) {
             player.moveLeft();
             camera.moveLeft();
+            overseer.playerLeft();
         } else if (!keyboard.C_LEFT()) {
             player.stopLeft();
         }
         if (keyboard.C_RIGHT()) {
             player.moveRight();
             camera.moveRight();
+            overseer.playerRight();
         } else if (!keyboard.C_RIGHT()) {
             player.stopRight();
         }

@@ -96,18 +96,47 @@ public class GameOverseer {
     }
 
     public void playerDown() {
-
+        handleBombCollision();
     }
 
     public void playerUp() {
-
+        handleBombCollision();
     }
 
     public void playerLeft() {
-
+        handleBombCollision();
     }
 
     public void playerRight() {
+        handleBombCollision();
+    }
 
+    private void handleBombCollision() {
+        Vector2i playerPOS = gameEntities.player.getPosition();
+        int posX = playerPOS.getX(), posY = playerPOS.getY(), TOL = gameEntities.player.getTolenrance();
+
+        for (Bomb entity : gameEntities.bombs) {
+            boolean playerMoved = false;
+
+            if (posX > entity.positionMemory.getX() * BLOCK_SIZE + BLOCK_SIZE) {
+                playerMoved = true;
+            }
+
+            if (posX + BLOCK_SIZE < entity.positionMemory.getX() * BLOCK_SIZE) {
+                playerMoved = true;
+            }
+
+            if (posY > entity.positionMemory.getY() * BLOCK_SIZE + BLOCK_SIZE) {
+                playerMoved = true;
+            }
+
+            if (posY + BLOCK_SIZE < entity.positionMemory.getY() * BLOCK_SIZE) {
+                playerMoved = true;
+            }
+
+            if (playerMoved) {
+                entity.playerMove();
+            }
+        }
     }
 }

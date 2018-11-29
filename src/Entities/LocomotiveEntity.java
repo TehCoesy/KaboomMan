@@ -96,6 +96,28 @@ public abstract class LocomotiveEntity extends AnimatedEntity {
         return new Vector2i((posX - gapX) / BLOCK_SIZE, (posY - gapY) / BLOCK_SIZE);
     }
 
+    public Vector2i getAccurateRelativePosition() {
+        int gapX = this.posX % BLOCK_SIZE;
+        int gapY = this.posY % BLOCK_SIZE;
+        int gapX2 = this.posX + BLOCK_SIZE % BLOCK_SIZE;
+        int gapY2 = this.posY + BLOCK_SIZE % BLOCK_SIZE;
+
+        if (gapX <= TOLERANCE) {
+
+        } else if (gapX >= BLOCK_SIZE - TOLERANCE || gapX > TOLERANCE) {
+            gapX = 0 - gapX;
+        }
+
+        if (gapY <= TOLERANCE) {
+
+        }
+        else if (gapY >= BLOCK_SIZE - TOLERANCE || gapY > TOLERANCE) {
+            gapY = 0 - gapY;
+        }
+
+        return new Vector2i((posX - gapX) / BLOCK_SIZE, (posY - gapY) / BLOCK_SIZE);
+    }
+
     //Controllers for continuous movement and Animation
     public void moveDown() {
         this.MOVING_0 = true;

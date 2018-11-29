@@ -5,7 +5,7 @@ import Graphics.Explosion;
 import Graphics.SpriteBuilder;
 
 public class Bomb extends AnimatedEntity {
-    private Vector2i positionMemory = new Vector2i();
+    public Vector2i positionMemory = new Vector2i();
     public Bomb() {
         this.setStandingSprite(SpriteBuilder.getBombSprite());
     }
@@ -28,5 +28,9 @@ public class Bomb extends AnimatedEntity {
     public void kill() {
         dead = true;
         done = true;
+    }
+
+    public void playerMove() {
+        this.collidable = true;
     }
 }
