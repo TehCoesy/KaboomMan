@@ -129,8 +129,12 @@ public class Game extends Canvas {
         g.clearRect(0,0, WIDTH, HEIGHT);
 
 
+        if (!gameCompleted) {
+            render.renderGame(g);
+        } else {
+            render.endScreen(g);
+        }
 
-        render.renderGame(g);
 
         if (gameOver) {
             render.gameOver(g);
@@ -142,7 +146,7 @@ public class Game extends Canvas {
 
 
     public void updateGame() {
-        if (gameOver) {
+        if (gameOver || gameCompleted) {
             return;
         }
 
@@ -206,6 +210,10 @@ public class Game extends Canvas {
 
     public void gameOver() {
         this.gameOver = true;
+    }
+
+    public void gameComplete() {
+        this.gameCompleted = true;
     }
 
     private StaticEntity findStatic(int posX, int posY) {

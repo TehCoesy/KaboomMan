@@ -29,6 +29,7 @@ public class GameOverseer {
         if (gameEntities.player.isDone()) {
             game.gameOver();
         }
+        checkPortal();
     }
 
     public void getExplosionKills() {
@@ -96,6 +97,14 @@ public class GameOverseer {
             return true;
         }
         return false;
+    }
+
+    private void checkPortal() {
+        Vector2i playerPOS = gameEntities.player.getRelativePosition();
+        Vector2i portal = gameEntities.portal.getPosition();
+        if (playerPOS.getX() == portal.getX() && playerPOS.getY() == portal.getY()) {
+            game.gameComplete();
+        }
     }
 
     public void playerDown() {

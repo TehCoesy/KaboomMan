@@ -159,6 +159,18 @@ public class Renderer {
         g2d.drawString("You Died", 380,300);
     }
 
+    public void endScreen(Graphics g) {
+        g.clearRect(0,0, 1000, 1000);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000, 1000);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+        g2d.drawString("You Have Completed the Game!", 55,300);
+    }
     private void checkOutOfBounds() {
 
     }
