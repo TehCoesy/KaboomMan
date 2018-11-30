@@ -1,16 +1,12 @@
 package Core;
 
 import Audio.AudioPlayer;
-import Audio.SoundEffect;
-import Container.MyFrame;
 import Entities.*;
-import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
 import Entities.Statics.PowerUp;
 import Entities.Statics.StaticEntity;
 import Graphics.*;
 import IO.Keyboard;
-import IO.Mouse;
 import Level.LevelLoader;
 import States.ApplicationSetting;
 import States.PlayerState;
@@ -20,8 +16,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
 
 //Governs and runs the Game
 //Contain the gameLoop;
@@ -49,13 +43,14 @@ public class Game extends Canvas {
     private Renderer render;
 
     //GAMEPLAY
-    private boolean canPlaceBomb = true , gameOver;
+    private boolean canPlaceBomb = true , gameOver, gameCompleted;
     int tickCounter = 0;
     public PlayerState playerState = new PlayerState();
 
     //ENTITIES
     public GameEntities gameEntities;
     public Player player;
+    private GameOverseer overseer;
 
 
     public Game(Keyboard key) {
@@ -100,17 +95,19 @@ public class Game extends Canvas {
 
         initEntities();
 
+
         this.camera = new Camera(gameEntities, settings);
         this.render = new Renderer(gameEntities, camera, settings);
-
-        gameEntities.enemies.add(new Ballom(3 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
-        gameEntities.enemies.add(new Ballom(4 * BLOCK_SIZE,3 * BLOCK_SIZE , gameEntities, settings));
-        gameEntities.enemies.add(new Ballom(5 * BLOCK_SIZE,4 * BLOCK_SIZE , gameEntities, settings));
     }
 
     private void initEntities() {
         gameEntities = _levelLoader.getEntities();
         settings = _levelLoader.getSettings();
+        overseer = new GameOverseer();
+
+        overseer.set(gameEntities, settings, this);
+
+        gameEntities.subscribeAll(overseer, settings);
 
         this.BLOCK_SIZE = settings.BLOCK_SIZE;
 
@@ -129,7 +126,19 @@ public class Game extends Canvas {
 
         Graphics g = _strategy.getDrawGraphics();
 
-        render.renderGame(g);
+        g.clearRect(0,0, WIDTH, HEIGHT);
+
+
+        if (!gameCompleted) {
+            render.renderGame(g);
+        } else {
+            render.endScreen(g);
+        }
+
+
+        if (gameOver) {
+            render.gameOver(g);
+        }
 
         g.dispose();
         _strategy.show();
@@ -137,11 +146,14 @@ public class Game extends Canvas {
 
 
     public void updateGame() {
+        if (gameOver || gameCompleted) {
+            return;
+        }
 
-        getKills();
+        overseer.update();
         getPowerUp();
-        player.setVelocity(playerState.PLAYER_SPEED);
-        System.out.println(player.getVelocity());
+        //player.setVelocity(playerState.PLAYER_SPEED);
+
         for (Bomb bomb : gameEntities.bombs) {
             bomb.update();
             if (bomb.isDead()) {
@@ -151,7 +163,6 @@ public class Game extends Canvas {
         }
 
         for (Enemy enemy : gameEntities.enemies) {
-            enemy.setVelocity(1);
             enemy.update();
         }
 
@@ -159,24 +170,6 @@ public class Game extends Canvas {
         myAudio.update();
         gameEntities.update();
         getKey();
-    }
-
-    private void getKills() {
-        for (Explosion explosion : gameEntities.explosions) {
-            for (FlameSegment flame : explosion.getSegments()) {
-                StaticEntity entity = null;
-                entity = findStatic(flame.getX(),flame.getY());
-                if (entity != null) {
-                    entity.kill();
-                }
-
-                for (Bomb bomb : gameEntities.bombs) {
-                    if (bomb.getX() == flame.getX() && bomb.getY() == flame.getY()) {
-                        bomb.kill();
-                    }
-                }
-            }
-        }
     }
 
     private void getPowerUp() {
@@ -190,7 +183,7 @@ public class Game extends Canvas {
                 } else if (effect == "BOMB_SIZE") {
                     playerState.BOMB_POWER++;
                 } else if (effect == "SPEED") {
-                    playerState.PLAYER_SPEED++;
+                    this.player.addVelocity(1);
                 }
             }
         }
@@ -215,6 +208,14 @@ public class Game extends Canvas {
         }
     }
 
+    public void gameOver() {
+        this.gameOver = true;
+    }
+
+    public void gameComplete() {
+        this.gameCompleted = true;
+    }
+
     private StaticEntity findStatic(int posX, int posY) {
         for (StaticEntity entity : gameEntities.staticEntities) {
             if (entity.getX() == posX && entity.getY() == posY) {
@@ -237,24 +238,28 @@ public class Game extends Canvas {
         if (keyboard.C_UP()) {
             player.moveUp();
             camera.moveUp();
+            overseer.playerUp();
         } else if (!keyboard.C_UP()) {
             player.stopUp();
         }
         if (keyboard.C_DOWN()) {
             player.moveDown();
             camera.moveDown();
+            overseer.playerDown();
         } else if (!keyboard.C_DOWN()) {
             player.stopDown();
         }
         if (keyboard.C_LEFT()) {
             player.moveLeft();
             camera.moveLeft();
+            overseer.playerLeft();
         } else if (!keyboard.C_LEFT()) {
             player.stopLeft();
         }
         if (keyboard.C_RIGHT()) {
             player.moveRight();
             camera.moveRight();
+            overseer.playerRight();
         } else if (!keyboard.C_RIGHT()) {
             player.stopRight();
         }

@@ -1,7 +1,9 @@
 package Level;
 
 import Container.GameEntities;
+import Core.GameOverseer;
 import Entities.*;
+import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
 import Entities.Statics.*;
 import States.ApplicationSetting;
@@ -23,7 +25,7 @@ public class LevelLoader {
     private List<Enemy> enemies;
     private List<PowerUp> powerUps;
 
-    public void loadLevel(String level) throws Exception{
+    public void loadLevel(String level) throws Exception {
         this._fileName = level;
 
         gameEntities = new GameEntities();
@@ -92,7 +94,7 @@ public class LevelLoader {
                 return;
             }
             case 'C': {
-                gameEntities.player = new Player(gameEntities, settings);
+                gameEntities.player = new Player();
                 gameEntities.player.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 return;
             }
@@ -113,6 +115,11 @@ public class LevelLoader {
                 POWERUP.setPosition(posX, posY);
                 gameEntities.powerUps.add(POWERUP);
                 return;
+            }
+            case '1': {
+                Ballom ballom = new Ballom();
+                ballom.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
+                gameEntities.enemies.add(ballom);
             }
             default: return;
         }

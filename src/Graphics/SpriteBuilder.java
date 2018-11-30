@@ -182,6 +182,9 @@ public class SpriteBuilder {
     }
     public static List<Sprite> getMobDeadSprite() {
         List<Sprite> deadSprites = new ArrayList<>();
+        deadSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/mob_dead1.png")));
+        deadSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/mob_dead2.png")));
+        deadSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/mob_dead3.png")));
         return deadSprites;
     }
 }

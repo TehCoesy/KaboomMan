@@ -59,7 +59,6 @@ public abstract class AnimatedEntity extends Entity{
         }
         GLOBAL_TICKS++;
         updateAnimation();
-
     }
 
     private void updateAnimation() {
@@ -82,7 +81,7 @@ public abstract class AnimatedEntity extends Entity{
         }
     }
 
-    private void resetAnimation() {
+    protected void resetAnimation() {
         this.ANIMATION_STEP = 0;
     }
 
