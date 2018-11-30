@@ -30,11 +30,11 @@ public class MainMenu extends MyCanvas {
         setFocusable(true);
         this.keyboard = key;
 
-        MyButton startButton = new MyButton(new Vector2i(100,100), new Vector2i(150,150));
+        MyButton startButton = new MyButton(new Vector2i(100,100), new Vector2i(150,80));
         startButton.text = "Start";
-        //menuButtons.add(startButton);
+        menuButtons.add(startButton);
 
-        MyButton exitButton = new MyButton(new Vector2i(100,100), new Vector2i(150,150));
+        MyButton exitButton = new MyButton(new Vector2i(100,100), new Vector2i(150,80));
         exitButton.text = "Exit";
         //menuButtons.add(exitButton);
 
@@ -43,11 +43,8 @@ public class MainMenu extends MyCanvas {
 
     @Override
     public void renderElement(Graphics g) {
-        for (MyButton element : menuButtons) {
-            element.render(g);
-        }
-
         backgroundRenderer.renderGame(g);
+
 
         //PlaceHolder Render
         pusheen = SpriteBuilder.getSpriteImage("Data/Sprite/pusheen.png");
@@ -58,14 +55,9 @@ public class MainMenu extends MyCanvas {
 
         g2d.drawImage(pusheen, 400,400, null);
 
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g2d.drawString("PlaceHolder Menu", 300,300);
-        g2d.drawString("Press Space to continue...", 270,350);
-
-
-
-        g2d.dispose();
+        for (MyButton element : menuButtons) {
+            element.render(g);
+        }
     }
 
     public void initializeBackground() {

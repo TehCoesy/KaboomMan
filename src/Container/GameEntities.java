@@ -1,6 +1,7 @@
 package Container;
 
 import Core.GameOverseer;
+import Core.Vector2i;
 import Entities.*;
 import Entities.Enemies.*;
 import Entities.Statics.*;
@@ -19,6 +20,7 @@ public class GameEntities {
     public List<Bomb> bombs = new ArrayList<>();
     public List<PowerUp> powerUps = new ArrayList<>();
 
+    public Vector2i playerStartingPOS = new Vector2i();
     public void update() {
         garbageCollection(staticEntities);
         garbageCollection(bombs);

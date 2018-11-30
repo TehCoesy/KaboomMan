@@ -112,7 +112,7 @@ public class Game extends Canvas {
         gameEntities.subscribeAll(overseer, gameSetting);
 
         this.BLOCK_SIZE = gameSetting.BLOCK_SIZE;
-
+        this.gameSetting.GAME_SCREEN_OFFSET_Y = 50;
         player = gameEntities.player;
     }
 
@@ -132,8 +132,8 @@ public class Game extends Canvas {
 
 
         if (!gameCompleted) {
-            render.drawScoreBar(g, gameSetting.CURRENT_SCORE, gameSetting.CURRENT_LIVES);
             render.renderGame(g);
+            render.drawScoreBar(g, gameSetting.CURRENT_SCORE, gameSetting.CURRENT_LIVES);
         } else {
             render.endScreen(g);
         }

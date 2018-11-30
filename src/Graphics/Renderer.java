@@ -120,7 +120,7 @@ public class Renderer {
 
         for (int i = 0; i < n; i++) {
             Explosion explosion = gameEntities.explosions.get(i);
-            explosion.drawExplosion(g, translation);
+            explosion.drawExplosion(g, modifierX, modifierY);
         }
     }
 

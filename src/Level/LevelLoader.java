@@ -93,6 +93,7 @@ public class LevelLoader {
             case 'C': {
                 gameEntities.player = new Player();
                 gameEntities.player.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
+                gameEntities.playerStartingPOS.set(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 return;
             }
             case 'b': {

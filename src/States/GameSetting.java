@@ -2,7 +2,7 @@ package States;
 
 public class GameSetting {
     public static int GAME_SCREEN_OFFSET_X = 0;
-    public static int GAME_SCREEN_OFFSET_Y = 50;
+    public static int GAME_SCREEN_OFFSET_Y = 0;
 
     public static int SCALE = 3;
     public static String TITLE = "KaboomMan";

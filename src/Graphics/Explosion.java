@@ -109,9 +109,9 @@ public class Explosion {
         }
     }
 
-    public void drawExplosion(Graphics g, Vector2i translation) {
+    public void drawExplosion(Graphics g, int modifierX, int modifierY) {
         for (FlameSegment s : flameSegment) {
-            g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE + translation.getX(), s.getY() * BLOCK_SIZE + translation.getY(), BLOCK_SIZE, BLOCK_SIZE, null);
+            g.drawImage(s.getSprite(), s.getX() * BLOCK_SIZE + modifierX, s.getY() * BLOCK_SIZE + modifierY, BLOCK_SIZE, BLOCK_SIZE, null);
         }
     }
 
