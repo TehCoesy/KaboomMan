@@ -5,6 +5,7 @@ import Core.GameOverseer;
 import Entities.*;
 import Entities.Enemies.Ballom;
 import Entities.Enemies.Enemy;
+import Entities.Enemies.Oneal;
 import Entities.Statics.*;
 import States.ApplicationSetting;
 
@@ -120,6 +121,12 @@ public class LevelLoader {
                 Ballom ballom = new Ballom();
                 ballom.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
                 gameEntities.enemies.add(ballom);
+                return;
+            }
+            case '2': {
+                Oneal oneal = new Oneal();
+                oneal.setPosition(posX * settings.BLOCK_SIZE, posY * settings.BLOCK_SIZE);
+                gameEntities.enemies.add(oneal);
             }
             default: return;
         }

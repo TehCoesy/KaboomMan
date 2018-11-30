@@ -164,6 +164,7 @@ public class Game extends Canvas {
 
         for (Enemy enemy : gameEntities.enemies) {
             enemy.update();
+            enemy.updateAI();
         }
 
         playAudio();

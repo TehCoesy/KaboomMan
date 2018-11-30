@@ -3,7 +3,7 @@ package Entities.Enemies;
 import Entities.LocomotiveEntity;
 import java.util.Random;
 
-public class Enemy extends LocomotiveEntity {
+public abstract class Enemy extends LocomotiveEntity {
     private boolean moveEnemy;
     private int orient = 0; //0 = Left, 1 = Right
     public int getRandom(Random rand, int start, int end, int... exclude){
@@ -19,27 +19,9 @@ public class Enemy extends LocomotiveEntity {
 
     @Override
     public void update() {
-        if (GLOBAL_TICKS % 15 == 0) {
-            Random rand = new Random();
-            orient = getRandom(rand,0,3);
-                moveEnemy = true;
-        }
 
-        if (moveEnemy) {
-            if (orient == 0) {
-                moveDown();
-            }
-            if (orient == 2) {
-                moveLeft();
-            }
-            if (orient == 3) {
-                moveRight();
-            }
-            if (orient == 1) {
-                moveUp();
-            }
-        }
     }
+
     //AI
     public void moveEnemy() {
         Random rand = new Random();
@@ -67,4 +49,6 @@ public class Enemy extends LocomotiveEntity {
         resetAnimation();
         dead = true;
     }
+
+    public abstract void updateAI();
 }

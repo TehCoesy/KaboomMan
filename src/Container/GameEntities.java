@@ -57,8 +57,10 @@ public class GameEntities {
 
         for (Enemy enemy : enemies) {
             enemy.setGame(overseer, setting);
+            if (enemy instanceof Oneal) {
+                Oneal enemyOneal = (Oneal) enemy;
+                enemyOneal.ai.set(this.player, enemyOneal);
+            }
         }
-
-
     }
 }
