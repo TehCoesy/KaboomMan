@@ -118,7 +118,7 @@ public class GameOverseer {
         Vector2i playerPOS = gameEntities.player.getRelativePosition();
         Vector2i portal = gameEntities.portal.getPosition();
         if (playerPOS.getX() == portal.getX() && playerPOS.getY() == portal.getY()) {
-            game.gameComplete();
+            game.nextLevel();
         }
     }
 

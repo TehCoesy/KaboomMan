@@ -67,12 +67,11 @@ public class Renderer {
 
         drawBackground(g);
         renderStatics(g);
-        renderBombs(g);
-        renderExplosion(g);
-        renderEnemies(g);
         renderPortal(g);
         renderPowerUps(g);
-
+        renderExplosion(g);
+        renderBombs(g);
+        renderEnemies(g);
         g.drawImage(gameEntities.player.getSprite(),gameEntities.player.getX() + modifierX,gameEntities.player.getY() + modifierY,BLOCK_SIZE,BLOCK_SIZE,null);
     }
 

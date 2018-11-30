@@ -35,17 +35,15 @@ public class Game extends Canvas {
     Keyboard keyboard;
 
     //GAME PARAMETERS
-    private boolean _pause;
     public static int BLOCK_SIZE;
-
-
 
     //GAMEPLAY
     private boolean canPlaceBomb = true , gameOver, gameCompleted;
     int tickCounter = 0;
-    public PlayerState playerState = new PlayerState();
+    private String current_State = new String("Initializing");
 
     //ENTITIES
+    private PlayerState playerState = new PlayerState();
     private GameEntities gameEntities;
     private Player player;
     private GameOverseer overseer;
@@ -53,7 +51,6 @@ public class Game extends Canvas {
     private ApplicationSetting applicationSetting = new ApplicationSetting();
     private Camera camera;
     private Renderer render;
-
 
     public Game(Keyboard key) {
         this.keyboard = key;
@@ -65,7 +62,7 @@ public class Game extends Canvas {
     }
 
     public void newGame() {
-        initialize();
+        startGame();
         myAudio.playMusic();
     }
 
@@ -73,8 +70,25 @@ public class Game extends Canvas {
 
     }
 
-    public void nextLevel() {
+    public void firstLevel() {
+        try {
+            _levelLoader.loadLevel("level1.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void nextLevel() {
+        try {
+            switch (gameSetting.CURRENT_LEVEL) {
+                case 0: _levelLoader.loadLevel("level1.txt");
+                case 1: _levelLoader.loadLevel("level2.txt");
+                case 2: _levelLoader.loadLevel("level3.txt");
+                case 4: this.gameCompleted = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void pause() {
@@ -84,17 +98,12 @@ public class Game extends Canvas {
 
     }
 
-    public void initialize() {
-        try {
-            _levelLoader.loadLevel("level1.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void startGame() {
+        firstLevel();
+        initialize();
+    }
 
+    public void initialize() {
         initEntities();
 
 
