@@ -50,6 +50,9 @@ public class GameOverseer {
                 for (Enemy enemy : gameEntities.enemies) {
                     Vector2i enemyPOS = enemy.getRelativePosition();
                     if (flame.getX() == enemyPOS.getX() && flame.getY() == enemyPOS.getY()) {
+                        if (!enemy.isDead()) {
+                            game.earnPoints(100);
+                        }
                         enemy.kill();
                     }
                 }

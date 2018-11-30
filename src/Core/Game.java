@@ -273,6 +273,10 @@ public class Game extends Canvas {
         }
     }
 
+    public void earnPoints(int points) {
+        this.gameSetting.CURRENT_SCORE += points;
+    }
+
     private void placeBomb() {
         Vector2i position = player.getRelativePosition();
 
