@@ -1,12 +1,11 @@
 package Container;
 
-import Core.Game;
 import Core.GameOverseer;
 import Entities.*;
 import Entities.Enemies.*;
 import Entities.Statics.*;
 import Graphics.Explosion;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class GameEntities {
         entityList.removeAll(removal);
     }
 
-    public void subscribeAll(GameOverseer overseer, ApplicationSetting setting) {
+    public void subscribeAll(GameOverseer overseer, GameSetting setting) {
         player.setGame(overseer, setting);
 
         for (Enemy enemy : enemies) {

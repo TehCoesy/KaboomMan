@@ -5,18 +5,18 @@ import Entities.*;
 import Entities.Statics.*;
 import Entities.Enemies.*;
 import Graphics.Explosion;
-import States.ApplicationSetting;
+import States.GameSetting;
 
 import java.util.List;
 
 public class GameOverseer {
     private Game game;
     private GameEntities gameEntities;
-    private ApplicationSetting settings;
+    private GameSetting settings;
 
     private int BLOCK_SIZE;
 
-    public void set(GameEntities gameEntities, ApplicationSetting setting, Game game) {
+    public void set(GameEntities gameEntities, GameSetting setting, Game game) {
         this.gameEntities = gameEntities;
         this.settings = setting;
         this.game = game;
@@ -26,6 +26,7 @@ public class GameOverseer {
 
     public void update() {
         getExplosionKills();
+        getMobKills();
         if (gameEntities.player.isDone()) {
             game.gameOver();
         }
@@ -58,6 +59,17 @@ public class GameOverseer {
                         bomb.kill();
                     }
                 }
+            }
+        }
+    }
+
+    public void getMobKills() {
+        Vector2i playerPOS = gameEntities.player.getRelativePosition();
+
+        for (Enemy enemy : gameEntities.enemies) {
+            Vector2i enemyPOS = enemy.getRelativePosition();
+            if (playerPOS.getX() == enemyPOS.getX() && playerPOS.getY() == enemyPOS.getY()) {
+                gameEntities.player.kill();
             }
         }
     }

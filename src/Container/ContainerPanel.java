@@ -7,6 +7,7 @@ import Core.SplashScreen;
 import IO.KeyBinding;
 import IO.Keyboard;
 import States.ApplicationSetting;
+import States.GameSetting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class ContainerPanel extends JPanel {
     private MainMenu _mainMenu;
     private KeyBinding keyBinding;
     private Keyboard keyboard;
+    private ApplicationSetting applicationSetting = new ApplicationSetting();
 
     private int gameState = 0; //0 = _splash, 1 = _mainMenu, 2 = _game;
     private int requestChangeState = 0;
@@ -25,13 +27,13 @@ public class ContainerPanel extends JPanel {
     public ContainerPanel() {
         setLayout(new BorderLayout());
         setVisible(true);
-        setPreferredSize(new Dimension(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT));
+        setPreferredSize(new Dimension(applicationSetting.WINDOW_WIDTH, applicationSetting.WINDOW_HEIGHT));
         setFocusable(true);
 
         keyboard = new Keyboard();
         keyBinding = new KeyBinding(this, keyboard);
 
-        _splash = new SplashScreen(ApplicationSetting.WIDTH, ApplicationSetting.HEIGHT);
+        _splash = new SplashScreen(GameSetting.WIDTH, GameSetting.HEIGHT);
         add(_splash);
         myAudio.SPLASH_MUSIC();
 

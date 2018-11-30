@@ -1,9 +1,6 @@
 package Entities.Enemies;
 
-import Container.GameEntities;
-import Core.GameOverseer;
 import Graphics.SpriteBuilder;
-import States.ApplicationSetting;
 
 import java.util.Random;
 
