@@ -180,6 +180,34 @@ public class SpriteBuilder {
         rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/balloom_right3.png")));
         return rightBalloomSprites;
     }
+    public static List<Sprite> getOnealSprite0() {
+        List<Sprite> downBalloomSprites = new ArrayList<>();
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left1.png")));
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left2.png")));
+        downBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left3.png")));
+        return downBalloomSprites;
+    }
+    public static List<Sprite> getOnealSprite1() {
+        List<Sprite> upBalloomSprites = new ArrayList<>();
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right1.png")));
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right2.png")));
+        upBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right3.png")));
+        return upBalloomSprites;
+    }
+    public static List<Sprite> getOnealSprite2() {
+        List<Sprite> leftBalloomSprites = new ArrayList<>();
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left1.png")));
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left2.png")));
+        leftBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_left3.png")));
+        return leftBalloomSprites;
+    }
+    public static List<Sprite> getOnealSprite3() {
+        List<Sprite> rightBalloomSprites = new ArrayList<>();
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right1.png")));
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right2.png")));
+        rightBalloomSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/oneal_right3.png")));
+        return rightBalloomSprites;
+    }
     public static List<Sprite> getMobDeadSprite() {
         List<Sprite> deadSprites = new ArrayList<>();
         deadSprites.add(new Sprite(SpriteBuilder.getSpriteImage("Data/Sprite/mob_dead1.png")));
