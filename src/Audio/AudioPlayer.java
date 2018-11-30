@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AudioPlayer {
     private int soundLevel = 1;
-    
+
     List<SoundEffect> soundEffects = new ArrayList<>();
     GameMusic music = new GameMusic();
 

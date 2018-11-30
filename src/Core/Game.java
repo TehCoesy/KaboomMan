@@ -79,16 +79,19 @@ public class Game extends Canvas {
     }
 
     public void nextLevel() {
+        gameSetting.CURRENT_LEVEL++;
         try {
             switch (gameSetting.CURRENT_LEVEL) {
-                case 0: _levelLoader.loadLevel("level1.txt");
-                case 1: _levelLoader.loadLevel("level2.txt");
-                case 2: _levelLoader.loadLevel("level3.txt");
-                case 4: this.gameCompleted = true;
+                case 0: _levelLoader.loadLevel("level1.txt"); break;
+                case 1: _levelLoader.loadLevel("level2.txt"); break;
+                case 2: _levelLoader.loadLevel("level3.txt"); break;
+                case 4: this.gameCompleted = true; break;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        initialize();
     }
 
     public void pause() {
