@@ -45,12 +45,12 @@ public class MyFrame extends JFrame {
 
             if (delta_2 >= 1) {
                 tick();
-                delta_2--;
+                delta_2 = 0;
             }
 
             if (delta >= 1) {
                 updateElements();
-                delta--;
+                delta = 0;
             }
         }
     }
